@@ -1,0 +1,33 @@
+type Team {
+    id: ID!
+    title: String!
+    description: String
+    leader: Staff @belongsTo
+    members: [Staff!]! @hasMany
+}
+
+input CreateTeamInput {
+    title: String!
+    description: String
+    leader: StaffBelongsTo
+    members: StaffHasMany
+}
+
+input UpdateTeamInput {
+    id: ID!
+    title: String!
+    description: String
+    leader: StaffBelongsTo
+    members: StaffHasMany
+}
+
+extend type Query {
+    team(id: ID!): Team @find
+    teams: [Team!]! @paginate
+}
+
+extend type Mutation {
+    createTeam(input: CreateTeamInput @spread): Team! @create
+    updateTeam(input: UpdateTeamInput @spread): Team! @update
+    deleteTeam(id: ID!): Team! @delete
+}

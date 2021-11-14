@@ -1,0 +1,15 @@
+enum FinancialEntryTypeEnum {
+    REGISTRATION_FEE
+    REFUND
+    DISCOUNT
+    PAYMENT
+}
+
+type FinancialEntry {
+    id: ID!
+    type: FinancialEntryTypeEnum!
+    title: String
+    balance: MoneyBag!
+    book: FinancialBook! @belongsTo
+    booked_at: DateTime
+}

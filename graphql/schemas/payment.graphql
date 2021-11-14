@@ -1,0 +1,4 @@
+type Payment {
+    total: MoneyBag!
+    extra: String
+}

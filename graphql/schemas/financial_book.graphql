@@ -1,0 +1,6 @@
+type FinancialBook {
+    payments: [Payment!]!
+    balance: MoneyBag!
+    paid: MoneyBag!
+    entries: [FinancialEntry!]!
+}

@@ -1,0 +1,53 @@
+enum WeekDayEnum {
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
+}
+
+type Day {
+    id: ID!
+    title: String
+    week_day: WeekDayEnum!
+    sort_id: Int!
+    date: Date!
+    price: MoneyBag
+    is_bookable: Boolean
+}
+
+input DaysBelongsToMany {
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+}
+
+input DaysHasMany {
+    connect: [ID!]
+    disconnect: [ID!]
+}
+
+input UpdateDayInput {
+    id: ID!
+    title: String
+    price: MoneyBag
+    is_bookable: Boolean
+}
+
+input CreateDayInput {
+    id: ID!
+    title: String!
+    price: MoneyBag
+    date: Date!
+    is_bookable: Boolean!
+}
+
+extend type Query {
+    day(id: ID!): Day @find
+    days(is_bookable: Boolean @eq): [Day!]! @paginate
+}
+
+extend type Mutation {
+    createDay(input: CreateDayInput! @spread): Day @create
+    updateDay(input: UpdateDayInput! @spread): Day @update
+    orderDays(days: [Day!]): [Day!]!
+}

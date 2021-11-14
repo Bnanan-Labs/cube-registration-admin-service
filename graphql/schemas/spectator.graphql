@@ -1,0 +1,46 @@
+type Spectator {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    email: String!
+    registration_status: RegistrationStatusEnum!
+    payment_status: PaymentStatusEnum!
+    days: [Day!]! @belongsToMany
+}
+
+input RegisterSpectatorInput {
+    first_name: String!
+    last_name: String!
+    email: String!
+    days: [Day!]!
+}
+
+input CreateSpectatorInput {
+    first_name: String!
+    last_name: String!
+    email: String!
+    days: [Day!]!
+}
+
+input UpdateSpectatorInput {
+    id: ID!
+    first_name: String
+    last_name: String
+    email: String
+    days: [Day!]
+}
+
+extend type Query {
+    spectator(id: ID!): Spectator @find
+    spectators(
+        registration_status: RegistrationStatusEnum @eq
+        payment_status: PaymentStatusEnum @eq
+    ): [Spectator!]! @paginate
+}
+
+extend type Mutation {
+    createSpectator(input: CreateSpectatorInput @spread): Spectator! @create
+    updateSpectator(input: UpdateSpectatorInput @spread): Spectator! @update
+    createSpectator(id: ID!): Spectator! @delete
+    registerSpectator(input: RegisterSpectatorInput): Spectator!
+}

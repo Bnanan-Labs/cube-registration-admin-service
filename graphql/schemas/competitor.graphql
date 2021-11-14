@@ -1,0 +1,73 @@
+enum RegistrationStatusEnum {
+    PENDING
+    WAITING_LIST
+    DECLINED
+    APPROVED
+}
+
+enum PaymentStatusEnum {
+    MISSING_PAYMENT
+    PARTIAL_PAYMENT
+    FULL_PAYMENT
+    NEEDS_PARTIAL_REFUND
+    REFUNDED
+}
+
+input RegisterCompetitorInput {
+    first_name: String!
+    last_name: String!
+    email: Email!
+    events: EventsBelongsToMany!
+    days: DaysHasMany!
+}
+
+input CreateCompetitorInput {
+    first_name: String!
+    last_name: String!
+    email: Email!
+    wca_id: WcaId!
+    nationality: String!
+    registration_status: RegistrationStatusEnum
+    payment_status: PaymentStatusEnum
+    event_ids: [ID!]
+    day_ids: [ID!]
+}
+
+type Competitor {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    wca_id: WcaId!
+    email: Email!
+    registration_status: RegistrationStatusEnum!
+    payment_status: PaymentStatusEnum!
+    has_podium_potential: Boolean!
+    events: [Event!]!
+    days: [Day!]!
+    nationality: String!
+    is_eligble_for_prizes: Boolean!
+    finances: FinancialBook!
+    created_at: DateTime!
+    updated_at: DateTime
+}
+
+input RegisterInput {
+    wca_id: WcaId!
+    events: [Event!]!
+    guests: Int!
+    days: [Day!]!
+    opt_in_nations_cup: Boolean!
+}
+
+extend type Query {
+    competitors(events: [Event!], days: [Day!], is_eligble_for_prizes: Boolean @eq): [Competitor!]! @paginate
+    competitor(id: ID!): Competitor @find
+}
+
+extend type Mutation {
+    registerCompetitor(input: RegisterCompetitorInput @spread): Competitor
+    createCompetitor(input: CreateCompetitorInput @spread): Competitor
+    updateCompetitor(input: CreateCompetitorInput @spread): Competitor
+    deleteCompetitor(id: ID!): Competitor @delete
+}
+

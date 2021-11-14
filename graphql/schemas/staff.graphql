@@ -1,0 +1,101 @@
+enum TShirtSizeEnum {
+    XXXSMALL
+    XXSMALL
+    XSMALL
+    SMALL
+    MEDIUM
+    LARGE
+    XLARGE
+    XXLARGE
+    XXXLARGE
+}
+
+type Staff {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    wca_id: WcaId!
+    application: String!
+    registration_status: RegistrationStatusEnum
+    scrambling_qualifications: [Event!]! @hasMany
+    availability: [Day!]! @hasMany
+    events: [Event!]! @hasMany
+    priority_events: [Event!]! @hasMany
+    staff_roles: [StaffRole!]! @hasMany
+    approvals: [Staff!]! @hasMany
+    team: Team @belongsTo
+    teams_lead: Team @hasMany
+    t_shirt_size: TShirtSizeEnum
+}
+
+input StaffBelongsToMany {
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+}
+
+input StaffBelongsTo {
+    connect: ID
+}
+
+input StaffHasMany {
+    connect: [ID!]
+    disconnect: [ID!]
+}
+
+input RegisterStaffInput {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    application: String!
+    scrambling_qualifications: EventsBelongsToMany
+    availability: DaysBelongsToMany
+    events: EventsBelongsToMany
+    priority_events: EventsBelongsToMany
+    staff_roles: StaffRolesBelongsToMany
+    t_shirt_size: TShirtSizeEnum
+}
+
+input ApproveStaffInput {
+    id: ID!
+}
+
+input CreateStaffInput {
+    first_name: String!
+    last_name: String!
+    application: String!
+    scrambling_qualifications: EventsBelongsToMany
+    availability: DaysBelongsToMany
+    events: EventsBelongsToMany
+    priority_events: EventsBelongsToMany
+    staff_roles: StaffRolesBelongsToMany
+    t_shirt_size: TShirtSizeEnum
+}
+
+input UpdateStaffInput {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    application: String!
+    scrambling_qualifications: EventsBelongsToMany
+    availability: DaysBelongsToMany
+    events: EventsBelongsToMany
+    priority_events: EventsBelongsToMany
+    staff_roles: StaffRolesBelongsToMany
+    t_shirt_size: TShirtSizeEnum
+}
+
+extend type Query {
+    staff(id: ID!): Staff @find
+    staffs(
+        team_id: ID @eq
+        registration_status: RegistrationStatusEnum @eq
+        t_shirt_size: TShirtSizeEnum @eq
+    ): [Staff!]! @paginate
+}
+
+extend type Mutation {
+    registerStaff(input: RegisterStaffInput! @spread): Staff!
+    approveStaff(input: ApproveStaffInput! @spread): Staff!
+    createStaff(input: CreateStaffInput @spread): Staff! @create
+    updateStaff(input: UpdateStaffInput @spread): Staff! @update
+}

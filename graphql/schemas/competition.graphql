@@ -1,0 +1,44 @@
+input UpdateCompetitionInput {
+    id: ID!
+    title: String @rules(apply: ["max:255", "unique:competitions"])
+    start_date: Date
+    end_date: Date
+    registration_starts: DateTime
+    registration_ends: DateTime
+    volunteer_registration_starts: DateTime
+    volunteer_registration_ends: DateTime
+    base_fee: MoneyBag
+    competitor_limit: Int @rules(apply: ["gt:0"])
+    spectator_limit: Int @rules(apply: ["gt:0"])
+}
+
+type Competition {
+    id: ID!
+    title: String!
+    start_date: Date!
+    end_date: Date!
+    is_active: Boolean!
+    registration_starts: DateTime
+    registration_ends: DateTime
+    volunteer_registration_starts: DateTime
+    volunteer_registration_ends: DateTime
+    base_fee: MoneyBag
+    finances: FinancialBook!
+    competitor_limit: Int
+    spectator_limit: Int
+    is_competitor_full: Boolean
+    is_spectator_full: Boolean
+    competitors: [Competitor!]! @hasMany
+    spectators: [Spectator!]! @hasMany
+    staff: [Staff!]! @hasMany
+    events: [Event!]! @hasMany
+}
+
+extend type Query {
+    competition(id: ID!): Competition @find
+}
+
+extend type Mutation {
+    updateCompetition(input: UpdateCompetitionInput @spread): Competition @can(ability: "update", query: true) @update
+}
+

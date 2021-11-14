@@ -1,0 +1,46 @@
+type Event {
+    id: ID!
+    title: String!
+    qualification_limit: TimeMs
+    cutoff_limit: TimeMs
+    competitor_limit: Int
+    fee: MoneyBag
+    competitors: [Competitor!]! @belongsToMany
+    staff: [Staff!]! @belongsToMany
+}
+
+input EventsBelongsToMany {
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+}
+
+input CreateEventMutation {
+    id: ID!
+    title: String!
+    qualification_limit: TimeMs
+    cutoff_limit: TimeMs
+    competitor_limit: TimeMs
+    fee: MoneyBag
+}
+
+input UpdateEventMutation {
+    id: ID!
+    title: String
+    qualification_limit: TimeMs
+    cutoff_limit: TimeMs
+    competitor_limit: TimeMs
+    fee: MoneyBag
+}
+
+extend type Query {
+    events: [Event!]! @paginate
+    event(id: ID!): Event @find
+}
+
+extend type Mutation {
+    createEvent(input: CreateEventMutation! @spread): Event! @create
+    updateEvent(input: UpdateEventMutation! @spread): Event! @update
+    deleteEvent(id: ID!): Event! @delete
+}
+
+

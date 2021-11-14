@@ -1,0 +1,38 @@
+type StaffRole {
+    id: ID!
+    title: String!
+    description: String!
+    members: [Staff!]! @hasMany
+    target_size: Int!
+}
+
+input StaffRolesBelongsToMany {
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+}
+
+input CreateStaffRoleInput {
+    title: String!
+    description: String!
+    members: StaffBelongsToMany
+    target_size: Int!
+}
+
+input UpdateStaffRoleInput {
+    id: ID!
+    title: String!
+    description: String!
+    members: StaffBelongsToMany
+    target_size: Int!
+}
+
+extend type Query {
+    staffRole(id: ID!): StaffRole @find
+    staffRoles: [StaffRole!]! @paginate
+}
+
+extend type Mutation {
+    createStaffRole(input: CreateStaffRoleInput @spread): StaffRole! @create
+    updateStaffRole(input: UpdateStaffRoleInput @spread): StaffRole! @update
+    deleteStaffRole(id: ID!): StaffRole! @delete
+}
