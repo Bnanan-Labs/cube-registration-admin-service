@@ -4,6 +4,12 @@ enum CurrencyEnum {
     USD
 }
 
+input MoneyBagInput {
+    currency: CurrencyEnum
+    # presented in minor unit, eg. 100 = 1 EUR, 100 = 1 DKK, 100 = 100 JPY
+    total: Int
+}
+
 type MoneyBag {
     currency: CurrencyEnum
     # presented in minor unit, eg. 100 = 1 EUR, 100 = 1 DKK, 100 = 100 JPY

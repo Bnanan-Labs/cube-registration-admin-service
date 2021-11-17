@@ -7,7 +7,7 @@ input UpdateCompetitionInput {
     registration_ends: DateTime
     volunteer_registration_starts: DateTime
     volunteer_registration_ends: DateTime
-    base_fee: MoneyBag
+    base_fee: MoneyBagInput
     competitor_limit: Int @rules(apply: ["gt:0"])
     spectator_limit: Int @rules(apply: ["gt:0"])
 }
@@ -35,7 +35,7 @@ type Competition {
 }
 
 extend type Query {
-    competition(id: ID!): Competition @find
+    competition(id: ID! @eq): Competition @find
 }
 
 extend type Mutation {

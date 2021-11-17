@@ -29,14 +29,14 @@ input DaysHasMany {
 input UpdateDayInput {
     id: ID!
     title: String
-    price: MoneyBag
+    price: MoneyBagInput
     is_bookable: Boolean
 }
 
 input CreateDayInput {
     id: ID!
     title: String!
-    price: MoneyBag
+    price: MoneyBagInput
     date: Date!
     is_bookable: Boolean!
 }
@@ -49,5 +49,5 @@ extend type Query {
 extend type Mutation {
     createDay(input: CreateDayInput! @spread): Day @create
     updateDay(input: UpdateDayInput! @spread): Day @update
-    orderDays(days: [Day!]): [Day!]!
+    orderDays(days: [ID!]): [Day!]!
 }

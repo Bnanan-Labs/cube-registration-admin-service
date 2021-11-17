@@ -1,6 +1,6 @@
 type FinancialBook {
-    payments: [Payment!]!
+    payments: [Payment!]! @hasMany
     balance: MoneyBag!
     paid: MoneyBag!
-    entries: [FinancialEntry!]!
+    entries: [FinancialEntry!]! @hasMany
 }

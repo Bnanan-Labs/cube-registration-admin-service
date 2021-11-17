@@ -12,14 +12,14 @@ input RegisterSpectatorInput {
     first_name: String!
     last_name: String!
     email: String!
-    days: [Day!]!
+    days: [ID!]!
 }
 
 input CreateSpectatorInput {
     first_name: String!
     last_name: String!
     email: String!
-    days: [Day!]!
+    days: [ID!]!
 }
 
 input UpdateSpectatorInput {
@@ -27,7 +27,7 @@ input UpdateSpectatorInput {
     first_name: String
     last_name: String
     email: String
-    days: [Day!]
+    days: [ID!]
 }
 
 extend type Query {

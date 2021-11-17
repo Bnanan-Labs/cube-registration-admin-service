@@ -42,8 +42,8 @@ type Competitor {
     registration_status: RegistrationStatusEnum!
     payment_status: PaymentStatusEnum!
     has_podium_potential: Boolean!
-    events: [Event!]!
-    days: [Day!]!
+    events: [Event!]! @belongsToMany
+    days: [Day!]! @belongsToMany
     nationality: String!
     is_eligble_for_prizes: Boolean!
     finances: FinancialBook!
@@ -53,21 +53,21 @@ type Competitor {
 
 input RegisterInput {
     wca_id: WcaId!
-    events: [Event!]!
+    events: EventsBelongsToMany
     guests: Int!
-    days: [Day!]!
+    days: DaysBelongsToMany
     opt_in_nations_cup: Boolean!
 }
 
 extend type Query {
-    competitors(events: [Event!], days: [Day!], is_eligble_for_prizes: Boolean @eq): [Competitor!]! @paginate
+    competitors(events: [ID!], days: [ID!], is_eligble_for_prizes: Boolean @eq): [Competitor!]! @paginate
     competitor(id: ID!): Competitor @find
 }
 
 extend type Mutation {
     registerCompetitor(input: RegisterCompetitorInput @spread): Competitor
-    createCompetitor(input: CreateCompetitorInput @spread): Competitor
-    updateCompetitor(input: CreateCompetitorInput @spread): Competitor
+    createCompetitor(input: CreateCompetitorInput @spread): Competitor @create
+    updateCompetitor(input: CreateCompetitorInput @spread): Competitor @update
     deleteCompetitor(id: ID!): Competitor @delete
 }
 
