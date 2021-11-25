@@ -1,9 +1,11 @@
 enum WeekDayEnum {
-    WEDNESDAY
-    THURSDAY
-    FRIDAY
-    SATURDAY
-    SUNDAY
+    MONDAY @enum(value: 1)
+    TUESDAY @enum(value: 2)
+    WEDNESDAY @enum(value: 3)
+    THURSDAY @enum(value: 4)
+    FRIDAY @enum(value: 5)
+    SATURDAY @enum(value: 6)
+    SUNDAY @enum(value: 0)
 }
 
 type Day {

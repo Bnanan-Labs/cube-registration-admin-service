@@ -4,10 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Competitor;
-use App\Models\Event;
-use App\Models\Spectator;
-use App\Models\Staff;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
@@ -45,5 +42,21 @@ class Competition extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function days(): HasMany
+    {
+        return $this->hasMany(Day::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function financial_book(): BelongsTo
+    {
+        return $this->belongsTo(FinancialBook::class);
     }
 }

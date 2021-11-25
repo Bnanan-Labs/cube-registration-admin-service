@@ -25,7 +25,6 @@ class StaffRoleFactory extends Factory
            'title' => $this->faker->sentence(2),
            'description' => $this->faker->sentence(2),
            'target_size' => $this->faker->randomNumber(),
-
         ];
     }
 }

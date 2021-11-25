@@ -27,7 +27,6 @@ class EventFactory extends Factory
            'cutoff_limit' => $this->faker->numberBetween(0,100),
            'competitor_limit' => $this->faker->randomNumber(),
            'fee' => $this->faker->numberBetween(0,100),
-
         ];
     }
 }

@@ -32,6 +32,7 @@ type Competition {
     spectators: [Spectator!]! @hasMany
     staff: [Staff!]! @hasMany
     events: [Event!]! @hasMany
+    days: [Day!]! @hasMany
 }
 
 extend type Query {

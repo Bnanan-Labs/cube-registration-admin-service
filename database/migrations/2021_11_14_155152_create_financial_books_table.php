@@ -15,8 +15,8 @@ class CreateFinancialBooksTable extends Migration
     {
         Schema::create('financial_books', function (Blueprint $table) {
             $table->id();
-            $table->integer('balance');
-            $table->integer('paid');
+            $table->integer('balance')->default(0);
+            $table->integer('paid')->default(0);
 
             $table->timestamps();
         });
