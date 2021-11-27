@@ -1,0 +1,514 @@
+enum CountryEnum {
+    "Afghanistan"
+    AF @enum(value: "AF")
+    "Albania"
+    AL @enum(value: "AL")
+    "Algeria"
+    DZ @enum(value: "DZ")
+    "American Samoa"
+    AS @enum(value: "AS")
+    "Andorra"
+    AD @enum(value: "AD")
+    "Angola"
+    AO @enum(value: "AO")
+    "Anguilla"
+    AI @enum(value: "AI")
+    "Antarctica"
+    AQ @enum(value: "AQ")
+    "Antigua and Barbuda"
+    AG @enum(value: "AG")
+    "Argentina"
+    AR @enum(value: "AR")
+    "Armenia"
+    AM @enum(value: "AM")
+    "Aruba"
+    AW @enum(value: "AW")
+    "Australia"
+    AU @enum(value: "AU")
+    "Austria"
+    AT @enum(value: "AT")
+    "Azerbaijan"
+    AZ @enum(value: "AZ")
+    "Bahamas"
+    BS @enum(value: "BS")
+    "Bahrain"
+    BH @enum(value: "BH")
+    "Bangladesh"
+    BD @enum(value: "BD")
+    "Barbados"
+    BB @enum(value: "BB")
+    "Belarus"
+    BY @enum(value: "BY")
+    "Belgium"
+    BE @enum(value: "BE")
+    "Belize"
+    BZ @enum(value: "BZ")
+    "Benin"
+    BJ @enum(value: "BJ")
+    "Bermuda"
+    BM @enum(value: "BM")
+    "Bhutan"
+    BT @enum(value: "BT")
+    "Bolivia, Plurinational State of"
+    BO @enum(value: "BO")
+    "Bolivia"
+    BO @enum(value: "BO")
+    "Bosnia and Herzegovina"
+    BA @enum(value: "BA")
+    "Botswana"
+    BW @enum(value: "BW")
+    "Bouvet Island"
+    BV @enum(value: "BV")
+    "Brazil"
+    BR @enum(value: "BR")
+    "British Indian Ocean Territory"
+    IO @enum(value: "IO")
+    "Brunei Darussalam"
+    BN @enum(value: "BN")
+    "Brunei"
+    BN @enum(value: "BN")
+    "Bulgaria"
+    BG @enum(value: "BG")
+    "Burkina Faso"
+    BF @enum(value: "BF")
+    "Burundi"
+    BI @enum(value: "BI")
+    "Cambodia"
+    KH @enum(value: "KH")
+    "Cameroon"
+    CM @enum(value: "CM")
+    "Canada"
+    CA @enum(value: "CA")
+    "Cape Verde"
+    CV @enum(value: "CV")
+    "Cayman Islands"
+    KY @enum(value: "KY")
+    "Central African Republic"
+    CF @enum(value: "CF")
+    "Chad"
+    TD @enum(value: "TD")
+    "Chile"
+    CL @enum(value: "CL")
+    "China"
+    CN @enum(value: "CN")
+    "Christmas Island"
+    CX @enum(value: "CX")
+    "Cocos (Keeling) Islands"
+    CC @enum(value: "CC")
+    "Colombia"
+    CO @enum(value: "CO")
+    "Comoros"
+    KM @enum(value: "KM")
+    "Congo"
+    CG @enum(value: "CG")
+    "Congo, the Democratic Republic of the"
+    CD @enum(value: "CD")
+    "Cook Islands"
+    CK @enum(value: "CK")
+    "Costa Rica"
+    CR @enum(value: "CR")
+    "Côte d'Ivoire"
+    CI @enum(value: "CI")
+    "Ivory Coast"
+    CI @enum(value: "CI")
+    "Croatia"
+    HR @enum(value: "HR")
+    "Cuba"
+    CU @enum(value: "CU")
+    "Cyprus"
+    CY @enum(value: "CY")
+    "Czech Republic"
+    CZ @enum(value: "CZ")
+    "Denmark"
+    DK @enum(value: "DK")
+    "Djibouti"
+    DJ @enum(value: "DJ")
+    "Dominica"
+    DM @enum(value: "DM")
+    "Dominican Republic"
+    DO @enum(value: "DO")
+    "Ecuador"
+    EC @enum(value: "EC")
+    "Egypt"
+    EG @enum(value: "EG")
+    "El Salvador"
+    SV @enum(value: "SV")
+    "Equatorial Guinea"
+    GQ @enum(value: "GQ")
+    "Eritrea"
+    ER @enum(value: "ER")
+    "Estonia"
+    EE @enum(value: "EE")
+    "Ethiopia"
+    ET @enum(value: "ET")
+    "Falkland Islands (Malvinas)"
+    FK @enum(value: "FK")
+    "Faroe Islands"
+    FO @enum(value: "FO")
+    "Fiji"
+    FJ @enum(value: "FJ")
+    "Finland"
+    FI @enum(value: "FI")
+    "France"
+    FR @enum(value: "FR")
+    "French Guiana"
+    GF @enum(value: "GF")
+    "French Polynesia"
+    PF @enum(value: "PF")
+    "French Southern Territories"
+    TF @enum(value: "TF")
+    "Gabon"
+    GA @enum(value: "GA")
+    "Gambia"
+    GM @enum(value: "GM")
+    "Georgia"
+    GE @enum(value: "GE")
+    "Germany"
+    DE @enum(value: "DE")
+    "Ghana"
+    GH @enum(value: "GH")
+    "Gibraltar"
+    GI @enum(value: "GI")
+    "Greece"
+    GR @enum(value: "GR")
+    "Greenland"
+    GL @enum(value: "GL")
+    "Grenada"
+    GD @enum(value: "GD")
+    "Guadeloupe"
+    GP @enum(value: "GP")
+    "Guam"
+    GU @enum(value: "GU")
+    "Guatemala"
+    GT @enum(value: "GT")
+    "Guernsey"
+    GG @enum(value: "GG")
+    "Guinea"
+    GN @enum(value: "GN")
+    "Guinea-Bissau"
+    GW @enum(value: "GW")
+    "Guyana"
+    GY @enum(value: "GY")
+    "Haiti"
+    HT @enum(value: "HT")
+    "Heard Island and McDonald Islands"
+    HM @enum(value: "HM")
+    "Holy See (Vatican City State)"
+    VA @enum(value: "VA")
+    "Honduras"
+    HN @enum(value: "HN")
+    "Hong Kong"
+    HK @enum(value: "HK")
+    "Hungary"
+    HU @enum(value: "HU")
+    "Iceland"
+    IS @enum(value: "IS")
+    "India"
+    IN @enum(value: "IN")
+    "Indonesia"
+    ID @enum(value: "ID")
+    "Iran, Islamic Republic of"
+    IR @enum(value: "IR")
+    "Iraq"
+    IQ @enum(value: "IQ")
+    "Ireland"
+    IE @enum(value: "IE")
+    "Isle of Man"
+    IM @enum(value: "IM")
+    "Israel"
+    IL @enum(value: "IL")
+    "Italy"
+    IT @enum(value: "IT")
+    "Jamaica"
+    JM @enum(value: "JM")
+    "Japan"
+    JP @enum(value: "JP")
+    "Jersey"
+    JE @enum(value: "JE")
+    "Jordan"
+    JO @enum(value: "JO")
+    "Kazakhstan"
+    KZ @enum(value: "KZ")
+    "Kenya"
+    KE @enum(value: "KE")
+    "Kiribati"
+    KI @enum(value: "KI")
+    "Korea, Democratic People's Republic of"
+    KP @enum(value: "KP")
+    "Korea, Republic of"
+    KR @enum(value: "KR")
+    "South Korea"
+    KR @enum(value: "KR")
+    "Kuwait"
+    KW @enum(value: "KW")
+    "Kyrgyzstan"
+    KG @enum(value: "KG")
+    "Lao People's Democratic Republic"
+    LA @enum(value: "LA")
+    "Latvia"
+    LV @enum(value: "LV")
+    "Lebanon"
+    LB @enum(value: "LB")
+    "Lesotho"
+    LS @enum(value: "LS")
+    "Liberia"
+    LR @enum(value: "LR")
+    "Libyan Arab Jamahiriya"
+    LY @enum(value: "LY")
+    "Libya"
+    LY @enum(value: "LY")
+    "Liechtenstein"
+    LI @enum(value: "LI")
+    "Lithuania"
+    LT @enum(value: "LT")
+    "Luxembourg"
+    LU @enum(value: "LU")
+    "Macao"
+    MO @enum(value: "MO")
+    "Macedonia, the former Yugoslav Republic of"
+    MK @enum(value: "MK")
+    "Madagascar"
+    MG @enum(value: "MG")
+    "Malawi"
+    MW @enum(value: "MW")
+    "Malaysia"
+    MY @enum(value: "MY")
+    "Maldives"
+    MV @enum(value: "MV")
+    "Mali"
+    ML @enum(value: "ML")
+    "Malta"
+    MT @enum(value: "MT")
+    "Marshall Islands"
+    MH @enum(value: "MH")
+    "Martinique"
+    MQ @enum(value: "MQ")
+    "Mauritania"
+    MR @enum(value: "MR")
+    "Mauritius"
+    MU @enum(value: "MU")
+    "Mayotte"
+    YT @enum(value: "YT")
+    "Mexico"
+    MX @enum(value: "MX")
+    "Micronesia, Federated States of"
+    FM @enum(value: "FM")
+    "Moldova, Republic of"
+    MD @enum(value: "MD")
+    "Monaco"
+    MC @enum(value: "MC")
+    "Mongolia"
+    MN @enum(value: "MN")
+    "Montenegro"
+    ME @enum(value: "ME")
+    "Montserrat"
+    MS @enum(value: "MS")
+    "Morocco"
+    MA @enum(value: "MA")
+    "Mozambique"
+    MZ @enum(value: "MZ")
+    "Myanmar"
+    MM @enum(value: "MM")
+    "Burma"
+    MM @enum(value: "MM")
+    "Namibia"
+    NA @enum(value: "NA")
+    "Nauru"
+    NR @enum(value: "NR")
+    "Nepal"
+    NP @enum(value: "NP")
+    "Netherlands"
+    NL @enum(value: "NL")
+    "Netherlands Antilles"
+    AN @enum(value: "AN")
+    "New Caledonia"
+    NC @enum(value: "NC")
+    "New Zealand"
+    NZ @enum(value: "NZ")
+    "Nicaragua"
+    NI @enum(value: "NI")
+    "Niger"
+    NE @enum(value: "NE")
+    "Nigeria"
+    NG @enum(value: "NG")
+    "Niue"
+    NU @enum(value: "NU")
+    "Norfolk Island"
+    NF @enum(value: "NF")
+    "Northern Mariana Islands"
+    MP @enum(value: "MP")
+    "Norway"
+    NO @enum(value: "NO")
+    "Oman"
+    OM @enum(value: "OM")
+    "Pakistan"
+    PK @enum(value: "PK")
+    "Palau"
+    PW @enum(value: "PW")
+    "Palestinian Territory, Occupied"
+    PS @enum(value: "PS")
+    "Panama"
+    PA @enum(value: "PA")
+    "Papua New Guinea"
+    PG @enum(value: "PG")
+    "Paraguay"
+    PY @enum(value: "PY")
+    "Peru"
+    PE @enum(value: "PE")
+    "Philippines"
+    PH @enum(value: "PH")
+    "Pitcairn"
+    PN @enum(value: "PN")
+    "Poland"
+    PL @enum(value: "PL")
+    "Portugal"
+    PT @enum(value: "PT")
+    "Puerto Rico"
+    PR @enum(value: "PR")
+    "Qatar"
+    QA @enum(value: "QA")
+    "Réunion"
+    RE @enum(value: "RE")
+    "Romania"
+    RO @enum(value: "RO")
+    "Russian Federation"
+    RU @enum(value: "RU")
+    "Russia"
+    RU @enum(value: "RU")
+    "Rwanda"
+    RW @enum(value: "RW")
+    "Saint Helena, Ascension and Tristan da Cunha"
+    SH @enum(value: "SH")
+    "Saint Kitts and Nevis"
+    KN @enum(value: "KN")
+    "Saint Lucia"
+    LC @enum(value: "LC")
+    "Saint Pierre and Miquelon"
+    PM @enum(value: "PM")
+    "Saint Vincent and the Grenadines"
+    VC @enum(value: "VC")
+    "Saint Vincent & the Grenadines"
+    VC @enum(value: "VC")
+    "St. Vincent and the Grenadines"
+    VC @enum(value: "VC")
+    "Samoa"
+    WS @enum(value: "WS")
+    "San Marino"
+    SM @enum(value: "SM")
+    "Sao Tome and Principe"
+    ST @enum(value: "ST")
+    "Saudi Arabia"
+    SA @enum(value: "SA")
+    "Senegal"
+    SN @enum(value: "SN")
+    "Serbia"
+    RS @enum(value: "RS")
+    "Seychelles"
+    SC @enum(value: "SC")
+    "Sierra Leone"
+    SL @enum(value: "SL")
+    "Singapore"
+    SG @enum(value: "SG")
+    "Slovakia"
+    SK @enum(value: "SK")
+    "Slovenia"
+    SI @enum(value: "SI")
+    "Solomon Islands"
+    SB @enum(value: "SB")
+    "Somalia"
+    SO @enum(value: "SO")
+    "South Africa"
+    ZA @enum(value: "ZA")
+    "South Georgia and the South Sandwich Islands"
+    GS @enum(value: "GS")
+    "Spain"
+    ES @enum(value: "ES")
+    "Sri Lanka"
+    LK @enum(value: "LK")
+    "Sudan"
+    SD @enum(value: "SD")
+    "Suriname"
+    SR @enum(value: "SR")
+    "Svalbard and Jan Mayen"
+    SJ @enum(value: "SJ")
+    "Swaziland"
+    SZ @enum(value: "SZ")
+    "Sweden"
+    SE @enum(value: "SE")
+    "Switzerland"
+    CH @enum(value: "CH")
+    "Syrian Arab Republic"
+    SY @enum(value: "SY")
+    "Taiwan, Province of China"
+    TW @enum(value: "TW")
+    "Taiwan"
+    TW @enum(value: "TW")
+    "Tajikistan"
+    TJ @enum(value: "TJ")
+    "Tanzania, United Republic of"
+    TZ @enum(value: "TZ")
+    "Thailand"
+    TH @enum(value: "TH")
+    "Timor-Leste"
+    TL @enum(value: "TL")
+    "Togo"
+    TG @enum(value: "TG")
+    "Tokelau"
+    TK @enum(value: "TK")
+    "Tonga"
+    TO @enum(value: "TO")
+    "Trinidad and Tobago"
+    TT @enum(value: "TT")
+    "Trinidad & Tobago"
+    TT @enum(value: "TT")
+    "Tunisia"
+    TN @enum(value: "TN")
+    "Turkey"
+    TR @enum(value: "TR")
+    "Turkmenistan"
+    TM @enum(value: "TM")
+    "Turks and Caicos Islands"
+    TC @enum(value: "TC")
+    "Tuvalu"
+    TV @enum(value: "TV")
+    "Uganda"
+    UG @enum(value: "UG")
+    "Ukraine"
+    UA @enum(value: "UA")
+    "United Arab Emirates"
+    AE @enum(value: "AE")
+    "United Kingdom"
+    GB @enum(value: "GB")
+    "United States"
+    US @enum(value: "US")
+    "United States Minor Outlying Islands"
+    UM @enum(value: "UM")
+    "Uruguay"
+    UY @enum(value: "UY")
+    "Uzbekistan"
+    UZ @enum(value: "UZ")
+    "Vanuatu"
+    VU @enum(value: "VU")
+    "Venezuela, Bolivarian Republic of"
+    VE @enum(value: "VE")
+    "Venezuela"
+    VE @enum(value: "VE")
+    "Viet Nam"
+    VN @enum(value: "VN")
+    "Vietnam"
+    VN @enum(value: "VN")
+    "Virgin Islands, British"
+    VG @enum(value: "VG")
+    "Virgin Islands, U.S."
+    VI @enum(value: "VI")
+    "Wallis and Futuna"
+    WF @enum(value: "WF")
+    "Western Sahara"
+    EH @enum(value: "EH")
+    "Yemen"
+    YE @enum(value: "YE")
+    "Zambia"
+    ZM @enum(value: "ZM")
+    "Zimbabwe"
+    ZW @enum(value: "ZW")
+}

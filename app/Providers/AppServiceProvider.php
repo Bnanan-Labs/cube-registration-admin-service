@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Competition;
+use App\OAuth\WcaProvider;
 use App\Observers\CompetitionObserver;
 use Illuminate\Support\ServiceProvider;
 

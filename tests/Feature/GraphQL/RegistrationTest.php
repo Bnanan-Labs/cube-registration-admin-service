@@ -3,8 +3,10 @@
 namespace Tests\Feature\GraphQL;
 
 use App\Jobs\RegisterCompetitor;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
+use Laravel\Sanctum\Sanctum;
 use Tests\GraphQLTestCase;
 
 class RegistrationTest extends GraphQLTestCase
@@ -18,6 +20,9 @@ class RegistrationTest extends GraphQLTestCase
      */
     public function testCanRegister()
     {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
         Queue::fake();
         Queue::assertNothingPushed();
         $registration = [
@@ -46,5 +51,6 @@ class RegistrationTest extends GraphQLTestCase
         ]);
 
         Queue::assertPushed(Fn (RegisterCompetitor $job) => $job->registration['email'] === $registration['email']);
+        Queue::assertPushed(Fn (RegisterCompetitor $job) => $job->user['wca_id'] === $user->wca_id);
     }
 }

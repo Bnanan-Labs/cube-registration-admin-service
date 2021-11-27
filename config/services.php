@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'wca' => [
+        'client_id' => env('WCA_CLIENT_ID'),
+        'client_secret' => env('WCA_CLIENT_SECRET'),
+        'redirect' => env('WCA_REDIRECT'),
+    ],
+
 ];

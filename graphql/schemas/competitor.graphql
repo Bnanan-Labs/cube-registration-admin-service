@@ -73,7 +73,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    registerCompetitor(input: RegisterCompetitorInput @spread): RegistrationReceipt
+    registerCompetitor(input: RegisterCompetitorInput @spread): RegistrationReceipt @guard
     createCompetitor(input: CreateCompetitorInput @spread): Competitor @create
     updateCompetitor(input: CreateCompetitorInput @spread): Competitor @update
     deleteCompetitor(id: ID!): Competitor @delete

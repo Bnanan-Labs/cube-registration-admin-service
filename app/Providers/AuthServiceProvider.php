@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Socialite\Wca\Provider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,21 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $this->bootWcaSocialite();
+    }
+
+    public function bootWcaSocialite()
+    {
+        $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
+        $socialite->extend(
+            'wca',
+            function ($app) use ($socialite) {
+                return $socialite->buildProvider(Provider::class, [
+                    'client_id' => config('services.wca.client_id'),
+                    'client_secret' => config('services.wca.client_secret'),
+                    'redirect' => config('services.wca.redirect'),
+                ]);
+            }
+        );
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
+use Illuminate\Support\Facades\Auth;
+
 class RegisterCompetitor
 {
     /**
@@ -10,13 +12,13 @@ class RegisterCompetitor
      */
     public function __invoke($_, array $args)
     {
-        \App\Jobs\RegisterCompetitor::dispatch($args);
+        \App\Jobs\RegisterCompetitor::dispatch($args, Auth::user());
 
         return [
             'id' => 1234,
             'first_name' => $args['first_name'],
             'last_name' => $args['last_name'],
-            'wca_id' => '2012AAAA02',
+            'wca_id' => Auth::user()->wca_id,
             'email' => $args['email'],
         ];
     }

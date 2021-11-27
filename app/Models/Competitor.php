@@ -11,6 +11,8 @@ class Competitor extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     /**
      * @return BelongsToMany
      */
