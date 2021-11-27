@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Competition;
 use App\Models\Competitor;
+use App\Models\FinancialBook;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompetitorFactory extends Factory
@@ -22,16 +24,17 @@ class CompetitorFactory extends Factory
     public function definition(): array
     {
         return [
-           'first_name' => $this->faker->sentence(2),
-           'last_name' => $this->faker->sentence(2),
-           'wca_id' => $this->faker->word(),
-           'email' => $this->faker->email(),
-           'registration_status' => $this->faker->word(),
-           'payment_status' => $this->faker->word(),
-           'has_podium_potential' => $this->faker->boolean(),
-           'nationality' => $this->faker->sentence(2),
-           'is_eligible_for_prizes' => $this->faker->boolean(),
-            'financial_book_id' => 1,
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'wca_id' => $this->faker->regexify('20[0-2][0-9][A-Z]{8}[0-9]{2}'),
+            'email' => $this->faker->email(),
+            'registration_status' => $this->faker->word(),
+            'payment_status' => $this->faker->word(),
+            'has_podium_potential' => $this->faker->boolean(),
+            'nationality' => $this->faker->countryCode(),
+            'is_eligible_for_prizes' => $this->faker->boolean(),
+            'financial_book_id' => FinancialBook::create()->id,
+            'competition_id' => Competition::first(),
         ];
     }
 }

@@ -18,6 +18,7 @@ class CompetitionObserver
     {
         $period = CarbonPeriod::create($competition->start_date, $competition->end_date);
         foreach ($period as $key => $date) {
+            if ($key > 5) { return; }
             $dayNumber = $key + 1;
             Day::create([
                 'title' => "Day {$dayNumber}",

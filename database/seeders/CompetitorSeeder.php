@@ -14,6 +14,6 @@ class CompetitorSeeder extends Seeder
      */
     public function run()
     {
-        Competitor::factory()->create(5);
+        Competitor::factory()->times(25)->create();
     }
 }

@@ -10,6 +10,14 @@ class RegisterCompetitor
      */
     public function __invoke($_, array $args)
     {
-        // TODO implement the  RegisterCompetitor resolver
+        \App\Jobs\RegisterCompetitor::dispatch($args);
+
+        return [
+            'id' => 1234,
+            'first_name' => $args['first_name'],
+            'last_name' => $args['last_name'],
+            'wca_id' => '2012AAAA02',
+            'email' => $args['email'],
+        ];
     }
 }
