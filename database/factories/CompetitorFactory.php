@@ -28,6 +28,7 @@ class CompetitorFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'wca_id' => $this->faker->regexify('20[0-2][0-9][A-Z]{8}[0-9]{2}'),
             'email' => $this->faker->email(),
+            'gender' => $this->faker->randomLetter(),
             'registration_status' => $this->faker->word(),
             'payment_status' => $this->faker->word(),
             'has_podium_potential' => $this->faker->boolean(),

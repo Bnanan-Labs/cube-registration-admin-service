@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Socialite\Facades\Socialite;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
@@ -28,7 +29,8 @@ class SocialLogin
      * @param ResolveInfo $resolveInfo Information about the query itself, such as the execution state, the field name, path to the field from the root, and more.
      * @return mixed
      */
-    public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
+    #[ArrayShape(['token' => "mixed", 'user' => "App\\Models\\User"])]
+    public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): array
     {
         $this->request->merge(['code' => Arr::get($args, 'token')]);
         $socialUser = Socialite::driver('wca')->stateless()->user('test');
@@ -49,13 +51,5 @@ class SocialLogin
             'token' => $user->createToken('cubing-registration')->plainTextToken,
             'user' => $user,
         ];
-
-//        $args['token'] = $this->wcaAuthentication->getAccessToken($args['token'])->access_token;
-//        $credentials = $this->buildCredentials($args, 'social_grant');
-//        $response = $this->makeRequest($credentials);
-//        $model = app(config('auth.providers.users.model'));
-//        $user = $model->where('id', Auth::user()->id)->firstOrFail();
-//        $response['user'] = $user;
-
     }
 }

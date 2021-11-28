@@ -22,11 +22,12 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-           'title' => $this->faker->sentence(2),
-           'qualification_limit' => $this->faker->numberBetween(0,100),
-           'cutoff_limit' => $this->faker->numberBetween(0,100),
-           'competitor_limit' => $this->faker->randomNumber(),
-           'fee' => $this->faker->numberBetween(0,100),
+            'title' => $this->faker->sentence(2),
+            'qualification_limit' => $this->faker->numberBetween(0,100),
+            'cutoff_limit' => $this->faker->numberBetween(0,100),
+            'competitor_limit' => $this->faker->randomNumber(),
+            'competition_id' => $this->faker->numberBetween(0, 100),
+            'fee' => $this->faker->numberBetween(0,100),
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class RegisterCompetitor
 {
@@ -12,7 +13,7 @@ class RegisterCompetitor
      */
     public function __invoke($_, array $args)
     {
-        \App\Jobs\RegisterCompetitor::dispatch($args, Auth::user());
+        \App\Jobs\RegisterCompetitor::dispatch($args, Auth::user(), Request::ip());
 
         return [
             'id' => 1234,

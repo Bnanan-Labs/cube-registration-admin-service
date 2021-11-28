@@ -15,9 +15,9 @@ class CreateCompetitorEventTable extends Migration
     {
         Schema::create('competitor_event', function (Blueprint $table) {
             $table->id();
-            $table->integer('best_single');
-            $table->integer('best_average');
-            $table->integer('ranking');
+            $table->integer('best_single')->nullable();
+            $table->integer('best_average')->nullable();
+            $table->integer('ranking')->nullable();
             $table->foreignId('competitor_id');
             $table->foreignId('event_id');
 
