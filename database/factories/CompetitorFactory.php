@@ -34,8 +34,8 @@ class CompetitorFactory extends Factory
             'has_podium_potential' => $this->faker->boolean(),
             'nationality' => $this->faker->countryCode(),
             'is_eligible_for_prizes' => $this->faker->boolean(),
-            'financial_book_id' => FinancialBook::create()->id,
-            'competition_id' => Competition::first(),
+            'financial_book_id' => FinancialBook::factory()->create()->id,
+            'competition_id' => Competition::factory()->create()->id,
         ];
     }
 }

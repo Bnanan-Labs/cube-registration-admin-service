@@ -17,6 +17,7 @@ class CreateFinancialBooksTable extends Migration
             $table->id();
             $table->integer('balance')->default(0);
             $table->integer('paid')->default(0);
+            $table->integer('total')->default(0);
 
             $table->timestamps();
         });

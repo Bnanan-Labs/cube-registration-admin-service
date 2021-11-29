@@ -48,15 +48,15 @@ type Competitor {
     first_name: String!
     last_name: String!
     wca_id: WcaId!
-    email: Email!
+    email: Email! @guard
     registration_status: RegistrationStatusEnum!
-    payment_status: PaymentStatusEnum!
+    payment_status: PaymentStatusEnum! @guard
     has_podium_potential: Boolean!
     events: [Event!]! @belongsToMany
-    days: [Day!]! @belongsToMany
+    days: [Day!]! @belongsToMany @guard
     nationality: String!
     is_eligble_for_prizes: Boolean!
-    finances: FinancialBook!
+    finances: FinancialBook! @guard
     created_at: DateTime!
     updated_at: DateTime
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Competition;
+use App\Services\Finances\MoneyBag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompetitionFactory extends Factory
@@ -30,7 +31,7 @@ class CompetitionFactory extends Factory
             'registration_ends' => $this->faker->datetime(),
             'volunteer_registration_starts' => $this->faker->datetime(),
             'volunteer_registration_ends' => $this->faker->datetime(),
-            'base_fee' => $this->faker->numberBetween(1,100),
+            'base_fee' => new MoneyBag(amount: $this->faker->numberBetween(1,100)),
             'competitor_limit' => $this->faker->randomNumber(),
             'spectator_limit' => $this->faker->randomNumber(),
             'financial_book_id' => 1,

@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use App\Services\Finances\Casts\MoneyBagCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Competitor;
-use App\Models\Staff;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
 class Event extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'fee' => MoneyBagCast::class,
+    ];
 
     /**
      * @return BelongsToMany

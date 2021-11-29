@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
@@ -33,6 +34,14 @@ class Competitor extends Model
     public function days(): BelongsToMany
     {
         return $this->belongsToMany(Day::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function finances(): BelongsTo
+    {
+        return $this->belongsTo(FinancialBook::class, 'financial_book_id');
     }
 
     /**
