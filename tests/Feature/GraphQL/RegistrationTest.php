@@ -6,12 +6,12 @@ use App\Jobs\RegisterCompetitor;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
-use Laravel\Sanctum\Sanctum;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\GraphQLTestCase;
 
 class RegistrationTest extends GraphQLTestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     /**
      * A basic test example.
@@ -26,11 +26,13 @@ class RegistrationTest extends GraphQLTestCase
         Queue::fake();
         Queue::assertNothingPushed();
         $registration = [
-            'first_name' => 'First',
-            'last_name' => 'Last',
-            'email' => 'test@test.com',
-            'events' => [],
-            'days' => [],
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->email(),
+            'guests' => [$this->faker->name(), $this->faker->name()],
+            'is_interested_in_nations_cup' => $this->faker->boolean(),
+            'events' => [$this->faker->numberBetween(1,10), $this->faker->numberBetween(1,10)],
+            'days' => [$this->faker->numberBetween(1,10), $this->faker->numberBetween(1,10)],
         ];
 
         $this->graphQL(/** @lang GraphQL */ '

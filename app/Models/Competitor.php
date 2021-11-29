@@ -16,6 +16,7 @@ class Competitor extends Model
 
     protected $casts = [
         'is_delegate' => 'boolean',
+        'is_interested_in_nations_cup' => 'boolean',
     ];
 
     /**
@@ -43,13 +44,36 @@ class Competitor extends Model
     }
 
     /**
-     * @return array
+     * @param $value
+     * @return Collection
      */
     public function getWcaTeamsAttribute($value): Collection
     {
         if (!$value) {
             return collect([]);
         }
+
+        return collect(explode(',', $value));
+    }
+
+    /**
+     * @param array $guests
+     */
+    public function setGuestsAttribute(array $guests): void
+    {
+        $this->attributes['guests'] = collect($guests)->join(',');
+    }
+
+    /**
+     * @param $value
+     * @return Collection
+     */
+    public function getGuestsAttribute($value): Collection
+    {
+        if (!$value) {
+            return collect([]);
+        }
+
         return collect(explode(',', $value));
     }
 }

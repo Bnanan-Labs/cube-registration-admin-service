@@ -35,6 +35,8 @@ class RegisterCompetitor implements ShouldQueue
         $competitor = Competitor::create([
             'first_name' => Arr::get($this->registration, 'first_name'),
             'last_name' => Arr::get($this->registration, 'last_name'),
+            'is_interested_in_nations_cup' => Arr::get($this->registration, 'is_interested_in_nations_cup'),
+            'guests' => Arr::get($this->registration, 'guests'),
             'gender' => $this->user->wca->gender,
             'is_delegate' => (bool) $this->user->wca->delegate_status,
             'wca_teams' => $this->user->wca->teams,
@@ -47,5 +49,6 @@ class RegisterCompetitor implements ShouldQueue
         ]);
 
         $competitor->events()->sync(Arr::get($this->registration, 'events'));
+        $competitor->days()->sync(Arr::get($this->registration, 'days'));
     }
 }

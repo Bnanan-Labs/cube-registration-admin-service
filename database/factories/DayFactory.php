@@ -22,12 +22,13 @@ class DayFactory extends Factory
     public function definition(): array
     {
         return [
-           'title' => $this->faker->sentence(2),
-           'week_day' => $this->faker->dayOfWeek(),
-           'sort_id' => $this->faker->randomNumber(),
-           'date' => $this->faker->date(),
-           'price' => $this->faker->numberBetween(0,100),
-           'is_bookable' => $this->faker->boolean(),
+            'title' => $this->faker->sentence(2),
+            'week_day' => $this->faker->dayOfWeek(),
+            'sort_id' => $this->faker->randomNumber(),
+            'date' => $this->faker->date(),
+            'price' => $this->faker->numberBetween(0,100),
+            'is_bookable' => $this->faker->boolean(),
+            'competition_id' => $this->faker->numberBetween(0, 100),
         ];
     }
 }

@@ -21,12 +21,14 @@ class CreateCompetitorsTable extends Migration
             $table->string('gender')->index();
             $table->string('wca_teams')->nullable();
             $table->string('email');
+            $table->string('guests')->default('');
             $table->string('registration_status')->default('PENDING')->index();
             $table->string('payment_status')->default('MISSING_PAYMENT')->index();
             $table->string('nationality')->index();
             $table->boolean('is_delegate')->default(false)->index();
             $table->boolean('has_podium_potential')->default(false)->index();
             $table->boolean('is_eligible_for_prizes')->default(false);
+            $table->boolean('is_interested_in_nations_cup')->default(false);
             $table->foreignId('financial_book_id');
             $table->foreignId('competition_id');
 
