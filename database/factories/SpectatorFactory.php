@@ -25,8 +25,8 @@ class SpectatorFactory extends Factory
            'first_name' => $this->faker->sentence(2),
            'last_name' => $this->faker->sentence(2),
            'email' => $this->faker->sentence(2),
-           'registration_status' => $this->faker->word(),
-           'payment_status' => $this->faker->word(),
+           'registration_status' => $this->faker->randomElement(['PENDING']),
+           'payment_status' => $this->faker->randomElement(['MISSING_PAYMENT']),
 
         ];
     }

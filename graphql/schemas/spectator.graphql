@@ -2,32 +2,33 @@ type Spectator {
     id: ID!
     first_name: String!
     last_name: String!
-    email: String!
+    email: Email! @guard @can(ability: "manage" model: "Spectator")
     registration_status: RegistrationStatusEnum!
-    payment_status: PaymentStatusEnum!
+    finances: FinancialBook @guard @can(ability: "manage", model: "Spectator")
+    payment_status: PaymentStatusEnum! @guard @can(ability: "manage", model: "Spectator")
     days: [Day!]! @belongsToMany
 }
 
 input RegisterSpectatorInput {
     first_name: String!
     last_name: String!
-    email: String!
-    days: [ID!]!
+    email: Email!
+    days: DaysBelongsToMany!
 }
 
 input CreateSpectatorInput {
     first_name: String!
     last_name: String!
-    email: String!
-    days: [ID!]!
+    email: Email!
+    days: DaysBelongsToMany
 }
 
 input UpdateSpectatorInput {
     id: ID!
     first_name: String
     last_name: String
-    email: String
-    days: [ID!]
+    email: Email
+    days: DaysBelongsToMany!
 }
 
 extend type Query {
@@ -39,8 +40,8 @@ extend type Query {
 }
 
 extend type Mutation {
-    createSpectator(input: CreateSpectatorInput @spread): Spectator! @create
-    updateSpectator(input: UpdateSpectatorInput @spread): Spectator! @update
-    createSpectator(id: ID!): Spectator! @delete
+    createSpectator(input: CreateSpectatorInput @spread): Spectator! @create @guard @can(ability: "manage")
+    updateSpectator(input: UpdateSpectatorInput @spread): Spectator! @update @guard @can(ability: "manage")
+    deleteSpectator(id: ID!): Spectator! @delete @guard @can(ability: "manage", find: "id")
     registerSpectator(input: RegisterSpectatorInput): Spectator!
 }

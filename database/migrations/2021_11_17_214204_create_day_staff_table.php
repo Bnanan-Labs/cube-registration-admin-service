@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSpectatorDayTable extends Migration
+class CreateDayStaffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateSpectatorDayTable extends Migration
      */
     public function up()
     {
-        Schema::create('spectator_day', function (Blueprint $table) {
+        Schema::create('day_staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('spectator_id');
+            $table->foreignId('staff_id');
             $table->foreignId('day_id');
 
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateSpectatorDayTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('spectator_day');
+        Schema::dropIfExists('staff_day');
     }
 }
