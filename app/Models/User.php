@@ -43,4 +43,19 @@ class User extends Authenticatable
     {
         return json_decode($this->raw);
     }
+
+    public function getIsCompetitorAttribute(): bool
+    {
+        return $this->wca_id && Competitor::where('wca_id', $this->wca_id)->exists();
+    }
+
+    public function getIsStaffAttribute(): bool
+    {
+        return $this->wca_id && Staff::where('wca_id', $this->wca_id)->exists();
+    }
+
+    public function getIsSpectatorAttribute(): bool
+    {
+        return true;
+    }
 }

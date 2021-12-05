@@ -88,12 +88,6 @@ class FinancialBookTest extends GraphQLTestCase
 
         $this->graphQL($query, [
             'id' => $competitor->id
-        ])->assertJSON([
-            'errors' => [
-                [
-                    'message' => 'Unauthenticated.',
-                ],
-            ],
-        ]);
+        ])->assertJSON(self::UNAUTHENTICATED_RESPONSE);
     }
 }

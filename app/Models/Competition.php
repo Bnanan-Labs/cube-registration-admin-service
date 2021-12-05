@@ -61,8 +61,8 @@ class Competition extends Model
     /**
      * @return BelongsTo
      */
-    public function financial_book(): BelongsTo
+    public function finances(): BelongsTo
     {
-        return $this->belongsTo(FinancialBook::class);
+        return $this->belongsTo(FinancialBook::class, 'financial_book_id');
     }
 }

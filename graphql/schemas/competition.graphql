@@ -1,6 +1,6 @@
 input UpdateCompetitionInput {
     id: ID!
-    title: String @rules(apply: ["max:255", "unique:competitions"])
+    title: String @rules(apply: ["max:255", "unique:competitions,title"])
     start_date: Date
     end_date: Date
     registration_starts: DateTime
@@ -8,8 +8,8 @@ input UpdateCompetitionInput {
     volunteer_registration_starts: DateTime
     volunteer_registration_ends: DateTime
     base_fee: MoneyBagInput
-    competitor_limit: Int @rules(apply: ["gt:0"])
-    spectator_limit: Int @rules(apply: ["gt:0"])
+    competitor_limit: Int @rules(apply: ["min:0"])
+    spectator_limit: Int @rules(apply: ["min:0"])
 }
 
 type Competition {
@@ -23,7 +23,7 @@ type Competition {
     volunteer_registration_starts: DateTime
     volunteer_registration_ends: DateTime
     base_fee: MoneyBag
-    finances: FinancialBook!
+    finances: FinancialBook! @guard @can(ability: "manage", model: "Competition", query: true)
     competitor_limit: Int
     spectator_limit: Int
     is_competitor_full: Boolean
@@ -40,6 +40,11 @@ extend type Query {
 }
 
 extend type Mutation {
-    updateCompetition(input: UpdateCompetitionInput @spread): Competition @can(ability: "update", query: true) @update
+    updateCompetition(
+        input: UpdateCompetitionInput @spread
+    ): Competition
+        @guard
+        @can(ability: "manage", find: "id")
+        @update
 }
 

@@ -15,6 +15,6 @@ class MoneyBagCast implements CastsAttributes
 
     public function set($model, string $key, $value, array $attributes)
     {
-        return $value->amount;
+        return $value?->amount ?? $value['amount'];
     }
 }

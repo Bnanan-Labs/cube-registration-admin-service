@@ -19,11 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('nationality')->nullable();
-            $table->string('wca_id')->nullable();
+            $table->string('wca_id')->nullable()->index();
             $table->string('gender')->nullable();
             $table->string('roles')->default('');
             $table->text('raw')->nullable();
             $table->boolean('is_delegate')->default(false);
+            $table->boolean('is_manager')->default(false);
             $table->timestamp('birthday_at')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

@@ -14,6 +14,25 @@ abstract class GraphQLTestCase extends BaseTestCase
         MakesGraphQLRequests,
         ClearsSchemaCache;
 
+    const UNAUTHORIZED_RESPONSE = [
+        'errors' => [
+            [
+                'extensions' => [
+                    'category' => 'authorization',
+                ],
+            ],
+        ],
+    ];
+    const UNAUTHENTICATED_RESPONSE = [
+        'errors' => [
+            [
+                'extensions' => [
+                    'category' => 'authentication',
+                ],
+            ],
+        ],
+    ];
+
     protected function setUp(): void
     {
         parent::setUp();

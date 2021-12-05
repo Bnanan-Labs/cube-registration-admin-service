@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Competition;
+use App\Models\FinancialBook;
 use App\Services\Finances\MoneyBag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -34,7 +35,6 @@ class CompetitionFactory extends Factory
             'base_fee' => new MoneyBag(amount: $this->faker->numberBetween(1,100)),
             'competitor_limit' => $this->faker->randomNumber(),
             'spectator_limit' => $this->faker->randomNumber(),
-            'financial_book_id' => 1,
         ];
     }
 }

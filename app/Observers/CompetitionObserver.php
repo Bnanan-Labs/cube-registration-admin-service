@@ -11,7 +11,7 @@ class CompetitionObserver
 {
     public function creating(Competition $competition): void
     {
-        $competition->financial_book()->associate(FinancialBook::create());
+        $competition->finances()->associate(FinancialBook::create());
     }
 
     public function created(Competition $competition): void
