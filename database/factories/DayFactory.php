@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Day;
 use App\Services\Finances\MoneyBag;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class DayFactory extends Factory
 {
@@ -24,8 +25,7 @@ class DayFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(2),
-            'week_day' => $this->faker->dayOfWeek(),
-            'sort_id' => $this->faker->randomNumber(),
+            'week_day' => $this->faker->numberBetween(0,6),
             'date' => $this->faker->date(),
             'price' => new MoneyBag(amount: $this->faker->numberBetween(0,100)),
             'is_bookable' => $this->faker->boolean(),

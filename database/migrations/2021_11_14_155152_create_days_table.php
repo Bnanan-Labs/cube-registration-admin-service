@@ -16,7 +16,7 @@ class CreateDaysTable extends Migration
         Schema::create('days', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('week_day');
+            $table->integer('week_day');
             $table->integer('sort_id')->default(0);
             $table->date('date');
             $table->string('price')->nullable();

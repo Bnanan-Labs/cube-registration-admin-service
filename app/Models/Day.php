@@ -13,6 +13,7 @@ class Day extends Model
 
     protected $casts = [
         'price' => MoneyBagCast::class,
+        'date' => 'date'
     ];
 
     protected $guarded = ['id'];

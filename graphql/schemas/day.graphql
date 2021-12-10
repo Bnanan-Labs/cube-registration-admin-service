@@ -36,7 +36,6 @@ input UpdateDayInput {
 }
 
 input CreateDayInput {
-    id: ID!
     title: String!
     price: MoneyBagInput
     date: Date!
@@ -49,7 +48,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    createDay(input: CreateDayInput! @spread): Day @create
-    updateDay(input: UpdateDayInput! @spread): Day @update
-    orderDays(days: [ID!]): [Day!]!
+    createDay(input: CreateDayInput! @spread): Day @create @guard @can(ability: "manage")
+    updateDay(input: UpdateDayInput! @spread): Day @update @guard @can(ability: "manage")
+    deleteDay(id: ID!): Day @delete @guard @can(ability: "manage")
 }
