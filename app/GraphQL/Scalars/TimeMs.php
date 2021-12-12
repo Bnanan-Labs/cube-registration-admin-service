@@ -52,6 +52,6 @@ class TimeMs extends ScalarType
     {
         // TODO implement validation
 
-        return $valueNode->value;
+        return $valueNode->value; // @phpstan-ignore-line
     }
 }

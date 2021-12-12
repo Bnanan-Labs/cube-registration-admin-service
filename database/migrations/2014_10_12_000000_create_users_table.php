@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('wca_id')->nullable()->index();
             $table->string('gender')->nullable();
             $table->string('roles')->default('');
+            $table->string('avatar')->nullable();
             $table->text('raw')->nullable();
             $table->boolean('is_delegate')->default(false);
             $table->boolean('is_manager')->default(false);

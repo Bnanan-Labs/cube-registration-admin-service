@@ -53,10 +53,10 @@ class Competitor extends Model
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return Collection
      */
-    public function getWcaTeamsAttribute($value): Collection
+    public function getWcaTeamsAttribute(string $value): Collection
     {
         if (!$value) {
             return collect([]);
@@ -74,10 +74,10 @@ class Competitor extends Model
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return Collection
      */
-    public function getGuestsAttribute($value): Collection
+    public function getGuestsAttribute(string $value): Collection
     {
         if (!$value) {
             return collect([]);

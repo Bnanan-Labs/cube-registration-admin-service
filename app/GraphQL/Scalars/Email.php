@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Scalars;
 
+use GraphQL\Language\AST\Node;
 use GraphQL\Type\Definition\ScalarType;
 
 /**
@@ -48,10 +49,10 @@ class Email extends ScalarType
      * @param  array<string, mixed>|null  $variables
      * @return mixed
      */
-    public function parseLiteral($valueNode, ?array $variables = null)
+    public function parseLiteral(Node $valueNode, ?array $variables = null)
     {
         // TODO implement validation
 
-        return $valueNode->value;
+        return $valueNode->value; // @phpstan-ignore-line
     }
 }
