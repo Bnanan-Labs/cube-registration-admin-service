@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\User;
-use App\Services\WCA\Authentication;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -15,7 +14,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class SocialLogin
 {
-    public function __construct(protected Authentication $wcaAuthentication, protected Request $request)
+    public function __construct(protected Request $request)
     {
         //
     }
@@ -33,7 +32,7 @@ class SocialLogin
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): array
     {
         $this->request->merge(['code' => Arr::get($args, 'token')]);
-        $socialUser = Socialite::driver('wca')->stateless()->user('test');
+        $socialUser = Socialite::with('wca')->stateless()->user('wca');
 
         $user = User::firstOrCreate([
             'wca_id' => $socialUser->user['wca_id'],

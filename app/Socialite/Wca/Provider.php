@@ -10,15 +10,6 @@ use Laravel\Socialite\Two\User;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
-    /**
-     * Get the code from the request.
-     *
-     * @return string
-     */
-    protected function getCode()
-    {
-        return $this->request->input('code');
-    }
 
     /**
      * Get the authentication URL for the provider.
