@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\PaymentStatus;
+use App\Enums\RegistrationStatus;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Day;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
 class Spectator extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'registration_status' => RegistrationStatus::class,
+        'payment_status' => PaymentStatus::class,
+    ];
 
     /**
      * @return BelongsToMany

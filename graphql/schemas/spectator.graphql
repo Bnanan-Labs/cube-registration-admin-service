@@ -3,9 +3,9 @@ type Spectator {
     first_name: String!
     last_name: String!
     email: Email! @guard @can(ability: "manage" model: "Spectator")
-    registration_status: RegistrationStatusEnum!
+    registration_status: RegistrationStatus!
     finances: FinancialBook @guard @can(ability: "manage", model: "Spectator")
-    payment_status: PaymentStatusEnum! @guard @can(ability: "manage", model: "Spectator")
+    payment_status: PaymentStatus! @guard @can(ability: "manage", model: "Spectator")
     days: [Day!]! @belongsToMany
 }
 
@@ -34,8 +34,8 @@ input UpdateSpectatorInput {
 extend type Query {
     spectator(id: ID!): Spectator @find
     spectators(
-        registration_status: RegistrationStatusEnum @eq
-        payment_status: PaymentStatusEnum @eq
+        registration_status: RegistrationStatus @eq
+        payment_status: PaymentStatus @eq
     ): [Spectator!]! @paginate
 }
 

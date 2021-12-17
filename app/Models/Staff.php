@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\RegistrationStatus;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Day;
-use App\Models\Event;
-use App\Models\StaffRole;
-use App\Models\Team;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Staff extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'registration_status' => RegistrationStatus::class,
+    ];
 
     /**
      * @return HasMany

@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\PaymentStatus;
+use App\Enums\RegistrationStatus;
+use App\Enums\Wca;
 use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\FinancialBook;
@@ -26,11 +29,11 @@ class CompetitorFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'wca_id' => $this->faker->regexify('20[0-2][0-9][A-Z]{4}[0-9]{2}'),
+            'wca_id' => $this->faker->regexify(Wca::idRegex->value),
             'email' => $this->faker->email(),
             'gender' => $this->faker->randomLetter(),
-            'registration_status' => $this->faker->word(),
-            'payment_status' => $this->faker->word(),
+            'registration_status' => $this->faker->randomElement(RegistrationStatus::cases()),
+            'payment_status' => $this->faker->randomElement(PaymentStatus::cases()),
             'has_podium_potential' => $this->faker->boolean(),
             'nationality' => $this->faker->countryCode(),
             'is_eligible_for_prizes' => $this->faker->boolean(),

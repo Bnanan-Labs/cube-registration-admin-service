@@ -16,7 +16,7 @@ type Staff {
     last_name: String!
     wca_id: WcaId!
     application: String!
-    registration_status: RegistrationStatusEnum
+    registration_status: RegistrationStatus
     scrambling_qualifications: [Event!]! @hasMany
     availability: [Day!]! @hasMany
     events: [Event!]! @hasMany
@@ -88,7 +88,7 @@ extend type Query {
     staff(id: ID!): Staff @find
     staffs(
         team_id: ID @eq
-        registration_status: RegistrationStatusEnum @eq
+        registration_status: RegistrationStatus @eq
         t_shirt_size: TShirtSizeEnum @eq
     ): [Staff!]! @paginate
 }

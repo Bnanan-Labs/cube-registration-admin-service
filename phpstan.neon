@@ -13,3 +13,5 @@ parameters:
         - ./*/*/FileToBeExcluded.php
 
     checkMissingIterableValueType: false
+    ignoreErrors:
+            - '#^Access to( an)? undefined (constant|property) (App\\Enums(\\\w+)+|UnitEnum)::\$?\w+\.$#'

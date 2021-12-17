@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentStatus;
+use App\Enums\RegistrationStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +20,8 @@ class Competitor extends Model
     protected $casts = [
         'is_delegate' => 'boolean',
         'is_interested_in_nations_cup' => 'boolean',
+        'payment_status' => PaymentStatus::class,
+        'registration_status' => RegistrationStatus::class,
     ];
 
     /**

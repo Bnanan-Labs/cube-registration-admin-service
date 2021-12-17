@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Enums\Wca;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -32,7 +33,7 @@ class SocialLoginTest extends GraphQLTestCase
             'avatar' => [
                 'url' => $this->faker()->imageUrl(),
             ],
-            'wca_id' => $this->faker()->regexify('20[0-2][0-9][A-Z]{4}[0-9]{2}'),
+            'wca_id' => $this->faker()->regexify(Wca::idRegex->value),
         ];
 
         $client = $this->makeGuzzleClient([

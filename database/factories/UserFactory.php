@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Wca;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -15,7 +16,7 @@ class UserFactory extends Factory
     public function definition()
     {
         $name = $this->faker->name();
-        $wcaId = $this->faker->regexify('20[0-2][0-9][A-Z]{4}[0-9]{2}');
+        $wcaId = $this->faker->regexify(Wca::idRegex->value);
         $nationality = $this->faker->countryCode();
         $email = $this->faker->unique()->safeEmail();
         return [

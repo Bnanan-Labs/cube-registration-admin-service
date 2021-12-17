@@ -39,8 +39,8 @@ class SpectatorTest extends GraphQLTestCase
                     'first_name' => $spectator->first_name,
                     'last_name' => $spectator->last_name,
                     'email' => $spectator->email,
-                    'registration_status' => $spectator->registration_status,
-                    'payment_status' => $spectator->payment_status,
+                    'registration_status' => $spectator->registration_status->value,
+                    'payment_status' => $spectator->payment_status->value,
                 ],
             ],
         ]);

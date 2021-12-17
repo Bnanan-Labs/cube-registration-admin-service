@@ -1,18 +1,3 @@
-enum RegistrationStatusEnum {
-    PENDING
-    WAITING_LIST
-    DECLINED
-    APPROVED
-}
-
-enum PaymentStatusEnum {
-    MISSING_PAYMENT
-    PARTIAL_PAYMENT
-    FULL_PAYMENT
-    NEEDS_PARTIAL_REFUND
-    REFUNDED
-}
-
 input RegisterCompetitorInput {
     first_name: String!
     last_name: String!
@@ -29,8 +14,8 @@ input CreateCompetitorInput {
     email: Email!
     wca_id: WcaId!
     nationality: String!
-    registration_status: RegistrationStatusEnum
-    payment_status: PaymentStatusEnum
+    registration_status: RegistrationStatus
+    payment_status: PaymentStatus
     event_ids: [ID!]
     day_ids: [ID!]
 }
@@ -49,8 +34,8 @@ type Competitor {
     last_name: String!
     wca_id: WcaId!
     email: Email! @guard
-    registration_status: RegistrationStatusEnum!
-    payment_status: PaymentStatusEnum! @guard
+    registration_status: RegistrationStatus!
+    payment_status: PaymentStatus! @guard
     has_podium_potential: Boolean!
     events: [Event!]! @belongsToMany
     days: [Day!]! @belongsToMany @guard
