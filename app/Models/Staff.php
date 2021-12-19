@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Enums\RegistrationStatus;
+use App\Enums\ShirtSize;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,55 +17,60 @@ class Staff extends Model
 
     protected $casts = [
         'registration_status' => RegistrationStatus::class,
+        't_shirt_size' => ShirtSize::class,
     ];
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function scrambling_qualifications(): HasMany
+    public function scrambling_qualifications(): BelongsToMany
     {
-        return $this->hasMany(Event::class, 'scrambling_qualification_id');
+        return $this->belongsToMany(Event::class)
+            ->wherePivot('can_scramble', true);
     }
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function availability(): HasMany
+    public function availability(): BelongsToMany
     {
-        return $this->hasMany(Day::class, 'availability_id');
+        return $this->BelongsToMany(Day::class);
     }
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function events(): HasMany
+    public function events(): BelongsToMany
     {
-        return $this->hasMany(Event::class);
+        return $this->belongsToMany(Event::class);
     }
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function priority_events(): HasMany
+    public function priority_events(): BelongsToMany
     {
-        return $this->hasMany(Event::class, 'priority_event_id');
+        return $this->belongsToMany(Event::class)
+            ->wherePivot('is_priority', true);
     }
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function staff_roles(): HasMany
+    public function staff_roles(): BelongsToMany
     {
-        return $this->hasMany(StaffRole::class);
+        return $this->belongsToMany(StaffRole::class, 'staff_role_staff');
     }
 
     /**
+     * @todo
+     *
      * @return HasMany
      */
-    public function approvals(): HasMany
-    {
-        return $this->hasMany(self::class, 'approval_id');
-    }
+//    public function approvals(): HasMany
+//    {
+//        return $this->hasMany(self::class);
+//    }
 
     /**
      * @return BelongsTo
@@ -78,6 +85,6 @@ class Staff extends Model
      */
     public function teams_lead(): HasMany
     {
-        return $this->hasMany(Team::class, 'teams_lead_id');
+        return $this->hasMany(Team::class);
     }
 }

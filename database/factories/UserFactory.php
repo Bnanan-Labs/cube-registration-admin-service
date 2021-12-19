@@ -13,7 +13,7 @@ class UserFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->name();
         $wcaId = $this->faker->regexify(Wca::idRegex->value);
@@ -50,11 +50,21 @@ class UserFactory extends Factory
     }
 
     /**
+     * Indicates that the user has a manager role
+     *
+     * @return UserFactory
+     */
+    public function manager(): UserFactory
+    {
+        return $this->state(Fn (array $attributes): array => ['is_manager' => true]);
+    }
+
+    /**
      * Indicate that the model's email address should be unverified.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function unverified()
+    public function unverified(): Factory
     {
         return $this->state(function (array $attributes) {
             return [

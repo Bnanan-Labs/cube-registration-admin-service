@@ -1,15 +1,3 @@
-enum TShirtSizeEnum {
-    XXXSMALL
-    XXSMALL
-    XSMALL
-    SMALL
-    MEDIUM
-    LARGE
-    XLARGE
-    XXLARGE
-    XXXLARGE
-}
-
 type Staff {
     id: ID!
     first_name: String!
@@ -24,8 +12,8 @@ type Staff {
     staff_roles: [StaffRole!]! @hasMany
     approvals: [Staff!]! @hasMany
     team: Team @belongsTo
-    teams_lead: Team @hasMany
-    t_shirt_size: TShirtSizeEnum
+    teams_led: Team @hasMany
+    t_shirt_size: ShirtSize
 }
 
 input StaffBelongsToMany {
@@ -52,7 +40,7 @@ input RegisterStaffInput {
     events: EventsBelongsToMany
     priority_events: EventsBelongsToMany
     staff_roles: StaffRolesBelongsToMany
-    t_shirt_size: TShirtSizeEnum
+    t_shirt_size: ShirtSize
 }
 
 input ApproveStaffInput {
@@ -63,12 +51,13 @@ input CreateStaffInput {
     first_name: String!
     last_name: String!
     application: String!
+    wca_id: WcaId
     scrambling_qualifications: EventsBelongsToMany
     availability: DaysBelongsToMany
     events: EventsBelongsToMany
     priority_events: EventsBelongsToMany
     staff_roles: StaffRolesBelongsToMany
-    t_shirt_size: TShirtSizeEnum
+    t_shirt_size: ShirtSize
 }
 
 input UpdateStaffInput {
@@ -81,21 +70,36 @@ input UpdateStaffInput {
     events: EventsBelongsToMany
     priority_events: EventsBelongsToMany
     staff_roles: StaffRolesBelongsToMany
-    t_shirt_size: TShirtSizeEnum
+    t_shirt_size: ShirtSize
 }
 
 extend type Query {
-    staff(id: ID!): Staff @find
+    staff(id: ID!): Staff
+        @find
+        @guard
+        @can(ability: "manage", find: "id")
     staffs(
         team_id: ID @eq
         registration_status: RegistrationStatus @eq
-        t_shirt_size: TShirtSizeEnum @eq
-    ): [Staff!]! @paginate
+        t_shirt_size: ShirtSize @eq
+    ): [Staff!]!
+        @paginate
+        @guard
+        @can(ability: "manage", find: "id")
 }
 
 extend type Mutation {
     registerStaff(input: RegisterStaffInput! @spread): Staff!
+        @guard
     approveStaff(input: ApproveStaffInput! @spread): Staff!
-    createStaff(input: CreateStaffInput @spread): Staff! @create
-    updateStaff(input: UpdateStaffInput @spread): Staff! @update
+        @guard
+        @can(ability: "manage", find: "id")
+    createStaff(input: CreateStaffInput @spread): Staff!
+        @create
+        @guard
+        @can(ability: "manage")
+    updateStaff(input: UpdateStaffInput @spread): Staff!
+        @update
+        @guard
+        @can(ability: "manage")
 }

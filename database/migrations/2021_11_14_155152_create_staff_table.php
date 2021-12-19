@@ -17,7 +17,7 @@ class CreateStaffTable extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('wca_id');
+            $table->string('wca_id')->nullable();
             $table->text('application');
             $table->string('registration_status')->default('PENDING');
             $table->string('t_shirt_size')->nullable();

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\RegistrationStatus;
+use App\Enums\ShirtSize;
 use App\Enums\Wca;
 use App\Models\Staff;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +22,7 @@ class StaffFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'first_name' => $this->faker->sentence(2),
@@ -29,7 +30,7 @@ class StaffFactory extends Factory
             'wca_id' => $this->faker->regexify(Wca::idRegex->value),
             'application' => $this->faker->sentence(2),
             'registration_status' => $this->faker->randomElement(RegistrationStatus::cases()),
-            't_shirt_size' => $this->faker->randomLetter(),
+            't_shirt_size' => $this->faker->randomElement(ShirtSize::cases()),
 
         ];
     }
