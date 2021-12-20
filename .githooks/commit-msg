@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+echo "Verifying commit message format"
+
+# regex to validate in commit msg
+gitmoji_regex='^(:(broom|memo|sparkles|green_heart|bug|art|white_check_mark|arrow_up|recycle|wrench|pencil2):)'
+issue_reference_regex='(\((#[0-9]+ ?)+\)|[^\)])$'
+illegal_chars_regex="${gitmoji_regex}[^#\(\)]+$issue_reference_regex"
+message_regex="$gitmoji_regex [A-Z].+$issue_reference_regex"
+
+if ! grep -qE "$gitmoji_regex" "$1"; then
+    echo "Commit message is missing a prepended emoji! (see gitmoji.dev)" >&2
+    echo >&2
+    echo "Examples:" >&2
+    echo "  ':broom: ...' <- Cleanup" >&2
+    echo "  ':memo: ...' <- Documentation" >&2
+    echo "  ':sparkles: ...' <- New feature" >&2
+    exit 1
+fi
+
+if ! grep -qE "$issue_reference_regex" "$1"; then
+    echo "Commit message seems to have malformed issue references" >&2
+    echo >&2
+    echo "Examples:" >&2
+    echo "  '... (#13)' <- Single reference" >&2
+    echo "  '... (#13 #14)' <- Multiple references" >&2
+    echo "  '...' <- No reference" >&2
+    exit 1
+fi
+
+if ! grep -qE "$illegal_chars_regex" "$1"; then
+    echo "Commit message seems to either be malformed or containing illegal chars (eg. '#', '(' or ')' )" >&2
+    echo >&2
+    echo "Examples:" >&2
+    echo "  ':emoji: Message' <- Good message without issue reference" >&2
+    echo "  ':emoji: Message (#13)' <- Good message with issue reference" >&2
+    echo "  ':emoji: Message #13' <- Bad message, malformed issue reference" >&2
+    echo "  ':emoji: Message(cats are awesome)' <- Bad message, contains parenthesis" >&2
+    exit 1
+fi
+
+if ! grep -qE "$message_regex" "$1"; then
+    echo "Commit message must start with a capitalised letter" >&2
+    exit 1
+fi
