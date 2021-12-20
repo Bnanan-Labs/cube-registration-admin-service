@@ -27,7 +27,7 @@ You can find the GraphQL documentation in the GraphQL playground residing on the
 ## Setup
 Clone this repository
 ```
-git@github.com:Bnanan-Labs/cube-registration-admin-service.git
+git clone git@github.com:Bnanan-Labs/cube-registration-admin-service.git
 ```
 
 ### 1-command setup
