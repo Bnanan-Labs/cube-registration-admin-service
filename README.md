@@ -31,6 +31,8 @@ git clone git@github.com:Bnanan-Labs/cube-registration-admin-service.git
 ```
 
 ### 1-command setup
+**DOES NOT WORK WITH NEW MACBOOKS**
+
 If you just want to get going, you can setup the application with
 ```
 bash ./setup.sh
