@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\FinancialEntryType;
 use App\Services\Finances\Casts\MoneyBagCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,8 +13,11 @@ class FinancialEntry extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     protected $casts = [
         'balance' => MoneyBagCast::class,
+        'type' => FinancialEntryType::class,
     ];
 
     /**

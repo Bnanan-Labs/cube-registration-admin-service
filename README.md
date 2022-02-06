@@ -105,6 +105,17 @@ You can also specify specific tests filtered by a search string with the `--filt
 sail artisan test --filter staff
 ```
 
+If you want to generate a code coverage report you can use
+```
+sail artisan test --coverage-html reports/
+```
+
+### Static Code Analysis
+You can run PHPstan using
+```
+sail php ./vendor/bin/phpstan analyse
+```
+
 ### Migrations
 You can run migrations with
 ```

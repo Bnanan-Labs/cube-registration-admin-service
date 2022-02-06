@@ -14,4 +14,5 @@ parameters:
 
     checkMissingIterableValueType: false
     ignoreErrors:
-            - '#^Access to( an)? undefined (constant|property) (App\\[\\\\\w+]+\\Enums(\\\w+)+|UnitEnum)::\$?\w+\.$#'
+            - '/^Access to( an)? undefined (constant|property) (App\\[\\\\\w+]+\\Enums(\\\w+)+|UnitEnum)::\$?\w+\.$/'
+            - '/^Parameter #\d \$b of method App\\[\\\w+:\(\)]+ expects App\\[\\\w+]+(\\\w+), App\\[\\\w+]+Cast given.$/'

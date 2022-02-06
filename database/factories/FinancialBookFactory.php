@@ -26,7 +26,6 @@ class FinancialBookFactory extends Factory
             'balance' => new MoneyBag(amount: $this->faker->numberBetween(0,100)),
             'paid' => new MoneyBag(amount: $this->faker->numberBetween(0,100)),
             'total' => new MoneyBag(amount: $this->faker->numberBetween(0,100)),
-
         ];
     }
 }
