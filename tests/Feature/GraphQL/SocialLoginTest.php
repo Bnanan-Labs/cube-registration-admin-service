@@ -21,11 +21,6 @@ class SocialLoginTest extends GraphQLTestCase
      */
     public function testCanGrantToken()
     {
-        $input = [
-            'provider' => 'wca',
-            'token' => 'cats',
-        ];
-
         $user = [
             'id' => $this->faker()->uuid(),
             'name' => $this->faker()->name(),
@@ -44,14 +39,14 @@ class SocialLoginTest extends GraphQLTestCase
         Socialite::with('wca')->setHttpClient($client);
 
         $this->graphQL(/** @lang GraphQL */ '
-            mutation ($input: SocialLoginInput!)
+            mutation ($code: String!)
             {
-                socialLogin(input: $input) {
+                socialLogin(code: $code) {
                     token
                 }
             }
         ', [
-            'input' => $input,
+            'code' => 'cats',
         ])
             ->assertStatus(200)
             ->assertJsonStructure([

@@ -31,7 +31,7 @@ class SocialLogin
     #[ArrayShape(['token' => "string", 'user' => "App\\Models\\User"])]
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): array
     {
-        $this->request->merge(['code' => Arr::get($args, 'token')]);
+        $this->request->merge(['code' => Arr::get($args, 'code')]);
         $socialUser = Socialite::with('wca')->stateless()->user('wca');
 
         $user = User::firstOrCreate([
