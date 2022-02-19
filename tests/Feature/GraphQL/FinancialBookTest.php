@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\FinancialBook;
+use App\Models\User;
 use App\Services\Finances\MoneyBag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -16,13 +18,13 @@ class FinancialBookTest extends GraphQLTestCase
     public function testCanShowMoneyBagFields()
     {
         $book = FinancialBook::factory()->create([
-            'balance' => new MoneyBag(amount: $this->faker->numberBetween(-2000,2000)),
             'paid' => new MoneyBag(amount: $this->faker->numberBetween(1,2000)),
             'total' => new MoneyBag(amount: $this->faker->numberBetween(1,2000)),
         ]);
+        Competition::factory()->create();
         $competitor = Competitor::factory()->create(['financial_book_id' => $book->id]);
-
-        $this->authenticate();
+        $user = User::factory()->manager()->create();
+        $this->authenticate($user);
 
         $this->graphQL(/** @lang GraphQL */ '
             query competitor($id: ID!){

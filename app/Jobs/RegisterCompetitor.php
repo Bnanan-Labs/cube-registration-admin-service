@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\User;
 use Illuminate\Bus\Queueable;

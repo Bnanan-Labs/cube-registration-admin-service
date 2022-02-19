@@ -14,6 +14,7 @@ input CreateCompetitorInput {
     email: Email!
     wca_id: WcaId!
     nationality: String!
+    gender: String!
     registration_status: RegistrationStatus
     payment_status: PaymentStatus
     event_ids: [ID!]
@@ -33,28 +34,38 @@ type Competitor {
     first_name: String!
     last_name: String!
     wca_id: WcaId!
-    email: Email! @guard
+    email: Email! @guard @can(ability: "manage", model: "Competitor", query: true)
     registration_status: RegistrationStatus!
-    payment_status: PaymentStatus! @guard
+    payment_status: PaymentStatus! @guard @can(ability: "manage", model: "Competitor", query: true)
     has_podium_potential: Boolean!
     events: [Event!]! @belongsToMany
-    days: [Day!]! @belongsToMany @guard
+    days: [Day!]! @belongsToMany @guard @can(ability: "manage", model: "Competitor", query: true)
     nationality: String!
-    is_eligble_for_prizes: Boolean!
-    finances: FinancialBook! @guard
+    is_eligible_for_prizes: Boolean!
+    finances: FinancialBook! @guard @can(ability: "manage", model: "Competitor", query: true)
     created_at: DateTime!
     updated_at: DateTime
 }
 
 extend type Query {
-    competitors(events: [ID!], days: [ID!], is_eligble_for_prizes: Boolean @eq): [Competitor!]! @paginate
+    competitors(events: [ID!], days: [ID!], is_eligible_for_prizes: Boolean @eq): [Competitor!]! @paginate
     competitor(id: ID!): Competitor @find
 }
 
 extend type Mutation {
-    registerCompetitor(input: RegisterCompetitorInput @spread): RegistrationReceipt @guard
-    createCompetitor(input: CreateCompetitorInput @spread): Competitor @create
-    updateCompetitor(input: CreateCompetitorInput @spread): Competitor @update
-    deleteCompetitor(id: ID!): Competitor @delete
+    registerCompetitor(input: RegisterCompetitorInput @spread): RegistrationReceipt
+        @guard
+    createCompetitor(input: CreateCompetitorInput @spread): Competitor
+        @create
+        @guard
+        @can(ability: "crud")
+    updateCompetitor(input: CreateCompetitorInput @spread): Competitor
+        @update
+        @guard
+        @can(ability: "crud")
+    deleteCompetitor(id: ID!): Competitor
+        @delete
+        @guard
+        @can(ability: "crud")
 }
 

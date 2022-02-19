@@ -110,6 +110,15 @@ If you want to generate a code coverage report you can use
 sail artisan test --coverage-html reports/
 ```
 
+### IDE Helper for GraphQL
+For GraphQL support you also want to run Lighthouse's IDE helper, just be aware that PHPStorm's GraphQL plugin does not 
+support the syntax within this generated GraphQL file, thus you have to remove all occurences of the word`repeatable` 
+in the generated `schema.directives.graphql` file
+```
+sail artisan lighthouse:ide-helper
+```
+
+
 ### Static Code Analysis
 You can run PHPstan using
 ```

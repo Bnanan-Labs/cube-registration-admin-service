@@ -49,6 +49,14 @@ class Competitor extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function competition(): BelongsTo
+    {
+        return $this->belongsTo(Competition::class);
+    }
+
+    /**
      * @param array $teams
      */
     public function setWcaTeamsAttribute(array $teams): void

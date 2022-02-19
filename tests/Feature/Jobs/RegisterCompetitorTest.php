@@ -3,6 +3,7 @@
 namespace Tests\Feature\Jobs;
 
 use App\Jobs\RegisterCompetitor;
+use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\Day;
 use App\Models\Event;
@@ -17,6 +18,7 @@ class RegisterCompetitorTest extends GraphQLTestCase
 
     public function testCanRegisterCompetitor()
     {
+        Competition::factory()->create();
         $user = User::factory()->create();
         $events = Event::factory()->times(3)->create();
         $days = Day::factory()->times(4)->create();
