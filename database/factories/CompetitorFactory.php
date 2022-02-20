@@ -41,4 +41,15 @@ class CompetitorFactory extends Factory
             'competition_id' => Competition::factory()->create()->id,
         ];
     }
+
+    /**
+     * Indicates that the user has a manager role
+     *
+     * @param $competitionId
+     * @return CompetitorFactory
+     */
+    public function competition($competitionId): CompetitorFactory
+    {
+        return $this->state(Fn (array $attributes): array => ['competition_id' => $competitionId]);
+    }
 }

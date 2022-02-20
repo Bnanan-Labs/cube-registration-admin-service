@@ -22,6 +22,7 @@ class CreateStaffTable extends Migration
             $table->string('registration_status')->default('PENDING');
             $table->string('t_shirt_size')->nullable();
             $table->foreignId('team_id')->nullable();
+            $table->foreignId('competition_id')->nullable();
 
             $table->timestamps();
         });

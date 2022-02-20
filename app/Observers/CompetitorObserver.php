@@ -13,7 +13,7 @@ class CompetitorObserver
         if (!$competitor->isDirty('financial_book_id')) {
             $competitor->finances()->associate(FinancialBook::create());
         }
-        if (!$competitor->isDirty('competiton_id')) {
+        if (!$competitor->isDirty('competition_id')) {
             $competitor->competition()->associate(Competition::first());
         }
     }

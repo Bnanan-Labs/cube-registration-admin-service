@@ -18,6 +18,7 @@ class CreateStaffRolesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('target_size')->default(0);
+            $table->foreignId('competition_id')->nullable();
 
             $table->timestamps();
         });

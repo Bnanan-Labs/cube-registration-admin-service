@@ -4,7 +4,14 @@ type User {
     name: String
     avatar: String
     nationality: String
+    registrations(competition_id: ID): [UserRegistration] @field(resolver: "App\\GraphQL\\Queries\\Me@registrations")
     gender: String
+}
+
+type UserRegistration {
+    competition: Competition
+    competitor: Competitor
+    staff: Staff
 }
 
 type AuthPayload {
@@ -41,6 +48,10 @@ type LogoutResponse {
 #    password: String! @rules(apply: ["required", "confirmed", "min:8"])
 #    password_confirmation: String!
 #}
+
+extend type Query {
+    me: User
+}
 
 extend type Mutation {
 #    login(input: LoginInput @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")

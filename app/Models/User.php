@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -38,6 +40,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function competitors(): HasMany
+    {
+        return $this->hasMany(Competitor::class, 'wca_id', 'wca_id');
+    }
+
+    public function staffs(): HasMany
+    {
+        return $this->hasMany(Staff::class, 'wca_id', 'wca_id');
+    }
+
+    public function getCompetitionsAttribute(): Collection
+    {
+        $competitionIds = $this->competitors->map(Fn (Competitor $c) => $c->competition_id);
+        $competitionIds->union($this->staffs->map(Fn (Staff $s) => $s->competition_id));
+        return $competitionIds->map(Fn ($id) => Competition::find($id));
+    }
 
     public function getWcaAttribute(): object
     {

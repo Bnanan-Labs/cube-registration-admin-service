@@ -18,6 +18,7 @@ class CreateTeamsTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->foreignId('leader_id')->nullable();
+            $table->foreignId('competition_id')->nullable();
 
             $table->timestamps();
         });
