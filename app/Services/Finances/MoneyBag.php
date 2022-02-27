@@ -2,8 +2,6 @@
 
 namespace App\Services\Finances;
 
-use App\Services\Finances\Casts\MoneyBagCast;
-
 class MoneyBag
 {
     public function __construct(public int $amount = 0, public string $currency = 'EUR')

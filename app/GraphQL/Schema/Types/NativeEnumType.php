@@ -31,7 +31,7 @@ class NativeEnumType extends EnumType
         parent::__construct([
             'name' => $name ?? class_basename($enumClass),
             'values' => array_reduce($enumClass::cases(),
-                function ($acc, $enum) {
+                function (array $acc, \BackedEnum $enum) {
                     $acc[$enum->value] = [
                         'value' => $enum->value,
                         'description' => '' // todo: Add description for enums
@@ -49,7 +49,7 @@ class NativeEnumType extends EnumType
      */
     public function serialize($value): string
     {
-        if (! $value instanceof \UnitEnum) {
+        if (! $value instanceof \BackedEnum) {
             throw new Exception();
         }
 
