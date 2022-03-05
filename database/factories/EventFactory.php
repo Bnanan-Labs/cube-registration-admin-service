@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Event;
+use App\Services\Wca\Enums\Event as WcaEvent;
 use App\Services\Finances\MoneyBag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,6 +25,7 @@ class EventFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(2),
+            'wca_event_id' => $this->faker->randomElement(WcaEvent::cases())->value,
             'qualification_limit' => $this->faker->numberBetween(0,100),
             'cutoff_limit' => $this->faker->numberBetween(0,100),
             'competitor_limit' => $this->faker->randomNumber(),

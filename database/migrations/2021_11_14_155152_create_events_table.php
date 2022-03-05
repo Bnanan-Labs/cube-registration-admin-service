@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Wca\Enums\Event;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('wca_event_id')->nullable();
             $table->string('title');
             $table->string('qualification_limit')->nullable();
             $table->string('cutoff_limit')->nullable();
