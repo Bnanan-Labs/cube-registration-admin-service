@@ -28,6 +28,7 @@ class EventTest extends GraphQLTestCase
                     result_format
                     qualification_limit
                     cutoff_limit
+                    time_limit
                 }
             }
         ', [
@@ -43,6 +44,7 @@ class EventTest extends GraphQLTestCase
                     'result_format' => $event->result_format,
                     'qualification_limit' => $event->qualification_limit,
                     'cutoff_limit' => $event->cutoff_limit,
+                    'time_limit' => $event->time_limit,
                 ],
             ],
         ]);

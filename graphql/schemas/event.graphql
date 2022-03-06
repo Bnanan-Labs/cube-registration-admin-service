@@ -7,6 +7,7 @@ type Event {
     result_format: String
     qualification_limit: TimeMs
     cutoff_limit: TimeMs
+    time_limit: TimeMs
     competitor_limit: Int
     fee: MoneyBag
     competitors: [Competitor!]! @belongsToMany
@@ -23,6 +24,7 @@ input CreateEventMutation {
     title: String!
     qualification_limit: TimeMs
     cutoff_limit: TimeMs
+    time_limit: TimeMs
     competitor_limit: TimeMs
     fee: MoneyBagInput
 }
@@ -32,6 +34,7 @@ input UpdateEventMutation {
     title: String
     qualification_limit: TimeMs
     cutoff_limit: TimeMs
+    time_limit: TimeMs
     competitor_limit: TimeMs
     fee: MoneyBagInput
 }

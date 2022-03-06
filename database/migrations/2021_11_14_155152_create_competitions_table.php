@@ -24,6 +24,8 @@ class CreateCompetitionsTable extends Migration
             $table->timestamp('volunteer_registration_starts')->nullable();
             $table->timestamp('volunteer_registration_ends')->nullable();
             $table->integer('base_fee')->nullable();
+            $table->integer('guest_fee')->nullable();
+            $table->string('currency')->nullable();
             $table->integer('competitor_limit')->nullable();
             $table->integer('spectator_limit')->nullable();
             $table->foreignId('financial_book_id');

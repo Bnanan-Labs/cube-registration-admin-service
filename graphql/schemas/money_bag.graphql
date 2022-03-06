@@ -5,13 +5,13 @@ enum CurrencyEnum {
 }
 
 input MoneyBagInput {
-    currency: CurrencyEnum
+    currency: CurrencyEnum!
     # presented in minor unit, eg. 100 = 1 EUR, 100 = 1 DKK, 100 = 100 JPY
-    amount: Int
+    amount: Int!
 }
 
 type MoneyBag {
-    currency: CurrencyEnum
+    currency: CurrencyEnum!
     # presented in minor unit, eg. 100 = 1 EUR, 100 = 1 DKK, 100 = 100 JPY
-    amount: Int
+    amount: Int!
 }

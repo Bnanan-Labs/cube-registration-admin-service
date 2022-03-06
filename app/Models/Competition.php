@@ -15,6 +15,7 @@ class Competition extends Model
 
     protected $casts = [
         'base_fee' => MoneyBagCast::class,
+        'guest_fee' => MoneyBagCast::class,
         'is_active' => 'boolean',
     ];
 

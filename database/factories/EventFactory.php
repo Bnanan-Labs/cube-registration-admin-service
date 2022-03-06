@@ -28,7 +28,8 @@ class EventFactory extends Factory
             'wca_event_id' => $this->faker->randomElement(WcaEvent::cases())->value,
             'qualification_limit' => $this->faker->numberBetween(0,100),
             'cutoff_limit' => $this->faker->numberBetween(0,100),
-            'competitor_limit' => $this->faker->randomNumber(),
+            'competitor_limit' => $this->faker->numberBetween(100, 300),
+            'time_limit' => $this->faker->numberBetween(0, 100),
             'competition_id' => $this->faker->numberBetween(0, 100),
             'fee' => new MoneyBag(amount: $this->faker->numberBetween(0,100)),
         ];

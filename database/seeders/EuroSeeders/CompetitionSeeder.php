@@ -25,7 +25,9 @@ class CompetitionSeeder extends Seeder
             'registration_ends' => Carbon::create(2022, 6),
             'volunteer_registration_starts' => Carbon::create(2022, 2),
             'volunteer_registration_ends' => Carbon::create(2022, 7),
-            'base_fee' => new MoneyBag(amount: 40000),
+            'base_fee' => new MoneyBag(amount: 20000),
+            'guest_fee' => new MoneyBag(amount: 20000),
+            'currency' => 'DKK',
             'competitor_limit' => 1200,
             'spectator_limit' => 3,
         ]);

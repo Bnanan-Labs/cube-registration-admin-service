@@ -64,8 +64,12 @@ class CompetitionTest extends GraphQLTestCase
             'volunteer_registration_starts' => now()->toDateTimeString(),
             'volunteer_registration_ends' => now()->addMonth()->addDays(7)->toDateTimeString(),
             'base_fee' => [
-                'currency' => 'EUR',
+                'currency' => 'DKK',
                 'amount' => 37,
+            ],
+            'guest_fee' => [
+                'currency' => 'DKK',
+                'amount' => 42,
             ],
             'competitor_limit' => 100,
             'spectator_limit' => 200,
@@ -79,6 +83,10 @@ class CompetitionTest extends GraphQLTestCase
                     start_date
                     end_date
                     base_fee {
+                        currency
+                        amount
+                    }
+                    guest_fee {
                         currency
                         amount
                     }
@@ -99,6 +107,7 @@ class CompetitionTest extends GraphQLTestCase
                     'id' => $competition->id,
                     'title' => $competitionInput['title'],
                     'base_fee' => $competitionInput['base_fee'],
+                    'guest_fee' => $competitionInput['guest_fee'],
                     'start_date' => $competitionInput['start_date'],
                     'end_date' => $competitionInput['end_date'],
                     'registration_starts' => $competitionInput['registration_starts'],
