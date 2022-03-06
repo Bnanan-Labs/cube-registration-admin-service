@@ -20,6 +20,7 @@ class CreateSpectatorsTable extends Migration
             $table->string('email');
             $table->string('registration_status')->default('PENDING');
             $table->string('payment_status')->default('MISSING_PAYMENT');
+            $table->foreignId('competition_id');
 
             $table->timestamps();
         });

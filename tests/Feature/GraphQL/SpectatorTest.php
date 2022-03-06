@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Models\Competition;
 use App\Models\Day;
 use App\Models\Spectator;
 use App\Models\User;
@@ -51,6 +52,7 @@ class SpectatorTest extends GraphQLTestCase
         /** @var User $user */
         $user = User::factory()->create(['is_manager' => true]);
         $this->authenticate($user);
+        Competition::factory()->create(); // otherwise, we can't connect the spectator to a comp
         $day = Day::factory()->create();
 
         $input = [

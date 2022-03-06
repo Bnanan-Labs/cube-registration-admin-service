@@ -3,6 +3,11 @@
 namespace Tests\Feature\GraphQL;
 
 use App\Models\Competition;
+use App\Models\Competitor;
+use App\Models\Day;
+use App\Models\Event;
+use App\Models\Spectator;
+use App\Models\Staff;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\GraphQLTestCase;
@@ -251,5 +256,71 @@ class CompetitionTest extends GraphQLTestCase
         $this->authenticate($nonManager);
         $this->graphQL( $query, ['id' => $competition->id])
             ->assertJSON(self::UNAUTHORIZED_RESPONSE);
+    }
+
+    public function testCanQueryRelationships(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create(['is_manager' => true]);
+        $this->authenticate($user);
+
+        $competitor = Competitor::factory()->create();
+        $spectator = Spectator::factory()->create();
+        $staff = Staff::factory()->create();
+        $event = Event::factory()->create();
+        $day = Day::factory()->create();
+
+        $competition = Competition::factory()->create();
+        $competition->competitors()->save($competitor);
+        $competition->spectators()->save($spectator);
+        $competition->staff()->save($staff);
+        $competition->events()->save($event);
+        $competition->days()->save($day);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query ($id: ID!){
+                competition(id: $id) {
+                    id
+                    competitors {
+                        id
+                    }
+                    spectators {
+                        id
+                    }
+                    staff {
+                        id
+                    }
+                    events {
+                        id
+                    }
+                    days {
+                        id
+                    }
+                }
+            }
+        ', [
+            'id' => $competition->id
+        ])->assertJSON([
+            'data' => [
+                'competition' => [
+                    'id' => $competition->id,
+                    'competitors' => [[
+                        'id' => $competitor->id,
+                    ]],
+                    'spectators' => [[
+                        'id' => $spectator->id,
+                    ]],
+                    'staff' => [[
+                        'id' => $staff->id,
+                    ]],
+                    'events' => [[
+                        'id' => $event->id,
+                    ]],
+                    'days' => [[
+                        'id' => $day->id,
+                    ]],
+                ]
+            ]
+        ]);
     }
 }

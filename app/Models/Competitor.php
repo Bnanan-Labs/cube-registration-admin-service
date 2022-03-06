@@ -65,10 +65,10 @@ class Competitor extends Model
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      * @return Collection
      */
-    public function getWcaTeamsAttribute(string $value): Collection
+    public function getWcaTeamsAttribute(?string $value): Collection
     {
         if (!$value) {
             return collect([]);
