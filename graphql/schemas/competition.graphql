@@ -9,6 +9,7 @@ input UpdateCompetitionInput {
     volunteer_registration_ends: DateTime
     base_fee: MoneyBagInput
     guest_fee: MoneyBagInput
+    currency: CurrencyEnum
     competitor_limit: Int @rules(apply: ["min:0"])
     spectator_limit: Int @rules(apply: ["min:0"])
 }
@@ -25,6 +26,7 @@ type Competition {
     volunteer_registration_ends: DateTime
     base_fee: MoneyBag
     guest_fee: MoneyBag
+    currency: String!
     finances: FinancialBook! @guard @can(ability: "manage", model: "Competition", query: true)
     competitor_limit: Int
     spectator_limit: Int

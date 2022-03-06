@@ -59,6 +59,7 @@ class CompetitionTest extends GraphQLTestCase
         $this->authenticate($manager);
 
         $competition = Competition::factory()->create();
+        $currency = 'DKK';
         $competitionInput = [
             'id' => $competition->id,
             'title' => 'Random Competition 2099',
@@ -69,13 +70,14 @@ class CompetitionTest extends GraphQLTestCase
             'volunteer_registration_starts' => now()->toDateTimeString(),
             'volunteer_registration_ends' => now()->addMonth()->addDays(7)->toDateTimeString(),
             'base_fee' => [
-                'currency' => 'DKK',
+                'currency' => $currency,
                 'amount' => 37,
             ],
             'guest_fee' => [
-                'currency' => 'DKK',
+                'currency' => $currency,
                 'amount' => 42,
             ],
+            'currency' => $currency,
             'competitor_limit' => 100,
             'spectator_limit' => 200,
         ];
@@ -95,6 +97,7 @@ class CompetitionTest extends GraphQLTestCase
                         currency
                         amount
                     }
+                    currency
                     registration_starts
                     registration_ends
                     volunteer_registration_starts
@@ -113,6 +116,7 @@ class CompetitionTest extends GraphQLTestCase
                     'title' => $competitionInput['title'],
                     'base_fee' => $competitionInput['base_fee'],
                     'guest_fee' => $competitionInput['guest_fee'],
+                    'currency' => $competitionInput['currency'],
                     'start_date' => $competitionInput['start_date'],
                     'end_date' => $competitionInput['end_date'],
                     'registration_starts' => $competitionInput['registration_starts'],
