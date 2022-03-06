@@ -52,7 +52,7 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PASSWORD: secret
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
-        run: phpdbg -qrr vendor/bin/phpunit --testdox -d memory_limit=512M --coverage-clover clover.xml
+        run: phpdbg -qrr vendor/bin/phpunit --testdox -d memory_limit=1024M --coverage-clover clover.xml
 
       - name: Upload coverage to Codecov.io
         shell: bash
