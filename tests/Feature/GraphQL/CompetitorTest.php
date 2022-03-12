@@ -92,6 +92,98 @@ class CompetitorTest extends GraphQLTestCase
         ]);
     }
 
+    public function testCanQueryACompetitorWithSensitiveDataAsCompetitor(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
+        $competitor = Competitor::factory()->create(['wca_id' => $user->wca_id]);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query ($id: ID!){
+                competitor(id: $id) {
+                    id
+                    first_name
+                    last_name
+                    wca_id
+                    email
+                    registration_status
+                    payment_status
+                    has_podium_potential
+                    nationality
+                    is_eligible_for_prizes
+                }
+            }
+        ', [
+            'id' => $competitor->id
+        ])->assertJSON([
+            'data' => [
+                'competitor' => [
+                    'id' => $competitor->id,
+                    'first_name' => $competitor->first_name,
+                    'last_name' => $competitor->last_name,
+                    'wca_id' => $competitor->wca_id,
+                    'email' => $competitor->email,
+                    'registration_status' => $competitor->registration_status->value,
+                    'payment_status' => $competitor->payment_status->value,
+                    'has_podium_potential' => $competitor->has_podium_potential,
+                    'nationality' => $competitor->nationality,
+                    'is_eligible_for_prizes' => $competitor->is_eligible_for_prizes,
+                ]
+            ]
+        ]);
+    }
+
+    public function testCanQueryACompetitorThroughMeQuery(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
+        $competitor = Competitor::factory()->create(['wca_id' => $user->wca_id]);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query {
+                me {
+                    registrations {
+                        competitor {
+                            id
+                            first_name
+                            last_name
+                            wca_id
+                            email
+                            registration_status
+                            payment_status
+                            has_podium_potential
+                            nationality
+                            is_eligible_for_prizes
+                        }
+                    }
+                }
+            }
+        ', [
+            'id' => $competitor->id
+        ])->assertJSON([
+            'data' => [
+                'me' => [
+                    'registrations' => [[
+                        'competitor' => [
+                            'id' => $competitor->id,
+                            'first_name' => $competitor->first_name,
+                            'last_name' => $competitor->last_name,
+                            'wca_id' => $competitor->wca_id,
+                            'email' => $competitor->email,
+                            'registration_status' => $competitor->registration_status->value,
+                            'payment_status' => $competitor->payment_status->value,
+                            'has_podium_potential' => $competitor->has_podium_potential,
+                            'nationality' => $competitor->nationality,
+                            'is_eligible_for_prizes' => $competitor->is_eligible_for_prizes,
+                        ],
+                    ]],
+                ],
+            ],
+        ]);
+    }
+
     public function testCanGuardCompetitorsSensitiveFields(): void
     {
         /** @var User $user */
