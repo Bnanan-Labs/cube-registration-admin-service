@@ -188,4 +188,49 @@ class CompetitorTest extends GraphQLTestCase
                 ],
             ]);
     }
+
+    public function testCanUpdateCompetitorMutation(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->manager()->create();
+        $competitor = Competitor::factory()->create();
+
+
+        $input = [
+            'id' => $competitor->id,
+            'first_name' => 'test',
+            'last_name' => 'test',
+            'gender' => 'f',
+            'email' => $this->faker->email(),
+            'nationality' => 'DENMARK',
+        ];
+
+        $query = /** @lang GraphQL */ '
+            mutation updateCompetitor ($input: UpdateCompetitorInput!){
+                updateCompetitor(input: $input) {
+                    id
+                    first_name
+                    last_name
+                    gender
+                    email
+                    nationality
+                }
+            }
+        ';
+
+        $this->authenticate($user);
+        $this->graphQL($query, ['input' => $input])
+            ->assertJSON([
+                'data' => [
+                    'updateCompetitor' => [
+                        'id' => $input['id'],
+                        'first_name' => $input['first_name'],
+                        'last_name' => $input['last_name'],
+                        'gender' => $input['gender'],
+                        'email' => $input['email'],
+                        'nationality' => $input['nationality'],
+                    ],
+                ],
+            ]);
+    }
 }

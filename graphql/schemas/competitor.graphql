@@ -21,6 +21,17 @@ input CreateCompetitorInput {
     day_ids: [ID!]
 }
 
+input UpdateCompetitorInput {
+    id: ID!
+    first_name: String
+    last_name: String
+    email: Email
+    nationality: String
+    gender: String
+    event_ids: [ID!]
+    day_ids: [ID!]
+}
+
 type RegistrationReceipt {
     id: ID!
     first_name: String!
@@ -35,6 +46,7 @@ type Competitor {
     last_name: String!
     wca_id: WcaId!
     email: Email! @guard @can(ability: "manage", model: "Competitor", query: true)
+    gender: String! @guard @can(ability: "manage", model: "Competitor", query: true)
     registration_status: RegistrationStatus!
     payment_status: PaymentStatus! @guard @can(ability: "manage", model: "Competitor", query: true)
     has_podium_potential: Boolean!
@@ -59,7 +71,7 @@ extend type Mutation {
         @create
         @guard
         @can(ability: "crud")
-    updateCompetitor(input: CreateCompetitorInput @spread): Competitor
+    updateCompetitor(input: UpdateCompetitorInput @spread): Competitor
         @update
         @guard
         @can(ability: "crud")
