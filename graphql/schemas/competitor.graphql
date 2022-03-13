@@ -47,6 +47,8 @@ type Competitor {
     wca_id: WcaId!
     email: Email! @guard @can(ability: "manage", model: "Competitor", query: true)
     gender: String! @guard @can(ability: "manage", model: "Competitor", query: true)
+    guests: [String!] @guard @can(ability: "manage", model: "Competitor", query: true)
+    number_of_guests: Int! @rename(attribute: "numberOfGuests")
     registration_status: RegistrationStatus!
     payment_status: PaymentStatus! @guard @can(ability: "manage", model: "Competitor", query: true)
     has_podium_potential: Boolean!

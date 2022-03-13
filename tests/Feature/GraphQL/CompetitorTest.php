@@ -55,7 +55,7 @@ class CompetitorTest extends GraphQLTestCase
         /** @var User $user */
         $user = User::factory()->manager()->create();
         $this->authenticate($user);
-        $competitor = Competitor::factory()->create();
+        $competitor = Competitor::factory()->create(['guests' => ['a', 'b', 'c']]);
 
         $this->graphQL(/** @lang GraphQL */ '
             query ($id: ID!){
@@ -65,6 +65,8 @@ class CompetitorTest extends GraphQLTestCase
                     last_name
                     wca_id
                     email
+                    guests
+                    number_of_guests
                     registration_status
                     payment_status
                     has_podium_potential
@@ -82,6 +84,8 @@ class CompetitorTest extends GraphQLTestCase
                     'last_name' => $competitor->last_name,
                     'wca_id' => $competitor->wca_id,
                     'email' => $competitor->email,
+                    'guests' => $competitor->guests->toArray(),
+                    'number_of_guests' => $competitor->numberOfGuests,
                     'registration_status' => $competitor->registration_status->value,
                     'payment_status' => $competitor->payment_status->value,
                     'has_podium_potential' => $competitor->has_podium_potential,

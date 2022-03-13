@@ -97,4 +97,12 @@ class Competitor extends Model
 
         return collect(explode(',', $value));
     }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfGuestsAttribute(): int
+    {
+        return $this->guests->count();
+    }
 }

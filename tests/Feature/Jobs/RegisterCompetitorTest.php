@@ -63,5 +63,6 @@ class RegisterCompetitorTest extends GraphQLTestCase
         $this->assertEquals(3, $competitor->events()->count());
         $this->assertEquals(4, $competitor->days()->count());
         $this->assertEquals(2, $competitor->guests->count());
+        $this->assertEquals(2, $competitor->numberOfGuests);
     }
 }
