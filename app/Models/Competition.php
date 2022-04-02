@@ -17,6 +17,10 @@ class Competition extends Model
     protected $casts = [
         'base_fee' => MoneyBagCast::class,
         'guest_fee' => MoneyBagCast::class,
+        'registration_starts' => 'datetime',
+        'registration_ends' => 'datetime',
+        'volunteer_registration_starts' => 'datetime',
+        'volunteer_registration_ends' => 'datetime',
         'is_active' => 'boolean',
     ];
 

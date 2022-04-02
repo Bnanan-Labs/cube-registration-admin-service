@@ -24,6 +24,7 @@ class DayFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => $this->faker->unique()->uuid(),
             'title' => $this->faker->sentence(2),
             'week_day' => $this->faker->numberBetween(0,6),
             'date' => $this->faker->date(),

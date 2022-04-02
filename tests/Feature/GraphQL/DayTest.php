@@ -4,7 +4,6 @@ namespace Tests\Feature\GraphQL;
 
 use App\Models\Competition;
 use App\Models\Day;
-use App\Models\Spectator;
 use App\Models\User;
 use App\Services\Finances\MoneyBag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
