@@ -14,7 +14,7 @@ class CreateFinancialBooksTable extends Migration
     public function up()
     {
         Schema::create('financial_books', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->integer('balance')->default(0);
             $table->integer('paid')->default(0);
             $table->integer('total')->default(0);

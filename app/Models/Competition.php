@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\Finances\Casts\MoneyBagCast;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Competition extends Model
 {
-    use HasFactory;
+    use HasFactory, Uuid;
 
     protected $casts = [
         'base_fee' => MoneyBagCast::class,

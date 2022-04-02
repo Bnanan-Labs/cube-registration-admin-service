@@ -15,8 +15,8 @@ class CreateStaffRoleStaffTable extends Migration
     {
         Schema::create('staff_role_staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('staff_role_id');
-            $table->foreignId('staff_id');
+            $table->foreignUuid('staff_role_id');
+            $table->foreignUuid('staff_id');
 
             $table->timestamps();
         });

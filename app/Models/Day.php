@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Services\Finances\Casts\MoneyBagCast;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 class Day extends Model
 {
-    use HasFactory;
+    use HasFactory, Uuid;
 
     protected $casts = [
         'price' => MoneyBagCast::class,
@@ -18,4 +20,11 @@ class Day extends Model
 
     protected $guarded = ['id'];
 
+    /**
+     * @return BelongsTo
+     */
+    public function competition(): BelongsTo
+    {
+        return $this->belongsTo(Competition::class);
+    }
 }

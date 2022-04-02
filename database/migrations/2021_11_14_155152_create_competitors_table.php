@@ -14,7 +14,7 @@ class CreateCompetitorsTable extends Migration
     public function up()
     {
         Schema::create('competitors', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('first_name')->index();
             $table->string('last_name')->index();
             $table->string('wca_id')->index();
@@ -29,8 +29,8 @@ class CreateCompetitorsTable extends Migration
             $table->boolean('has_podium_potential')->default(false)->index();
             $table->boolean('is_eligible_for_prizes')->default(false);
             $table->boolean('is_interested_in_nations_cup')->default(false);
-            $table->foreignId('financial_book_id');
-            $table->foreignId('competition_id');
+            $table->foreignUuid('financial_book_id');
+            $table->foreignUuid('competition_id');
 
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Services\Finances\Casts\MoneyBagCast;
 use App\Services\Finances\MoneyBag;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class FinancialBook extends Model
 {
-    use HasFactory;
+    use HasFactory, Uuid;
 
     protected $casts = [
         'balance' => MoneyBagCast::class,
@@ -32,7 +33,7 @@ class FinancialBook extends Model
      */
     public function entries(): HasMany
     {
-        return $this->hasMany(FinancialEntry::class, 'financial_book_id')->orderByDesc('created_at');
+        return $this->hasMany(FinancialEntry::class, 'financial_book_id')->orderBy('booked_at');
     }
 
     /**

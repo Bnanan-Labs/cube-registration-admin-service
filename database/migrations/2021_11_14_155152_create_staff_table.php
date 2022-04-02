@@ -14,15 +14,15 @@ class CreateStaffTable extends Migration
     public function up()
     {
         Schema::create('staff', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('wca_id')->nullable();
             $table->text('application');
             $table->string('registration_status')->default('PENDING');
             $table->string('t_shirt_size')->nullable();
-            $table->foreignId('team_id')->nullable();
-            $table->foreignId('competition_id')->nullable();
+            $table->foreignUuid('team_id')->nullable();
+            $table->foreignUuid('competition_id')->nullable();
 
             $table->timestamps();
         });

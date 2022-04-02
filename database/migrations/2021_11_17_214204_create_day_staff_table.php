@@ -15,8 +15,8 @@ class CreateDayStaffTable extends Migration
     {
         Schema::create('day_staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('staff_id');
-            $table->foreignId('day_id');
+            $table->foreignUuid('staff_id');
+            $table->foreignUuid('day_id');
 
             $table->timestamps();
         });

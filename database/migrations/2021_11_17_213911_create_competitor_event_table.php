@@ -18,8 +18,8 @@ class CreateCompetitorEventTable extends Migration
             $table->integer('best_single')->nullable();
             $table->integer('best_average')->nullable();
             $table->integer('ranking')->nullable();
-            $table->foreignId('competitor_id');
-            $table->foreignId('event_id');
+            $table->foreignUuid('competitor_id');
+            $table->foreignUuid('event_id');
 
             $table->timestamps();
         });

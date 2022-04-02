@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Models\Competition;
 use App\Models\Day;
 use App\Models\Spectator;
 use App\Models\User;
@@ -18,6 +19,7 @@ class DayTest extends GraphQLTestCase
 
     public function testCanViewAllFields()
     {
+        Competition::factory()->create();
         $day = Day::factory()->create();
 
         $this->graphQL(/** @lang GraphQL */ '
@@ -53,6 +55,7 @@ class DayTest extends GraphQLTestCase
 
     public function testCanCreateEndpoint()
     {
+        Competition::factory()->create();
         /** @var User $user */
         $user = User::factory()->create(['is_manager' => true]);
         $this->authenticate($user);
@@ -97,6 +100,7 @@ class DayTest extends GraphQLTestCase
 
     public function testCanUpdateEndpoint()
     {
+        Competition::factory()->create();
         /** @var User $user */
         $user = User::factory()->create(['is_manager' => true]);
         $this->authenticate($user);
@@ -141,6 +145,7 @@ class DayTest extends GraphQLTestCase
 
     public function testCanDeleteEndpoint()
     {
+        Competition::factory()->create();
         /** @var User $user */
         $user = User::factory()->create(['is_manager' => true]);
         $this->authenticate($user);

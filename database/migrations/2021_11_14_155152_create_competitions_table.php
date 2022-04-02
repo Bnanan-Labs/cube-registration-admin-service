@@ -14,7 +14,7 @@ class CreateCompetitionsTable extends Migration
     public function up()
     {
         Schema::create('competitions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->date('start_date');
             $table->date('end_date');
@@ -28,7 +28,7 @@ class CreateCompetitionsTable extends Migration
             $table->string('currency')->nullable();
             $table->integer('competitor_limit')->nullable();
             $table->integer('spectator_limit')->nullable();
-            $table->foreignId('financial_book_id');
+            $table->foreignUuid('financial_book_id');
 
             $table->timestamps();
         });

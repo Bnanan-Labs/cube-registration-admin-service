@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\RegistrationStatus;
 use App\Enums\ShirtSize;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Staff extends Model
 {
-    use HasFactory;
+    use HasFactory, Uuid;
 
     protected $casts = [
         'registration_status' => RegistrationStatus::class,

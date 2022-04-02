@@ -15,7 +15,7 @@ class CreateEventsTable extends Migration
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('wca_event_id')->nullable();
             $table->string('title');
             $table->integer('qualification_limit')->nullable();
@@ -23,7 +23,7 @@ class CreateEventsTable extends Migration
             $table->integer('competitor_limit')->nullable();
             $table->integer('time_limit')->nullable();
             $table->integer('fee')->nullable();
-            $table->foreignId('competition_id');
+            $table->foreignUuid('competition_id');
 
             $table->timestamps();
         });

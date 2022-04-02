@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Competition;
 use App\Models\Day;
 
 class DayObserver
@@ -15,7 +16,9 @@ class DayObserver
     public function creating(Day $day): void
     {
         $day->week_day = $day->date->weekday();
-        $day->competition_id = 1;
+        if (!$day->isDirty('competition_id')) {
+            $day->competition()->associate(Competition::first());
+        }
     }
 
     public function created(Day $day): void

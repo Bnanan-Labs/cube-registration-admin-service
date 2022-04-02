@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\Finances\Casts\MoneyBagCast;
 use App\Services\Wca\Wca;
 use App\Services\Wca\Enums\Event as EventEnum;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Event extends Model
 {
-    use HasFactory;
+    use HasFactory, Uuid;
 
     protected $casts = [
         'fee' => MoneyBagCast::class,

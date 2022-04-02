@@ -14,11 +14,11 @@ class CreateTeamsTable extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->foreignId('leader_id')->nullable();
-            $table->foreignId('competition_id')->nullable();
+            $table->foreignUuid('leader_id')->nullable();
+            $table->foreignUuid('competition_id')->nullable();
 
             $table->timestamps();
         });

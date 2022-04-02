@@ -14,12 +14,12 @@ class CreateFinancialEntriesTable extends Migration
     public function up()
     {
         Schema::create('financial_entries', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('type')->index();
             $table->string('title')->nullable();
             $table->integer('balance')->default(0);
             $table->timestamp('booked_at')->nullable();
-            $table->foreignId('financial_book_id');
+            $table->foreignUuid('financial_book_id');
 
             $table->timestamps();
         });

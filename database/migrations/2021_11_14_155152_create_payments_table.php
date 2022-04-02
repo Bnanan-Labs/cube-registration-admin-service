@@ -14,10 +14,10 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->integer('total');
             $table->string('extra')->nullable();
-            $table->foreignId('financial_book_id');
+            $table->foreignUuid('financial_book_id');
 
             $table->timestamps();
         });

@@ -14,11 +14,11 @@ class CreateStaffRolesTable extends Migration
     public function up()
     {
         Schema::create('staff_roles', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->text('description');
             $table->integer('target_size')->default(0);
-            $table->foreignId('competition_id')->nullable();
+            $table->foreignUuid('competition_id')->nullable();
 
             $table->timestamps();
         });

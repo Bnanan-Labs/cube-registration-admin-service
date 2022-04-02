@@ -14,14 +14,14 @@ class CreateDaysTable extends Migration
     public function up()
     {
         Schema::create('days', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title')->nullable();
             $table->integer('week_day');
             $table->integer('sort_id')->default(0);
             $table->date('date');
             $table->string('price')->nullable();
             $table->boolean('is_bookable')->default(false);
-            $table->foreignId('competition_id');
+            $table->foreignUuid('competition_id');
 
             $table->timestamps();
         });

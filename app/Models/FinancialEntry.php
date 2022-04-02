@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\FinancialEntryType;
 use App\Services\Finances\Casts\MoneyBagCast;
+use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FinancialEntry extends Model
 {
-    use HasFactory;
+    use HasFactory, Uuid;
 
     protected $guarded = ['id'];
 

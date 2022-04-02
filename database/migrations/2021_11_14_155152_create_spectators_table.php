@@ -14,13 +14,13 @@ class CreateSpectatorsTable extends Migration
     public function up()
     {
         Schema::create('spectators', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
             $table->string('registration_status')->default('PENDING');
             $table->string('payment_status')->default('MISSING_PAYMENT');
-            $table->foreignId('competition_id');
+            $table->foreignUuid('competition_id');
 
             $table->timestamps();
         });

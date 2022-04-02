@@ -15,8 +15,8 @@ class CreateCompetitorDayTable extends Migration
     {
         Schema::create('competitor_day', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('competitor_id');
-            $table->foreignId('day_id');
+            $table->foreignUuid('competitor_id');
+            $table->foreignUuid('day_id');
 
             $table->timestamps();
         });

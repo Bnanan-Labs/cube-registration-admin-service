@@ -15,8 +15,8 @@ class CreateDaySpectatorTable extends Migration
     {
         Schema::create('day_spectator', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('spectator_id');
-            $table->foreignId('day_id');
+            $table->foreignUuid('spectator_id');
+            $table->foreignUuid('day_id');
 
             $table->timestamps();
         });

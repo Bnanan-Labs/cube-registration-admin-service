@@ -15,8 +15,8 @@ class CreateEventStaffTable extends Migration
     {
         Schema::create('event_staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id');
-            $table->foreignId('staff_id');
+            $table->foreignUuid('event_id');
+            $table->foreignUuid('staff_id');
             $table->boolean('can_scramble')->default(false);
             $table->boolean('is_priority')->default(false);
             $table->integer('duties')->default(0);
