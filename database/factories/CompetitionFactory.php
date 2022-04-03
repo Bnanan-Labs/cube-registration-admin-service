@@ -24,6 +24,7 @@ class CompetitionFactory extends Factory
     public function definition()
     {
         return [
+            'id' => $this->faker->unique()->uuid(),
             'title' => $this->faker->sentence(2),
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date(),

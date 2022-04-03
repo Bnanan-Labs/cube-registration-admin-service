@@ -21,7 +21,7 @@ class RegisterCompetitor implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public array $registration, public User $user, public string $ip)
+    public function __construct(public array $registration, public User $user, public string $registrationId, public string $ip)
     {
         //
     }
@@ -34,6 +34,7 @@ class RegisterCompetitor implements ShouldQueue
     public function handle()
     {
         $competitor = Competitor::create([
+            'id' => $this->registrationId,
             'first_name' => Arr::get($this->registration, 'first_name'),
             'last_name' => Arr::get($this->registration, 'last_name'),
             'is_interested_in_nations_cup' => Arr::get($this->registration, 'is_interested_in_nations_cup'),

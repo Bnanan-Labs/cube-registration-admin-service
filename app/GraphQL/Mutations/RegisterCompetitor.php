@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
 
 class RegisterCompetitor
 {
@@ -21,10 +22,12 @@ class RegisterCompetitor
             throw new Error('You already have a pending registration');
         }
 
-        \App\Jobs\RegisterCompetitor::dispatch($args, $user, Request::ip());
+        $registrationId = Str::uuid();
+
+        \App\Jobs\RegisterCompetitor::dispatch($args, $user, $registrationId, Request::ip());
 
         return [
-            'id' => 1234,
+            'registration_id' => $registrationId,
             'first_name' => $args['first_name'],
             'last_name' => $args['last_name'],
             'wca_id' => $user->wca_id,

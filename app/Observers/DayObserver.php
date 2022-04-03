@@ -23,7 +23,8 @@ class DayObserver
 
     public function created(Day $day): void
     {
-        Day::all()
+        Day::where('competition_id', $day->competition_id)
+            ->get()
             ->sortBy('date')
             ->each(fn (Day $day, $i) => $day->update(['sort_id' => $i]));
     }

@@ -43,7 +43,7 @@ input CreateDayInput {
 }
 
 extend type Query {
-    day(id: ID!): Day @find
+    day(id: ID! @eq): Day @find
     days(is_bookable: Boolean @eq): [Day!]! @paginate
 }
 

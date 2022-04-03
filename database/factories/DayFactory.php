@@ -30,7 +30,7 @@ class DayFactory extends Factory
             'date' => $this->faker->date(),
             'price' => new MoneyBag(amount: $this->faker->numberBetween(0,100)),
             'is_bookable' => $this->faker->boolean(),
-            'competition_id' => $this->faker->numberBetween(0, 100),
+            'competition_id' => $this->faker->unique()->uuid(),
         ];
     }
 }

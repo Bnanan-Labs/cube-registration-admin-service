@@ -18,7 +18,7 @@ class Day extends Model
         'date' => 'date'
     ];
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * @return BelongsTo

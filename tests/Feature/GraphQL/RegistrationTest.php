@@ -40,15 +40,15 @@ class RegistrationTest extends GraphQLTestCase
             mutation ($input: RegisterCompetitorInput!)
             {
                 registerCompetitor(input: $input) {
-                    id
+                    registration_id
                 }
             }
         ', [
             'input' => $registration
-        ])->assertJSON([
+        ])->assertJsonStructure([
             'data' => [
                 'registerCompetitor' => [
-                    'id' => 1234
+                    'registration_id'
                 ]
             ]
         ]);
@@ -84,7 +84,7 @@ class RegistrationTest extends GraphQLTestCase
             mutation ($input: RegisterCompetitorInput!)
             {
                 registerCompetitor(input: $input) {
-                    id
+                    registration_id
                 }
             }
         ', [

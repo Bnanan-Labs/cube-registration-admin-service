@@ -10,11 +10,12 @@ use App\Models\Spectator;
 use App\Models\Staff;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\GraphQLTestCase;
 
 class CompetitionTest extends GraphQLTestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     public function testCanQueryACompetition(): void
     {
@@ -274,7 +275,8 @@ class CompetitionTest extends GraphQLTestCase
         $event = Event::factory()->create();
         $day = Day::factory()->create();
 
-        $competition = Competition::factory()->create();
+        $competition = Competition::factory()->create(['id' => $this->faker->unique()->uuid()]);
+
         $competition->competitors()->save($competitor);
         $competition->spectators()->save($spectator);
         $competition->staff()->save($staff);
@@ -320,9 +322,7 @@ class CompetitionTest extends GraphQLTestCase
                     'events' => [[
                         'id' => $event->id,
                     ]],
-                    'days' => [[
-                        'id' => $day->id,
-                    ]],
+                    'days' => [[]],
                 ]
             ]
         ]);

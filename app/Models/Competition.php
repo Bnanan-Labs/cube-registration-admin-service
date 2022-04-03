@@ -24,6 +24,8 @@ class Competition extends Model
         'is_active' => 'boolean',
     ];
 
+    protected $guarded = [];
+
     /**
      * @return HasMany
      */

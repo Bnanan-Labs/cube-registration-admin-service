@@ -24,7 +24,6 @@ class RegisterCompetitorTest extends GraphQLTestCase
         $days = Day::factory()->times(4)->create();
 
         $registration = [
-            'id' => 1234,
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->email(),
@@ -34,17 +33,20 @@ class RegisterCompetitorTest extends GraphQLTestCase
             'days' => $days->map(Fn (Day $d) => $d->id),
         ];
 
+        $registrationId = $this->faker->uuid();
+
         // Assert database empty
         $this->assertDatabaseCount('competitors', 0);
 
         // dispatchSync job
-        RegisterCompetitor::dispatchSync($registration, $user, $this->faker->ipv4());
+        RegisterCompetitor::dispatchSync($registration, $user, $registrationId, $this->faker->ipv4());
 
         // Assert side effect happens
         $this->assertDatabaseCount('competitors', 1);
 
         $competitor = Competitor::first();
         $this->assertEquals([
+            'id' => $registrationId,
             'first_name' => $registration['first_name'],
             'last_name' => $registration['last_name'],
             'gender' => $user->wca->gender,
@@ -57,7 +59,7 @@ class RegisterCompetitorTest extends GraphQLTestCase
             'nationality' => $user->nationality,
             'email' => $user->email,
         ],
-            $competitor->only(['first_name', 'last_name', 'gender', 'is_delegate', 'wca_teams', 'guests', 'is_interested_in_nations_cup', 'avatar', 'wca_id', 'nationality', 'email'])
+            $competitor->only(['id', 'first_name', 'last_name', 'gender', 'is_delegate', 'wca_teams', 'guests', 'is_interested_in_nations_cup', 'avatar', 'wca_id', 'nationality', 'email'])
         );
 
         $this->assertEquals(3, $competitor->events()->count());

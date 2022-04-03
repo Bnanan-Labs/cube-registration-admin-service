@@ -16,7 +16,7 @@ class Competitor extends Model
 {
     use HasFactory, Uuid;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     protected $casts = [
         'is_delegate' => 'boolean',

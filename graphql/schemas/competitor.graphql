@@ -33,7 +33,7 @@ input UpdateCompetitorInput {
 }
 
 type RegistrationReceipt {
-    id: ID!
+    registration_id: ID!
     first_name: String!
     last_name: String!
     wca_id: WcaId!
@@ -46,6 +46,7 @@ type Competitor {
     last_name: String!
     wca_id: WcaId!
     email: Email! @guard @can(ability: "manage", model: "Competitor", query: true)
+    avatar: String
     gender: String! @guard @can(ability: "manage", model: "Competitor", query: true)
     guests: [String!] @guard @can(ability: "manage", model: "Competitor", query: true)
     number_of_guests: Int! @rename(attribute: "numberOfGuests")

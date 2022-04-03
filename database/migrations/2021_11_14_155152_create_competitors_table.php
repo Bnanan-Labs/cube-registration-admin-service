@@ -21,6 +21,7 @@ class CreateCompetitorsTable extends Migration
             $table->string('gender')->index();
             $table->string('wca_teams')->nullable();
             $table->string('email');
+            $table->string('avatar')->nullable();
             $table->string('guests')->default('');
             $table->string('registration_status')->default('PENDING')->index();
             $table->string('payment_status')->default('MISSING_PAYMENT')->index();
