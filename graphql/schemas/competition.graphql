@@ -40,6 +40,7 @@ type Competition {
 }
 
 extend type Query {
+    competitions: [Competition!]! @paginate
     competition(id: ID! @eq): Competition @find
 }
 
