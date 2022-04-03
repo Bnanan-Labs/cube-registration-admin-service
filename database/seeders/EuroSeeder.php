@@ -17,7 +17,6 @@ class EuroSeeder extends Seeder
             \Database\Seeders\EuroSeeders\CompetitionSeeder::class,
             \Database\Seeders\EuroSeeders\EventSeeder::class,
             \Database\Seeders\EuroSeeders\StaffRoleSeeder::class,
-            CompetitorSeeder::class,
         ]);
     }
 }
