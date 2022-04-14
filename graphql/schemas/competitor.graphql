@@ -30,8 +30,8 @@ input UpdateCompetitorInput {
     email: Email
     nationality: String
     gender: String
-    guests: [String!]!
-    is_interested_in_nations_cup: Boolean!
+    guests: [String!]
+    is_interested_in_nations_cup: Boolean
     event_ids: [ID!]
     day_ids: [ID!]
 }
@@ -43,8 +43,8 @@ input UpdateRegistrationInput {
     email: Email
     nationality: String
     gender: String
-    guests: [String!]!
-    is_interested_in_nations_cup: Boolean!
+    guests: [String!]
+    is_interested_in_nations_cup: Boolean
     event_ids: [ID!]
     day_ids: [ID!]
 }

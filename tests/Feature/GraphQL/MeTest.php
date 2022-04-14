@@ -97,6 +97,37 @@ class MeTest extends GraphQLTestCase
         ]);
     }
 
+    public function testCanQueryRegistrationsOnMeQueryWhenNoRegistrations(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query me{
+                me {
+                    registrations {
+                        competition {
+                            id
+                        }
+                        competitor {
+                            wca_id
+                        }
+                        staff {
+                            wca_id
+                        }
+                    }
+                }
+            }
+        ')->assertJSON([
+            'data' => [
+                'me' => [
+                    'registrations' => [],
+                ],
+            ],
+        ]);
+    }
+
     public function testCanFilterRegistrationsOnMeQuery(): void
     {
         /** @var User $user */

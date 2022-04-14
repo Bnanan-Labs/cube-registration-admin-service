@@ -51,6 +51,10 @@ class Me
         $competitors = $user->competitors->groupBy('competition_id');
         $staffs = $user->staffs->groupBy('competition_id');
 
+//        if ($user->competitions->count() == 0) {
+//            return [];
+//        }
+
         return $user->competitions->map(function (Competition $competition) use ($competitors, $staffs) {
             return [
                 'competition' => $competition,
