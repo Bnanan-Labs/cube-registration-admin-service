@@ -17,6 +17,8 @@ input CreateCompetitorInput {
     gender: String!
     registration_status: RegistrationStatus
     payment_status: PaymentStatus
+    guests: [String!]!
+    is_interested_in_nations_cup: Boolean!
     event_ids: [ID!]
     day_ids: [ID!]
 }
@@ -28,6 +30,21 @@ input UpdateCompetitorInput {
     email: Email
     nationality: String
     gender: String
+    guests: [String!]!
+    is_interested_in_nations_cup: Boolean!
+    event_ids: [ID!]
+    day_ids: [ID!]
+}
+
+input UpdateRegistrationInput {
+    competition_id: ID!
+    first_name: String
+    last_name: String
+    email: Email
+    nationality: String
+    gender: String
+    guests: [String!]!
+    is_interested_in_nations_cup: Boolean!
     event_ids: [ID!]
     day_ids: [ID!]
 }
@@ -70,6 +87,10 @@ extend type Query {
 extend type Mutation {
     registerCompetitor(input: RegisterCompetitorInput @spread): RegistrationReceipt
         @guard
+    updateRegistration(input: UpdateRegistrationInput @spread): Competitor
+        @update
+        @guard
+        @can(ability: "manage")
     createCompetitor(input: CreateCompetitorInput @spread): Competitor
         @create
         @guard
