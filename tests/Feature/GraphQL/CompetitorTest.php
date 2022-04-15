@@ -50,6 +50,48 @@ class CompetitorTest extends GraphQLTestCase
         ]);
     }
 
+    public function testCanQueryACompetitorByWcaId(): void
+    {
+        /** @var User $user */
+        $competitor = Competitor::factory()->create();
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query ($wcaId: WcaId, $competitionId: ID){
+                competitors(first: 1, wca_id: $wcaId, competition_id: $competitionId) {
+                    data {
+                        id
+                        first_name
+                        last_name
+                        wca_id
+                        registration_status
+                        has_podium_potential
+                        nationality
+                        is_eligible_for_prizes
+
+                    }
+                }
+            }
+        ', [
+            'wcaId' => $competitor->wca_id,
+            'competitionId' => $competitor->competition_id,
+        ])->assertJSON([
+            'data' => [
+                'competitors' => [
+                    'data' => [[
+                        'id' => $competitor->id,
+                        'first_name' => $competitor->first_name,
+                        'last_name' => $competitor->last_name,
+                        'wca_id' => $competitor->wca_id,
+                        'registration_status' => $competitor->registration_status->value,
+                        'has_podium_potential' => $competitor->has_podium_potential,
+                        'nationality' => $competitor->nationality,
+                        'is_eligible_for_prizes' => $competitor->is_eligible_for_prizes,
+                    ]],
+                ],
+            ],
+        ]);
+    }
+
     public function testCanQueryACompetitorWithSensitiveData(): void
     {
         /** @var User $user */

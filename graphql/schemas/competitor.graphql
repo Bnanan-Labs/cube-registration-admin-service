@@ -80,7 +80,13 @@ type Competitor {
 }
 
 extend type Query {
-    competitors(events: [ID!], days: [ID!], is_eligible_for_prizes: Boolean @eq): [Competitor!]! @paginate
+    competitors(
+        events: [ID!]
+        days: [ID!]
+        is_eligible_for_prizes: Boolean @eq
+        wca_id: WcaId @eq
+        competition_id: ID @eq
+    ): [Competitor!]! @paginate
     competitor(id: ID!): Competitor @find
 }
 
