@@ -46,8 +46,6 @@ class RegisterCompetitor implements ShouldQueue
             'wca_id' => $this->user->wca_id,
             'nationality' => $this->user->nationality,
             'email' => $this->user->email,
-            'financial_book_id' => 1,
-            'competition_id' => 1,
         ]);
 
         $competitor->events()->sync(Arr::get($this->registration, 'events'));
