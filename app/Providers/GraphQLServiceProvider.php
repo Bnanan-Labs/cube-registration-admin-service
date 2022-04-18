@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\FinancialEntryType;
 use App\Enums\PaymentStatus;
 use App\Enums\RegistrationStatus;
 use App\Enums\ShirtSize;
@@ -22,6 +23,7 @@ class GraphQLServiceProvider extends ServiceProvider
     {
         $typeRegistry->register(new NativeEnumType(PaymentStatus::class));
         $typeRegistry->register(new NativeEnumType(RegistrationStatus::class));
+        $typeRegistry->register(new NativeEnumType(FinancialEntryType::class));
         $typeRegistry->register(new NativeEnumType(ShirtSize::class));
     }
 }

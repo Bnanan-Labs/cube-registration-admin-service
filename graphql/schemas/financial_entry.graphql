@@ -1,15 +1,6 @@
-enum FinancialEntryTypeEnum {
-    BASE_FEE
-    EVENT_FEE
-    GUEST_FEE
-    REFUND
-    DISCOUNT
-    PAYMENT
-}
-
 type FinancialEntry {
     id: ID!
-    type: FinancialEntryTypeEnum!
+    type: FinancialEntryType!
     title: String
     balance: MoneyBag!
     book: FinancialBook! @belongsTo
