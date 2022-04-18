@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Enums\RegistrationStatus;
 use App\Enums\Wca;
 use App\Models\Competition;
 use App\Models\Competitor;
@@ -86,6 +87,33 @@ class CompetitorTest extends GraphQLTestCase
                         'has_podium_potential' => $competitor->has_podium_potential,
                         'nationality' => $competitor->nationality,
                         'is_eligible_for_prizes' => $competitor->is_eligible_for_prizes,
+                    ]],
+                ],
+            ],
+        ]);
+    }
+
+    public function testCanFilterCompetitorsByRegistrationStatus(): void
+    {
+        /** @var User $user */
+        $competitorPending = Competitor::factory()->create(['registration_status' => RegistrationStatus::pending]);
+        $competitorApproved = Competitor::factory()->create(['registration_status' => RegistrationStatus::approved]);
+        $competitorWaitingList = Competitor::factory()->create(['registration_status' => RegistrationStatus::waitingList]);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            query {
+                competitors(first: 10 registration_status: APPROVED) {
+                    data {
+                        id
+
+                    }
+                }
+            }
+        ', [])->assertJSON([
+            'data' => [
+                'competitors' => [
+                    'data' => [[
+                        'id' => $competitorApproved->id,
                     ]],
                 ],
             ],
