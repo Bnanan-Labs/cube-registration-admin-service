@@ -33,7 +33,8 @@ class CompetitionFactory extends Factory
             'registration_ends' => $this->faker->datetime(),
             'volunteer_registration_starts' => $this->faker->datetime(),
             'volunteer_registration_ends' => $this->faker->datetime(),
-            'base_fee' => new MoneyBag(amount: $this->faker->numberBetween(1,100)),
+            'base_fee' => new MoneyBag(amount: $this->faker->numberBetween(1,100)*100),
+            'guest_fee' => new MoneyBag(amount: $this->faker->numberBetween(1,100)*100),
             'competitor_limit' => $this->faker->randomNumber(),
             'spectator_limit' => $this->faker->randomNumber(),
         ];

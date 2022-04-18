@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -50,5 +49,7 @@ class RegisterCompetitor implements ShouldQueue
 
         $competitor->events()->sync(Arr::get($this->registration, 'events'));
         $competitor->days()->sync(Arr::get($this->registration, 'days'));
+
+        CreateCompetitorBook::dispatch($competitor);
     }
 }

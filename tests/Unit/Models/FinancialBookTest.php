@@ -35,22 +35,22 @@ class FinancialBookTest extends TestCase
     {
         $book = FinancialBook::factory()->create();
         $book->entries()->create([
-            'type' => FinancialEntryType::purchase,
+            'type' => FinancialEntryType::payment,
             'balance' => new MoneyBag(300),
             'title' => 'Just a random payment',
         ]);
         $book->entries()->create([
-            'type' => FinancialEntryType::purchase,
+            'type' => FinancialEntryType::payment,
             'balance' => new MoneyBag(200),
             'title' => 'Just a random payment',
         ]);
         $book->entries()->create([
-            'type' => FinancialEntryType::payment,
+            'type' => FinancialEntryType::baseFee,
             'balance' => new MoneyBag(-200),
             'title' => 'Just a random payment',
         ]);
         $book->entries()->create([
-            'type' => FinancialEntryType::refund,
+            'type' => FinancialEntryType::eventFee,
             'balance' => new MoneyBag(-20),
             'title' => 'Just a random payment',
         ]);

@@ -4,8 +4,10 @@ namespace App\Enums;
 
 enum FinancialEntryType: string
 {
-    case payment = 'PAYMENT';
-    case purchase = 'PURCHASE';
+    case baseFee = 'BASE_FEE';
+    case eventFee = 'EVENT_FEE';
+    case guestFee = 'GUEST_FEE';
     case refund = 'REFUND';
-    case amendment = 'AMENDMENT';
+    case discount = 'DISCOUNT';
+    case payment = 'PAYMENT';
 }

@@ -1,5 +1,7 @@
 enum FinancialEntryTypeEnum {
-    REGISTRATION_FEE
+    BASE_FEE
+    EVENT_FEE
+    GUEST_FEE
     REFUND
     DISCOUNT
     PAYMENT
