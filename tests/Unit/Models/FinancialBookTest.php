@@ -36,25 +36,58 @@ class FinancialBookTest extends TestCase
         $book = FinancialBook::factory()->create();
         $book->entries()->create([
             'type' => FinancialEntryType::payment,
-            'balance' => new MoneyBag(300),
-            'title' => 'Just a random payment',
-        ]);
-        $book->entries()->create([
-            'type' => FinancialEntryType::payment,
             'balance' => new MoneyBag(200),
             'title' => 'Just a random payment',
         ]);
         $book->entries()->create([
             'type' => FinancialEntryType::baseFee,
             'balance' => new MoneyBag(-200),
-            'title' => 'Just a random payment',
+            'title' => 'Base Fee',
         ]);
         $book->entries()->create([
             'type' => FinancialEntryType::eventFee,
             'balance' => new MoneyBag(-20),
-            'title' => 'Just a random payment',
+            'title' => 'Event fee',
+        ]);
+        $book->entries()->create([
+            'type' => FinancialEntryType::eventFee,
+            'balance' => new MoneyBag(-20),
+            'title' => 'Event fee',
+        ]);
+        $book->entries()->create([
+            'type' => FinancialEntryType::eventFee,
+            'balance' => new MoneyBag(-20),
+            'title' => 'Event fee',
+        ]);
+        $book->entries()->create([
+            'type' => FinancialEntryType::eventFee,
+            'balance' => new MoneyBag(-20),
+            'title' => 'Event fee',
+        ]);
+        $book->entries()->create([
+            'type' => FinancialEntryType::eventFee,
+            'balance' => new MoneyBag(-20),
+            'title' => 'Event fee',
+        ]);
+        $book->entries()->create([
+            'type' => FinancialEntryType::guestFee,
+            'balance' => new MoneyBag(-35),
+            'title' => 'Guest fee',
+        ]);
+        $book->entries()->create([
+            'type' => FinancialEntryType::refund,
+            'balance' => new MoneyBag(-30),
+            'title' => 'Refund',
+        ]);
+        $book->entries()->create([
+            'type' => FinancialEntryType::discount,
+            'balance' => new MoneyBag(27),
+            'title' => 'Discount',
         ]);
 
-        $this->assertEquals(280, $book->balance->amount);
+        $this->assertEquals(-308, $book->total->amount);
+        $this->assertEquals(200, $book->paid->amount);
+        $this->assertEquals(-30, $book->refunded->amount);
+        $this->assertEquals(-138, $book->balance->amount);
     }
 }

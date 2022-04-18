@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\FinancialEntryType;
 use App\Services\Finances\Casts\MoneyBagCast;
 use App\Services\Finances\MoneyBag;
 use App\Traits\Uuid;
@@ -18,6 +19,7 @@ class FinancialBook extends Model
         'balance' => MoneyBagCast::class,
         'paid' => MoneyBagCast::class,
         'total' => MoneyBagCast::class,
+        'refunded' => MoneyBagCast::class,
     ];
 
     /**
@@ -43,7 +45,59 @@ class FinancialBook extends Model
     public function getBalanceAttribute(): MoneyBag
     {
         $balance = new MoneyBag();
+
         foreach ($this->entries as $entry) {
+            $balance->add($entry->balance);
+        }
+
+        return $balance;
+    }
+
+    /**
+     * @return MoneyBag
+     * @throws \Exception
+     */
+    public function getTotalAttribute(): MoneyBag
+    {
+        $balance = new MoneyBag();
+        $typesToInclude = [
+            FinancialEntryType::baseFee->value,
+            FinancialEntryType::eventFee->value,
+            FinancialEntryType::guestFee->value,
+            FinancialEntryType::discount->value,
+        ];
+
+        foreach ($this->entries()->whereIn('type', $typesToInclude)->get() as $entry) {
+            $balance->add($entry->balance);
+        }
+
+        return $balance;
+    }
+
+    /**
+     * @return MoneyBag
+     * @throws \Exception
+     */
+    public function getPaidAttribute(): MoneyBag
+    {
+        $balance = new MoneyBag();
+
+        foreach ($this->entries()->where('type', FinancialEntryType::payment->value)->get() as $entry) {
+            $balance->add($entry->balance);
+        }
+
+        return $balance;
+    }
+
+    /**
+     * @return MoneyBag
+     * @throws \Exception
+     */
+    public function getRefundedAttribute(): MoneyBag
+    {
+        $balance = new MoneyBag();
+
+        foreach ($this->entries()->where('type', FinancialEntryType::refund->value)->get() as $entry) {
             $balance->add($entry->balance);
         }
 
