@@ -5,8 +5,6 @@ namespace App\Jobs;
 use App\Enums\FinancialEntryType;
 use App\Models\Competitor;
 use App\Models\Event;
-use App\Models\FinancialBook;
-use App\Models\FinancialEntry;
 use App\Services\Finances\MoneyBag;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
