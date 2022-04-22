@@ -3,6 +3,7 @@ input UpdateCompetitionInput {
     title: String @rules(apply: ["max:255", "unique:competitions,title"])
     start_date: Date
     end_date: Date
+    stripe_api_key: String
     registration_starts: DateTime
     registration_ends: DateTime
     volunteer_registration_starts: DateTime
@@ -28,6 +29,7 @@ type Competition {
     guest_fee: MoneyBag
     currency: String!
     finances: FinancialBook! @guard @can(ability: "manage", model: "Competition", query: true)
+    stripe_api_key: String @guard @can(ability: "manage", model: "Competition", query: true)
     competitor_limit: Int
     spectator_limit: Int
     is_competitor_full: Boolean

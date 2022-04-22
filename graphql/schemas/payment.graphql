@@ -1,4 +1,10 @@
 type Payment {
+    intent_secret: String
     total: MoneyBag!
     extra: String
+    book: FinancialBook!
+    captured_at: DateTime
+    booked_at: DateTime
+    created_at: DateTime
+    updated_at: DateTime
 }
