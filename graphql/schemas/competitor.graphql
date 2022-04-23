@@ -62,20 +62,20 @@ type Competitor {
     first_name: String!
     last_name: String!
     wca_id: WcaId!
-    email: Email! @guard @can(ability: "manage", model: "Competitor", query: true)
+    email: Email! @guard @managementAccess
     avatar: String
-    gender: String! @guard @can(ability: "manage", model: "Competitor", query: true)
-    guests: [String!] @guard @can(ability: "manage", model: "Competitor", query: true)
+    gender: String! @guard @managementAccess
+    guests: [String!] @guard @managementAccess
     number_of_guests: Int! @rename(attribute: "numberOfGuests")
     registration_status: RegistrationStatus!
-    payment_status: PaymentStatus! @guard @can(ability: "manage", model: "Competitor", query: true)
+    payment_status: PaymentStatus! @guard @managementAccess
     has_podium_potential: Boolean!
     events: [Event!]! @belongsToMany
-    days: [Day!]! @belongsToMany @guard @can(ability: "manage", model: "Competitor", query: true)
+    days: [Day!]! @belongsToMany @guard @managementAccess
     nationality: String!
     is_eligible_for_prizes: Boolean!
     is_interested_in_nations_cup: Boolean!
-    finances: FinancialBook! @guard @can(ability: "manage", model: "Competitor", query: true)
+    finances: FinancialBook! @guard @managementAccess
     created_at: DateTime!
     updated_at: DateTime
 }
