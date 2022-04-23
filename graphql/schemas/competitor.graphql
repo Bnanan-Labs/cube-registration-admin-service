@@ -80,7 +80,7 @@ type Competitor {
     updated_at: DateTime
 }
 
-type CompetitorRead {
+type CompetitorRead @model(class: "App\\Models\\Competitor") {
     id: ID!
     first_name: String!
     last_name: String!
