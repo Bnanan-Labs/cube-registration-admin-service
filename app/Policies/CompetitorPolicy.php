@@ -13,7 +13,6 @@ class CompetitorPolicy
     public function manage(User $user, Competitor $competitor, array $args = []): bool
     {
         $competitor = isset($args['id']) ? Competitor::find($args['id']) : $competitor;
-        dd([$args, $competitor->toArray(), $user->toArray()]);
         return $user->is_manager || $competitor->wca_id === $user->wca_id;
     }
 

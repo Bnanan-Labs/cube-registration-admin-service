@@ -85,7 +85,7 @@ type CompetitorRead @model(class: "App\\Models\\Competitor") {
     first_name: String!
     last_name: String!
     wca_id: WcaId!
-    email: Email! @guard @can(ability: "manage", model: "Competitor", injectArgs: true, query: true)
+    email: Email! @guard @managementAccess
     avatar: String
     gender: String! @guard @can(ability: "manage", model: "Competitor", injectArgs: true, query: true)
     guests: [String!] @guard @can(ability: "manage", model: "Competitor", injectArgs: true, query: true)
