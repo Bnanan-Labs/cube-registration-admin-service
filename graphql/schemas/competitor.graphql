@@ -85,20 +85,20 @@ type CompetitorRead @model(class: "App\\Models\\Competitor") {
     first_name: String!
     last_name: String!
     wca_id: WcaId!
-    email: Email! @guard @can(ability: "manage")
+    email: Email! @guard @can(ability: "manage", model: "Competitor")
     avatar: String
-    gender: String! @guard @can(ability: "manage")
-    guests: [String!] @guard @can(ability: "manage")
+    gender: String! @guard @can(ability: "manage", model: "Competitor")
+    guests: [String!] @guard @can(ability: "manage", model: "Competitor")
     number_of_guests: Int! @rename(attribute: "numberOfGuests")
     registration_status: RegistrationStatus!
-    payment_status: PaymentStatus! @guard @can(ability: "manage")
+    payment_status: PaymentStatus! @guard @can(ability: "manage", model: "Competitor")
     has_podium_potential: Boolean!
     events: [Event!]! @belongsToMany
-    days: [Day!]! @belongsToMany @guard @can(ability: "manage")
+    days: [Day!]! @belongsToMany @guard @can(ability: "manage", model: "Competitor")
     nationality: String!
     is_eligible_for_prizes: Boolean!
     is_interested_in_nations_cup: Boolean!
-    finances: FinancialBook! @guard @can(ability: "manage")
+    finances: FinancialBook! @guard @can(ability: "manage", model: "Competitor")
     created_at: DateTime!
     updated_at: DateTime
 }
