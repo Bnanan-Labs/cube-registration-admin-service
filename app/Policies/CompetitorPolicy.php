@@ -12,6 +12,7 @@ class CompetitorPolicy
 
     public function manage(User $user, Competitor $competitor): bool
     {
+        dd([$user, $competitor]);
         return $user->is_manager || $competitor->wca_id === $user->wca_id;
     }
 
