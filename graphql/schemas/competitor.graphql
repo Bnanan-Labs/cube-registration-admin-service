@@ -80,6 +80,29 @@ type Competitor {
     updated_at: DateTime
 }
 
+type CompetitorRead {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    wca_id: WcaId!
+    email: Email! @guard @can(ability: "manage", model: "Competitor", find: "id")
+    avatar: String
+    gender: String! @guard @can(ability: "manage", model: "Competitor", find: "id")
+    guests: [String!] @guard @can(ability: "manage", model: "Competitor", find: "id")
+    number_of_guests: Int! @rename(attribute: "numberOfGuests")
+    registration_status: RegistrationStatus!
+    payment_status: PaymentStatus! @guard @can(ability: "manage", model: "Competitor", find: "id")
+    has_podium_potential: Boolean!
+    events: [Event!]! @belongsToMany
+    days: [Day!]! @belongsToMany @guard @can(ability: "manage", model: "Competitor", find: "id")
+    nationality: String!
+    is_eligible_for_prizes: Boolean!
+    is_interested_in_nations_cup: Boolean!
+    finances: FinancialBook! @guard @can(ability: "manage", model: "Competitor", find: "id")
+    created_at: DateTime!
+    updated_at: DateTime
+}
+
 extend type Query {
     competitors(
         events: [ID!]
@@ -89,7 +112,7 @@ extend type Query {
         wca_id: WcaId @eq
         competition_id: ID @eq
     ): [Competitor!]! @paginate
-    competitor(id: ID! @eq): Competitor @find
+    CompetitorRead(id: ID! @eq): CompetitorRead @find
 }
 
 extend type Mutation {
