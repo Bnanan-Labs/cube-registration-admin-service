@@ -112,7 +112,7 @@ extend type Query {
         wca_id: WcaId @eq
         competition_id: ID @eq
     ): [Competitor!]! @paginate
-    CompetitorRead(id: ID! @eq): CompetitorRead @find
+    competitor(id: ID! @eq): CompetitorRead @find
 }
 
 extend type Mutation {
