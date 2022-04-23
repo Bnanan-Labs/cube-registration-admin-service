@@ -112,7 +112,7 @@ extend type Mutation {
         @guard
         @can(ability: "crud")
 
-    createPaymentIntent(competitor_id: ID!): Payment
+    createPaymentIntent(competition_id: ID!): Payment
         @guard
 }
 

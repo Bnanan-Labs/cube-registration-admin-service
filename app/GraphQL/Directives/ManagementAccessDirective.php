@@ -29,7 +29,7 @@ GRAPHQL;
         $originalResolver = $fieldValue->getResolver();
 
         $fieldValue->setResolver(function ($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($originalResolver) {
-            /** @var User $user */
+            /** @var User|null $user */
             $user = $context->user();
 
             if (

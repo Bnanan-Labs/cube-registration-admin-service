@@ -3,6 +3,7 @@
 namespace Tests\Feature\GraphQL;
 
 use App\Enums\FinancialEntryType;
+use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\User;
 use App\Services\Finances\MoneyBag;
@@ -16,8 +17,10 @@ class CreatePaymentIntentTest extends GraphQLTestCase
 
     public function testCanCreatePaymentIntent(): void
     {
-        $this->authenticate();
-        $competitor = Competitor::factory()->create();
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
+        $competitor = Competitor::factory()->create(['wca_id' =>  $user->wca_id]);
         $competitor->competition->update(['currency' => 'DKK', 'stripe_api_key' => 'sk_test_4RxUm8rtZ0phcTFLbHvkTJD5']);
         $competitor->finances->entries()->create([
             'type' => FinancialEntryType::baseFee,
@@ -26,12 +29,12 @@ class CreatePaymentIntentTest extends GraphQLTestCase
 
         $this->graphQL(/** @lang GraphQL */ '
             mutation ($id: ID!){
-                createPaymentIntent(competitor_id: $id) {
+                createPaymentIntent(competition_id: $id) {
                     intent_secret
                 }
             }
         ', [
-            'id' => $competitor->id
+            'id' => $competitor->competition->id
         ])->assertJSONStructure([
             'data' => [
                 'createPaymentIntent' => [
@@ -43,18 +46,20 @@ class CreatePaymentIntentTest extends GraphQLTestCase
 
     public function testCanFailPaymentIntentIfNothingToPay(): void
     {
-        $this->authenticate();
-        $competitor = Competitor::factory()->create();
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
+        $competitor = Competitor::factory()->create(['wca_id' =>  $user->wca_id]);
         $competitor->competition->update(['currency' => 'DKK', 'stripe_api_key' => 'sk_test_4RxUm8rtZ0phcTFLbHvkTJD5']);
 
         $this->graphQL(/** @lang GraphQL */ '
             mutation ($id: ID!){
-                createPaymentIntent(competitor_id: $id) {
+                createPaymentIntent(competition_id: $id) {
                     intent_secret
                 }
             }
         ', [
-            'id' => $competitor->id
+            'id' => $competitor->competition->id
         ])->assertJSON([
             'errors' => [
                 [
@@ -64,7 +69,7 @@ class CreatePaymentIntentTest extends GraphQLTestCase
         ]);
     }
 
-    public function testCanFailPaymentIntentIfCompetitorDoesNotExist(): void
+    public function testCanFailPaymentIntentIfCompetitionDoesNotExist(): void
     {
         $this->authenticate();
         $competitor = Competitor::factory()->create();
@@ -72,12 +77,36 @@ class CreatePaymentIntentTest extends GraphQLTestCase
 
         $this->graphQL(/** @lang GraphQL */ '
             mutation ($id: ID!){
-                createPaymentIntent(competitor_id: $id) {
+                createPaymentIntent(competition_id: $id) {
                     intent_secret
                 }
             }
         ', [
             'id' => 'NOT_VALID_UUID'
+        ])->assertJSON([
+            'errors' => [
+                [
+                    'message' => "The requested competition does not exist"
+                ]
+            ]
+        ]);
+    }
+
+    public function testCanFailPaymentIntentIfCompetitorDoesNotExist(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
+        $competition = Competition::factory()->create();
+
+        $this->graphQL(/** @lang GraphQL */ '
+            mutation ($id: ID!){
+                createPaymentIntent(competition_id: $id) {
+                    intent_secret
+                }
+            }
+        ', [
+            'id' => $competition->id
         ])->assertJSON([
             'errors' => [
                 [
@@ -98,12 +127,12 @@ class CreatePaymentIntentTest extends GraphQLTestCase
 
         $this->graphQL(/** @lang GraphQL */ '
             mutation ($id: ID!){
-                createPaymentIntent(competitor_id: $id) {
+                createPaymentIntent(competition_id: $id) {
                     intent_secret
                 }
             }
         ', [
-            'id' => $competitor->id
+            'id' => $competitor->competition->id
         ])->assertJSON(self::UNAUTHENTICATED_RESPONSE);
     }
 

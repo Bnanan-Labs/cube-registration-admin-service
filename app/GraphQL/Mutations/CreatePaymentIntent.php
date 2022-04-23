@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\Competitor;
-use App\Models\Payment;
+use App\Models\Competition;
 use App\Services\Finances\MoneyBag;
 use GraphQL\Error\Error;
+use Illuminate\Support\Facades\Auth;
 use Stripe\Exception\ApiConnectionException;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
@@ -19,7 +19,15 @@ class CreatePaymentIntent
      */
     public function __invoke($_, array $args)
     {
-        $competitor = Competitor::find($args['competitor_id']);
+
+        $competition = Competition::find($args['competition_id']);
+
+        if (!$competition) {
+            throw new Error('The requested competition does not exist');
+        }
+
+        $user = Auth::user();
+        $competitor = $user->competitors()->where('competition_id', '=', $competition->id)->first();
 
         if (!$competitor) {
             throw new Error('The requested competitor does not exist');
@@ -40,7 +48,7 @@ class CreatePaymentIntent
             ]);
 
             return $competitor->finances->payments()->create([
-                'intent_secret' => $intent->client_secret,
+                'intent_secret' => $intent->id,
                 'total' => new MoneyBag($amount),
                 'extra' => 'Registration Payment'
             ]);
