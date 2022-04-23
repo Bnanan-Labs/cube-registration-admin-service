@@ -10,9 +10,9 @@ class CompetitorPolicy
 {
     use HandlesAuthorization;
 
-    public function manage(User $user, Competitor $competitor): bool
+    public function manage(User $user, Competitor $competitor, array $args = []): bool
     {
-        dd([$user, $competitor]);
+        $competitor = isset($args['id']) ? Competitor::find($args['id']) : $competitor;
         return $user->is_manager || $competitor->wca_id === $user->wca_id;
     }
 
