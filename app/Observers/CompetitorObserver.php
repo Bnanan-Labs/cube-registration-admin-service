@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\PaymentStatus;
 use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\FinancialBook;

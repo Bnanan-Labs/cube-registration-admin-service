@@ -22,8 +22,10 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
-           'total' => $this->faker->randomNumber(),
-           'extra' => $this->faker->sentence(2),
+            'intent_id' => $this->faker->uuid(),
+            'intent_secret' => $this->faker->uuid(),
+            'total' => $this->faker->randomNumber(),
+            'extra' => $this->faker->sentence(2),
 
         ];
     }
