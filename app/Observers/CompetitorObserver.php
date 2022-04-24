@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\PaymentStatus;
+use App\Enums\RegistrationStatus;
 use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\FinancialBook;
@@ -19,11 +20,38 @@ class CompetitorObserver
         }
     }
 
+    public function updating(Competitor $competitor): void
+    {
+        // Accept or put people on the waiting list
+        if ($competitor->isDirty('approved_at') && $competitor['approved_at']) {
+            $competition = $competitor->competition;
+            if ($competition->numberOfApprovedCompetitors < $competition->competitor_limit) {
+                $competitor->registration_status = RegistrationStatus::accepted;
+            } else {
+                $competitor->registration_status = RegistrationStatus::waitingList;
+            }
+        }
+
+        if ($competitor->isDirty('approved_at') && !$competitor['approved_at']) {
+            if ($competitor->registration_status === RegistrationStatus::accepted || $competitor->registration_status === RegistrationStatus::waitingList) {
+                $competitor->registration_status = RegistrationStatus::pending;
+            }
+        }
+    }
+
     public function updated(Competitor $competitor): void
     {
-        if (!$competitor->isDirty('registrationStatus')) {
-            $a = 1+1;
-            // Do magic if the competitor has been approved!
+        // if people are on the waiting list, lets approve them!
+        if ($competitor->isDirty('registration_status') && $competitor->getOriginal('registration_status') === RegistrationStatus::accepted) {
+            $competition = $competitor->competition;
+            $delta = $competition->competitor_limit - $competition->numberOfAcceptedCompetitors;
+            if ($delta > 0) {
+                Competitor::waiting()
+                    ->limit($delta)
+                    ->get()
+                    ->each(Fn (Competitor $competitor) =>
+                        $competitor->update(['registration_status' => RegistrationStatus::accepted]));
+            }
         }
     }
 }

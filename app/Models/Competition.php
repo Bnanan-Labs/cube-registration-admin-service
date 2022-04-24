@@ -73,4 +73,14 @@ class Competition extends Model
     {
         return $this->belongsTo(FinancialBook::class, 'financial_book_id');
     }
+
+    public function getNumberOfApprovedCompetitorsAttribute()
+    {
+        return $this->competitors()->approved()->count();
+    }
+
+    public function getNumberOfAcceptedCompetitorsAttribute()
+    {
+        return $this->competitors()->accepted()->count();
+    }
 }

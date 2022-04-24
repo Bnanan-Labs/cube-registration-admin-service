@@ -26,6 +26,9 @@ class PaymentObserver
 
             if ($competitor = Competitor::where(['financial_book_id' => $payment->book->id])->first()) {
                 $competitor->update(['payment_status' => $status]);
+                if ($status === PaymentStatus::paid || $status === PaymentStatus::needsPartialRefund) {
+                    $competitor->update(['approved_at' => now()]);
+                }
             }
         }
     }

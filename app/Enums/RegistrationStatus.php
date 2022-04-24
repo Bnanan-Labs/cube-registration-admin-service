@@ -8,4 +8,5 @@ enum RegistrationStatus: string
     case waitingList = 'WAITING_LIST';
     case declined = 'DECLINED';
     case approved = 'APPROVED';
+    case accepted = 'ACCEPTED';
 }

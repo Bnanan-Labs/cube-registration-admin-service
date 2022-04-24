@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Enums\RegistrationStatus;
 use App\Models\Competitor;
 use GraphQL\Error\Error;
 
@@ -20,7 +19,7 @@ final class ApproveRegistration
             throw new Error("Competitor could not be found");
         }
 
-        $competitor->update(['registration_status' => RegistrationStatus::approved]);
+        $competitor->update(['approved_at' => now()]);
 
         return $competitor;
     }

@@ -75,6 +75,7 @@ type Competitor {
     nationality: String!
     is_eligible_for_prizes: Boolean!
     is_interested_in_nations_cup: Boolean!
+    queue_number_in_waiting_list: Int! @guard @managementAccess
     finances: FinancialBook! @guard @managementAccess
     created_at: DateTime!
     updated_at: DateTime
@@ -101,7 +102,7 @@ extend type Query {
         wca_id: WcaId @eq
         competition_id: ID @eq
     ): [Competitor!]!
-        @eq(key: "registration_status", value: "APPROVED")
+        @eq(key: "registration_status", value: "ACCEPTED")
         @paginate
 
 

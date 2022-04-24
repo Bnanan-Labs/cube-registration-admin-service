@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\PaymentStatus;
 use App\Enums\RegistrationStatus;
 use App\Traits\Uuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,7 @@ class Competitor extends Model
         'is_interested_in_nations_cup' => 'boolean',
         'payment_status' => PaymentStatus::class,
         'registration_status' => RegistrationStatus::class,
+        'approved_at' => 'datetime',
     ];
 
     /**
@@ -105,5 +107,45 @@ class Competitor extends Model
     public function getNumberOfGuestsAttribute(): int
     {
         return $this->guests->count();
+    }
+
+    /**
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeApproved(Builder $query): void
+    {
+        $query->whereNotNull('approved_at');
+    }
+
+    /**
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeAccepted(Builder $query): void
+    {
+        $query->where('registration_status', '=', RegistrationStatus::accepted->value);
+    }
+
+    /**
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeWaiting(Builder $query): void
+    {
+        $query->where('registration_status', '=', RegistrationStatus::waitingList->value)
+              ->orderBy('approved_at');
+    }
+
+    /**
+     * @return int
+     */
+    public function getQueueNumberInWaitingListAttribute(): int
+    {
+        if ($this->registration_status !== RegistrationStatus::waitingList) {
+            return 0;
+        }
+
+        return Competitor::waiting()->where('approved_at', '<', $this->approved_at)->count() + 1;
     }
 }

@@ -127,7 +127,7 @@ class RegistrationTest extends GraphQLTestCase
             'data' => [
                 'approveRegistration' => [
                     'id' => $competitor->id,
-                    'registration_status' => RegistrationStatus::approved->value,
+                    'registration_status' => RegistrationStatus::accepted->value,
                 ],
             ],
         ]);
