@@ -19,8 +19,8 @@ input CreateCompetitorInput {
     payment_status: PaymentStatus
     guests: [String!]!
     is_interested_in_nations_cup: Boolean!
-    event_ids: [ID!]
-    day_ids: [ID!]
+    days: DaysBelongsToMany
+    events: EventsBelongsToMany
 }
 
 input UpdateCompetitorInput {
@@ -32,8 +32,8 @@ input UpdateCompetitorInput {
     gender: String
     guests: [String!]
     is_interested_in_nations_cup: Boolean
-    event_ids: [ID!]
-    day_ids: [ID!]
+    days: DaysBelongsToMany
+    events: EventsBelongsToMany
 }
 
 input UpdateRegistrationInput {
@@ -45,8 +45,8 @@ input UpdateRegistrationInput {
     gender: String
     guests: [String!]
     is_interested_in_nations_cup: Boolean
-    event_ids: [ID!]
-    day_ids: [ID!]
+    days: DaysBelongsToMany
+    events: EventsBelongsToMany
 }
 
 type RegistrationReceipt {
