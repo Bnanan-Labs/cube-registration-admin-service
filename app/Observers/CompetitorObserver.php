@@ -18,4 +18,12 @@ class CompetitorObserver
             $competitor->competition()->associate(Competition::first());
         }
     }
+
+    public function updated(Competitor $competitor): void
+    {
+        if (!$competitor->isDirty('registrationStatus')) {
+            $a = 1+1;
+            // Do magic if the competitor has been approved!
+        }
+    }
 }

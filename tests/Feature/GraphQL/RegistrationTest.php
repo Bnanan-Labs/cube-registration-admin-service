@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Enums\RegistrationStatus;
 use App\Jobs\RegisterCompetitor;
 use App\Models\Competitor;
 use App\Models\User;
@@ -98,5 +99,37 @@ class RegistrationTest extends GraphQLTestCase
         ]);
 
         Queue::assertNothingPushed();
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testCanApproveRegistrations()
+    {
+        /** @var User $user */
+        $user = User::factory()->manager()->create();
+        $this->authenticate($user);
+        $competitor = Competitor::factory()->create(['wca_id' => '2010TEST01', 'registration_status' => RegistrationStatus::pending]);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            mutation ($id: ID!)
+            {
+                approveRegistration(id: $id) {
+                    id
+                    registration_status
+                }
+            }
+        ', [
+            'id' => $competitor->id
+        ])->assertJSON([
+            'data' => [
+                'approveRegistration' => [
+                    'id' => $competitor->id,
+                    'registration_status' => RegistrationStatus::approved->value,
+                ],
+            ],
+        ]);
     }
 }
