@@ -311,4 +311,49 @@ class CompetitorTest extends GraphQLTestCase
                 ],
             ]);
     }
+
+    public function testCanUpdateRegistrationMutation(): void
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $competitor = Competitor::factory()->create(['wca_id' => $user->wca_id]);
+
+
+        $input = [
+            'id' => $competitor->id,
+            'first_name' => 'test',
+            'last_name' => 'test',
+            'gender' => 'f',
+            'email' => $this->faker->email(),
+            'nationality' => 'DENMARK',
+        ];
+
+        $query = /** @lang GraphQL */ '
+            mutation updateRegistration ($input: UpdateRegistrationInput!){
+                updateRegistration(input: $input) {
+                    id
+                    first_name
+                    last_name
+                    gender
+                    email
+                    nationality
+                }
+            }
+        ';
+
+        $this->authenticate($user);
+        $this->graphQL($query, ['input' => $input])
+            ->assertJSON([
+                'data' => [
+                    'updateRegistration' => [
+                        'id' => $input['id'],
+                        'first_name' => $input['first_name'],
+                        'last_name' => $input['last_name'],
+                        'gender' => $input['gender'],
+                        'email' => $input['email'],
+                        'nationality' => $input['nationality'],
+                    ],
+                ],
+            ]);
+    }
 }

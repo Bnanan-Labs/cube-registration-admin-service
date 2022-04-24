@@ -37,7 +37,7 @@ input UpdateCompetitorInput {
 }
 
 input UpdateRegistrationInput {
-    competition_id: ID!
+    id: ID!
     first_name: String
     last_name: String
     email: Email
@@ -99,7 +99,7 @@ extend type Mutation {
     updateRegistration(input: UpdateRegistrationInput @spread): Competitor
         @update
         @guard
-        @can(ability: "manage")
+        @can(ability: "manage", find: "id")
     createCompetitor(input: CreateCompetitorInput @spread): Competitor
         @create
         @guard
@@ -112,7 +112,6 @@ extend type Mutation {
         @delete
         @guard
         @can(ability: "crud")
-
     createPaymentIntent(competition_id: ID!): Payment
         @guard
 }
