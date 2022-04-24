@@ -86,6 +86,7 @@ extend type Query {
         days: [ID!]
         is_eligible_for_prizes: Boolean @eq
         registration_status: RegistrationStatus @eq
+        payment_status: PaymentStatus @eq
         wca_id: WcaId @eq
         competition_id: ID @eq
     ): [Competitor!]! @paginate
