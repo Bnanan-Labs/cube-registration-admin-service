@@ -53,7 +53,7 @@ class CompetitorTest extends GraphQLTestCase
 
     public function testCanQueryACompetitorByWcaId(): void
     {
-        /** @var User $user */
+        $this->authenticate(User::factory()->manager()->create());
         $competitor = Competitor::factory()->create();
 
         $this->graphQL(/** @lang GraphQL */ '
@@ -95,7 +95,7 @@ class CompetitorTest extends GraphQLTestCase
 
     public function testCanFilterCompetitorsByRegistrationStatus(): void
     {
-        /** @var User $user */
+        $this->authenticate(User::factory()->manager()->create());
         $competitorPending = Competitor::factory()->create(['registration_status' => RegistrationStatus::pending]);
         $competitorApproved = Competitor::factory()->create(['registration_status' => RegistrationStatus::approved]);
         $competitorWaitingList = Competitor::factory()->create(['registration_status' => RegistrationStatus::waitingList]);

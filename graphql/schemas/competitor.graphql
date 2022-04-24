@@ -89,7 +89,21 @@ extend type Query {
         payment_status: PaymentStatus @eq
         wca_id: WcaId @eq
         competition_id: ID @eq
-    ): [Competitor!]! @paginate
+    ): [Competitor!]!
+        @guard
+        @can(ability: "crud")
+        @paginate
+
+    publicCompetitors(
+        events: [ID!]
+        days: [ID!]
+        wca_id: WcaId @eq
+        competition_id: ID @eq
+    ): [Competitor!]!
+        @eq(key: "registration_status", value: "APPROVED")
+        @paginate
+
+
     competitor(id: ID! @eq): Competitor @find
 }
 
