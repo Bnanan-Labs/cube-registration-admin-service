@@ -1,3 +1,12 @@
+input CreateFinancialEntry {
+    financial_book_id: ID!
+    type: FinancialEntryType!
+    title: String!
+    balance: MoneyBagInput!
+    financial_book_id: ID!
+    booked_at: DateTime
+}
+
 type FinancialEntry {
     id: ID!
     type: FinancialEntryType!
@@ -5,4 +14,11 @@ type FinancialEntry {
     balance: MoneyBag!
     book: FinancialBook! @belongsTo
     booked_at: DateTime
+}
+
+extend type Mutation {
+    createFinancialEntry(input: CreateFinancialEntry @spread): FinancialEntry
+        @guard
+        @can(ability: "crud")
+        @create
 }

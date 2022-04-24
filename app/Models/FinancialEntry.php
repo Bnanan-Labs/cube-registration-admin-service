@@ -26,6 +26,6 @@ class FinancialEntry extends Model
      */
     public function book(): BelongsTo
     {
-        return $this->belongsTo(FinancialBook::class, 'book_id');
+        return $this->belongsTo(FinancialBook::class, 'financial_book_id');
     }
 }

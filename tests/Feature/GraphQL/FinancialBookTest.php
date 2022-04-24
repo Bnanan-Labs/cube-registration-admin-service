@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\GraphQL;
 
+use App\Enums\FinancialEntryType;
 use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\FinancialBook;
@@ -91,5 +92,54 @@ class FinancialBookTest extends GraphQLTestCase
         $this->graphQL($query, [
             'id' => $competitor->id
         ])->assertJSON(self::UNAUTHENTICATED_RESPONSE);
+    }
+
+    public function testCreateFinancialEntry()
+    {
+        /** @var User $user */
+        $user = User::factory()->manager()->create();
+        $this->authenticate($user);
+        $book = FinancialBook::factory()->create();
+
+        $query = /** @lang GraphQL */ '
+            mutation createFinancialEntry($input: CreateFinancialEntry!){
+                createFinancialEntry(input: $input) {
+                    id
+                    type
+                    title
+                    book {
+                        id
+                    }
+                    balance {
+                        amount
+                    }
+                }
+            }
+        ';
+
+        $this->graphQL($query, [
+            'input' => [
+                'financial_book_id' => $book->id,
+                'type' => FinancialEntryType::baseFee,
+                'title' => 'test',
+                'balance' => [
+                    'amount' => -200,
+                    'currency' => 'DKK'
+                ],
+            ],
+        ])->assertJSON([
+            'data' => [
+                'createFinancialEntry' => [
+                    'title' => 'test',
+                    'type' => FinancialEntryType::baseFee->value,
+                    'book' => [
+                        'id' => $book->id
+                    ],
+                    'balance' => [
+                        'amount' => -200
+                    ]
+                ],
+            ],
+        ]);
     }
 }

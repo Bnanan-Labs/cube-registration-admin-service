@@ -1,4 +1,5 @@
 type FinancialBook {
+    id: ID!
     payments: [Payment!]! @hasMany
     balance: MoneyBag!
     paid: MoneyBag!
