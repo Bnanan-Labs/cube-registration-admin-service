@@ -1,4 +1,5 @@
 type Payment {
+    intent_id: String
     intent_secret: String
     total: MoneyBag!
     extra: String

@@ -48,7 +48,8 @@ class CreatePaymentIntent
             ]);
 
             return $competitor->finances->payments()->create([
-                'intent_secret' => $intent->id,
+                'intent_id' => $intent->id,
+                'intent_secret' => $intent->client_secret,
                 'total' => new MoneyBag($amount),
                 'extra' => 'Registration Payment'
             ]);
