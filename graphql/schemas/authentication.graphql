@@ -5,6 +5,8 @@ type User {
     avatar: String
     nationality: String
     registrations(competition_id: ID): [UserRegistration] @field(resolver: "App\\GraphQL\\Queries\\Me@registrations")
+    is_delegate: Boolean!
+    is_manager: Boolean!
     gender: String
 }
 
