@@ -85,6 +85,7 @@ extend type Query {
         events: [ID!]
         days: [ID!]
         is_eligible_for_prizes: Boolean @eq
+        is_interested_in_nations_cup: Boolean @eq
         registration_status: RegistrationStatus @eq
         payment_status: PaymentStatus @eq
         wca_id: WcaId @eq
