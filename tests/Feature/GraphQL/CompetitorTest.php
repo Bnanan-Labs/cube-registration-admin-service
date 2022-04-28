@@ -4,11 +4,14 @@ namespace Tests\Feature\GraphQL;
 
 use App\Enums\RegistrationStatus;
 use App\Enums\Wca;
+use App\Jobs\CreateCompetitorBook;
+use App\Jobs\RegisterCompetitor;
 use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Queue;
 use Tests\GraphQLTestCase;
 
 class CompetitorTest extends GraphQLTestCase
@@ -317,7 +320,6 @@ class CompetitorTest extends GraphQLTestCase
         /** @var User $user */
         $user = User::factory()->create();
         $competitor = Competitor::factory()->create(['wca_id' => $user->wca_id]);
-
 
         $input = [
             'id' => $competitor->id,

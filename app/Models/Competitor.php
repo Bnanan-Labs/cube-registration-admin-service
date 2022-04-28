@@ -148,4 +148,10 @@ class Competitor extends Model
 
         return Competitor::waiting()->where('approved_at', '<', $this->approved_at)->count() + 1;
     }
+
+    public function getShouldWaiveFeeAttribute(): bool
+    {
+        $isStaff = (bool) $this->competition->staff()->where('wca_id', '=', $this->wca_id)->first();
+        return $this->is_exempt_from_payment || $isStaff;
+    }
 }

@@ -36,6 +36,7 @@ class CreateCompetitorBook implements ShouldQueue
         $competition = $this->competitor->competition;
         $events = $this->competitor->events;
         $book = $this->competitor->finances;
+        $book->reset();
 
         // Registration Base Fee
         $book->entries()->create([
@@ -55,6 +56,17 @@ class CreateCompetitorBook implements ShouldQueue
                 'balance' => new MoneyBag(-$event->fee->amount),
             ]);
         });
+
+        // Waive competitor fee if needed
+        if ($this->competitor->shouldWaiveFee) {
+            $book->refresh();
+            $book->entries()->create([
+                'type' => FinancialEntryType::discount,
+                'title' => "Staff Discount",
+                'booked_at' => now(),
+                'balance' => new MoneyBag(-$book->total->amount)
+            ]);
+        }
 
         // Guest Fees
         if ($this->competitor->numberOfGuests > 0 && $competition->guest_fee?->amount) {

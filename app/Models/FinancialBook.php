@@ -103,4 +103,22 @@ class FinancialBook extends Model
 
         return $balance;
     }
+
+    public function reset(): FinancialBook
+    {
+        $typesToInclude = [
+            FinancialEntryType::baseFee->value,
+            FinancialEntryType::eventFee->value,
+            FinancialEntryType::guestFee->value,
+            FinancialEntryType::discount->value,
+        ];
+
+        foreach ($this->entries()->whereIn('type', $typesToInclude)->get() as $entry) {
+            $entry->delete();
+        }
+
+        $this->refresh();
+
+        return $this;
+    }
 }
