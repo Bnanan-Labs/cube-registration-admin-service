@@ -21,15 +21,15 @@ class CompetitionSeeder extends Seeder
             'start_date' => Carbon::create(2022, 7,14),
             'end_date' => Carbon::create(2022, 7,17),
             'is_active' => true,
-            'registration_starts' => Carbon::create(2022),
-            'registration_ends' => Carbon::create(2022, 6),
+            'registration_starts' => Carbon::create(2022, 4, 29, 20),
+            'registration_ends' => Carbon::create(2022, 6, 10),
             'volunteer_registration_starts' => Carbon::create(2022, 2),
             'volunteer_registration_ends' => Carbon::create(2022, 7),
-            'base_fee' => new MoneyBag(amount: 20000),
+            'base_fee' => new MoneyBag(amount: 40000),
             'guest_fee' => new MoneyBag(amount: 20000),
             'currency' => 'DKK',
             'competitor_limit' => 1200,
-            'spectator_limit' => 3,
+            'spectator_limit' => 3000,
         ]);
     }
 }
