@@ -42,6 +42,7 @@ class CreatePaymentIntent
             $intent = PaymentIntent::create([
                 'amount' => $amount,
                 'currency' => $competitor->competition->currency,
+                'description' => "Registration payment for {$competitor->competition->title}",
                 'automatic_payment_methods' => [
                     'enabled' => true,
                 ],

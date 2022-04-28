@@ -2,13 +2,11 @@
 
 namespace App\Observers;
 
-use App\Enums\PaymentStatus;
 use App\Enums\RegistrationStatus;
 use App\Jobs\CreateCompetitorBook;
 use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\FinancialBook;
-use GuzzleHttp\Promise\Create;
 
 class CompetitorObserver
 {
