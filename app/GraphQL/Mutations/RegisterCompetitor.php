@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\Competition;
 use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -20,6 +21,9 @@ class RegisterCompetitor
         $user = Auth::user();
         if ($user->is_competitor) {
             throw new Error('You already have a pending registration');
+        }
+        if ((Competition::first())->registration_starts > now()) {
+            throw new Error('Registration for this competition has not opened yet');
         }
 
         $registrationId = Str::uuid();

@@ -4,6 +4,7 @@ namespace Tests\Feature\GraphQL;
 
 use App\Enums\RegistrationStatus;
 use App\Jobs\RegisterCompetitor;
+use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,6 +26,7 @@ class RegistrationTest extends GraphQLTestCase
         /** @var User $user */
         $user = User::factory()->create();
         $this->authenticate($user);
+        Competition::factory()->create(['registration_starts' => now()->subDays(10)]);
         Queue::fake();
         Queue::assertNothingPushed();
         $registration = [
@@ -56,6 +58,49 @@ class RegistrationTest extends GraphQLTestCase
 
         Queue::assertPushed(Fn (RegisterCompetitor $job) => $job->registration['email'] === $registration['email']);
         Queue::assertPushed(Fn (RegisterCompetitor $job) => $job->user['wca_id'] === $user->wca_id);
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testCanGuardRegistrationBeforeStart()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->authenticate($user);
+        Competition::factory()->create(['registration_starts' => now()->addMinutes(2)]);
+        Queue::fake();
+        Queue::assertNothingPushed();
+        $registration = [
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->email(),
+            'guests' => [$this->faker->name(), $this->faker->name()],
+            'is_interested_in_nations_cup' => $this->faker->boolean(),
+            'events' => [$this->faker->numberBetween(1,10), $this->faker->numberBetween(1,10)],
+            'days' => [$this->faker->numberBetween(1,10), $this->faker->numberBetween(1,10)],
+        ];
+
+        $this->graphQL(/** @lang GraphQL */ '
+            mutation ($input: RegisterCompetitorInput!)
+            {
+                registerCompetitor(input: $input) {
+                    registration_id
+                }
+            }
+        ', [
+            'input' => $registration
+        ])->assertJson([
+            'errors' => [
+                [
+                    'message' => 'Registration for this competition has not opened yet',
+                ],
+            ],
+        ]);
+
+        Queue::assertNothingPushed();
     }
 
     /**
