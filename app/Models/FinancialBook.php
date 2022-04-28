@@ -117,7 +117,7 @@ class FinancialBook extends Model
             $entry->delete();
         }
 
-        $this->refresh();
+//        $this->refresh();
 
         return $this;
     }

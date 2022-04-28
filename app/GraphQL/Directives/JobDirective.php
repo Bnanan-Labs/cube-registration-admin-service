@@ -1,9 +1,9 @@
 <?php
 
-namespace Nuwave\Lighthouse\Schema\Directives;
+namespace App\GraphQL\Directives;
 
 use Closure;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
+use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 
