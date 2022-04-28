@@ -4,9 +4,11 @@ namespace App\Observers;
 
 use App\Enums\PaymentStatus;
 use App\Enums\RegistrationStatus;
+use App\Jobs\CreateCompetitorBook;
 use App\Models\Competition;
 use App\Models\Competitor;
 use App\Models\FinancialBook;
+use GuzzleHttp\Promise\Create;
 
 class CompetitorObserver
 {
@@ -41,7 +43,7 @@ class CompetitorObserver
 
     public function updated(Competitor $competitor): void
     {
-        // if people are on the waiting list, lets approve them!
+        // If people are on the waiting list, lets approve them!
         if ($competitor->isDirty('registration_status') && $competitor->getOriginal('registration_status') === RegistrationStatus::accepted) {
             $competition = $competitor->competition;
             $delta = $competition->competitor_limit - $competition->numberOfAcceptedCompetitors;
@@ -52,6 +54,11 @@ class CompetitorObserver
                     ->each(Fn (Competitor $competitor) =>
                         $competitor->update(['registration_status' => RegistrationStatus::accepted]));
             }
+        }
+
+        // Re-calculate payment if payment situation changes for competitor status
+        if ($competitor->isDirty('is_exempt_from_payment')) {
+            CreateCompetitorBook::dispatch($competitor);
         }
     }
 }
