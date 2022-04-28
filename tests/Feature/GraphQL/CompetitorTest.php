@@ -320,6 +320,8 @@ class CompetitorTest extends GraphQLTestCase
         /** @var User $user */
         $user = User::factory()->create();
         $competitor = Competitor::factory()->create(['wca_id' => $user->wca_id]);
+        Queue::fake();
+        Queue::assertNothingPushed();
 
         $input = [
             'id' => $competitor->id,
@@ -357,5 +359,7 @@ class CompetitorTest extends GraphQLTestCase
                     ],
                 ],
             ]);
+
+        Queue::assertPushed(Fn (CreateCompetitorBook $job) => $job->competitor->id === $input['id']);
     }
 }
