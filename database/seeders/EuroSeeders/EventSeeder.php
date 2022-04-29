@@ -6,6 +6,7 @@ use App\Models\Competition;
 use App\Models\Event;
 use App\Services\Finances\MoneyBag;
 use App\Services\Wca\Enums\Event as EventEnum;
+use App\Services\Wca\Wca;
 use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder
@@ -38,12 +39,13 @@ class EventSeeder extends Seeder
         ]);
 
         $euro = Competition::first();
-        $events->each(function (array $event) use ($euro) {
+        $wcaService = new Wca();
+        $events->each(function (array $event) use ($euro, $wcaService) {
             [$wcaId, $price, $qualification, $cutoff, $timeLimit] = $event;
             Event::create([
                 'competition_id' => $euro->id,
                 'wca_event_id' => $wcaId,
-                'title' => EventEnum::from($wcaId),
+                'title' => $wcaService->event(EventEnum::from($wcaId))->fullName,
                 'fee' => new MoneyBag($price, $euro->currency),
                 'qualification_limit' => $qualification,
                 'cutoff_limit' => $cutoff,
