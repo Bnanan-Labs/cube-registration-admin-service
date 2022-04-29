@@ -21,7 +21,7 @@
         @endforeach
     </ul>
     <p>
-        Make sure to pay your registration fee so we can approve your registration. You can check the status of your registration and make your payment <a href="https://registration.wca2022.eu/competitor">here</a>.
+        Your registration will be accepted upon payment of the registration fee. If you have been accepted as a volunteer already your registration will be processed manually without payment. You can check the status of your registration and make your payment <a href="https://registration.wca2022.eu/competitor">here</a>.
     </p>
     <p>Regards, the Rubik's WCA European Championship 2022 organization team.</p>
 </div>

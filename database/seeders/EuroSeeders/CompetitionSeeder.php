@@ -22,7 +22,7 @@ class CompetitionSeeder extends Seeder
             'end_date' => Carbon::create(2022, 7,17),
             'email' => 'noreply@wca2022.eu',
             'is_active' => true,
-            'registration_starts' => Carbon::create(2022, 4, 29, 20),
+            'registration_starts' => Carbon::create(2022, 4, 29, 18),
             'registration_ends' => Carbon::create(2022, 6, 10),
             'volunteer_registration_starts' => Carbon::create(2022, 2),
             'volunteer_registration_ends' => Carbon::create(2022, 7),

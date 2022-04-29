@@ -30,6 +30,7 @@ class CompetitorRegistered extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from($this->competitor->competition->email, $this->competitor->competition->title)
-            ->view('emails.registration.registered');
+            ->view('emails.registration.registered')
+            ->subject("We have received your registration for {$this->competitor->competition->title}");;
     }
 }
