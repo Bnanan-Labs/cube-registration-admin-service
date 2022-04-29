@@ -20,6 +20,7 @@ class CompetitionSeeder extends Seeder
             'title' => 'Rubik\'s WCA European Championships 2022',
             'start_date' => Carbon::create(2022, 7,14),
             'end_date' => Carbon::create(2022, 7,17),
+            'email' => 'noreply@wca2022.eu',
             'is_active' => true,
             'registration_starts' => Carbon::create(2022, 4, 29, 20),
             'registration_ends' => Carbon::create(2022, 6, 10),
