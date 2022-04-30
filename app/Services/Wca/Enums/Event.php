@@ -15,10 +15,10 @@ enum Event: string
     case pyraminx = 'pyram';
     case megaminx = 'minx';
     case skewb = 'skewb';
-    case threeOneHanded = '3oh';
-    case fewestMoves = 'fmc';
-    case threeBlind = '3bld';
-    case fourBlind = '4bld';
-    case fiveBlind = '5bld';
-    case multiBlind = 'mbld';
+    case threeOneHanded = '333oh';
+    case fewestMoves = '333fm';
+    case threeBlind = '333bf';
+    case fourBlind = '444bf';
+    case fiveBlind = '555bf';
+    case multiBlind = '333mbf';
 }
