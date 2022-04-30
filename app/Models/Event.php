@@ -24,7 +24,8 @@ class Event extends Model
      */
     public function competitors(): BelongsToMany
     {
-        return $this->belongsToMany(Competitor::class);
+        return $this->belongsToMany(Competitor::class)
+            ->withPivot('best_single', 'competition_rank_single', 'national_rank_single', 'continental_rank_single', 'world_rank_single', 'best_average', 'competition_rank_average', 'national_rank_average', 'continental_rank_average', 'world_rank_average', 'synced_at');
     }
 
     /**

@@ -1,4 +1,4 @@
-type Event {
+interface EventInterface {
     id: ID!
     wca_event_id: String
     title: String
@@ -12,6 +12,53 @@ type Event {
     fee: MoneyBag
     competitors: [Competitor!]! @belongsToMany
     staff: [Staff!]! @belongsToMany
+}
+
+type Event implements EventInterface{
+    id: ID!
+    wca_event_id: String
+    title: String
+    full_name: String
+    short_name: String
+    result_format: String
+    qualification_limit: TimeMs
+    cutoff_limit: TimeMs
+    time_limit: TimeMs
+    competitor_limit: Int
+    fee: MoneyBag
+    competitors: [Competitor!]! @belongsToMany
+    staff: [Staff!]! @belongsToMany
+}
+
+type EventWithCompetitorPivot implements EventInterface {
+    id: ID!
+    wca_event_id: String
+    title: String
+    full_name: String
+    short_name: String
+    result_format: String
+    qualification_limit: TimeMs
+    cutoff_limit: TimeMs
+    time_limit: TimeMs
+    competitor_limit: Int
+    fee: MoneyBag
+    pivot: CompetitorEventPivot
+    competitors: [Competitor!]! @belongsToMany
+    staff: [Staff!]! @belongsToMany
+}
+
+type CompetitorEventPivot {
+    best_single: Int
+    competition_rank_single: Int
+    national_rank_single: Int
+    continental_rank_single: Int
+    world_rank_single: Int
+    best_average: Int
+    competition_rank_average: Int
+    national_rank_average: Int
+    continental_rank_average: Int
+    world_rank_average: Int
+    synced_at: DateTime
 }
 
 input EventsBelongsToMany {

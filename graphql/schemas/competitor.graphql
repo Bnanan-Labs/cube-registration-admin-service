@@ -68,7 +68,32 @@ type RegistrationReceipt {
     email: Email!
 }
 
-type Competitor {
+interface CompetitorInterface {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    wca_id: WcaId!
+    email: Email!
+    avatar: String
+    gender: String!
+    guests: [String!]
+    number_of_guests: Int!
+    registration_status: RegistrationStatus!
+    payment_status: PaymentStatus!
+    has_podium_potential: Boolean!
+    events: [EventWithCompetitorPivot!]!
+    days: [Day!]!
+    nationality: String!
+    is_exempt_from_payment: Boolean!
+    is_eligible_for_prizes: Boolean!
+    is_interested_in_nations_cup: Boolean!
+    queue_number_in_waiting_list: Int!
+    finances: FinancialBook!
+    created_at: DateTime!
+    updated_at: DateTime
+}
+
+type Competitor implements CompetitorInterface {
     id: ID!
     first_name: String!
     last_name: String!
@@ -81,12 +106,38 @@ type Competitor {
     registration_status: RegistrationStatus!
     payment_status: PaymentStatus! @guard @managementAccess
     has_podium_potential: Boolean!
-    events: [Event!]! @belongsToMany
+    events: [EventWithCompetitorPivot!]! @belongsToMany
     days: [Day!]! @belongsToMany @guard @managementAccess
     nationality: String!
     is_exempt_from_payment: Boolean! @guard @managementAccess
     is_eligible_for_prizes: Boolean!
     is_interested_in_nations_cup: Boolean!
+    queue_number_in_waiting_list: Int! @guard @managementAccess
+    finances: FinancialBook! @guard @managementAccess
+    created_at: DateTime!
+    updated_at: DateTime
+}
+
+type CompetitorWithEventPivot implements CompetitorInterface {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    wca_id: WcaId!
+    email: Email! @guard @managementAccess
+    avatar: String
+    gender: String! @guard @managementAccess
+    guests: [String!] @guard @managementAccess
+    number_of_guests: Int! @rename(attribute: "numberOfGuests")
+    registration_status: RegistrationStatus!
+    payment_status: PaymentStatus! @guard @managementAccess
+    has_podium_potential: Boolean!
+    events: [EventWithCompetitorPivot!]! @belongsToMany
+    days: [Day!]! @belongsToMany @guard @managementAccess
+    nationality: String!
+    is_exempt_from_payment: Boolean! @guard @managementAccess
+    is_eligible_for_prizes: Boolean!
+    is_interested_in_nations_cup: Boolean!
+    pivot: CompetitorEventPivot
     queue_number_in_waiting_list: Int! @guard @managementAccess
     finances: FinancialBook! @guard @managementAccess
     created_at: DateTime!

@@ -18,10 +18,10 @@ You can find the GraphQL documentation in the GraphQL playground residing on the
 * **API:** GraphQL ([GraphQL documentation](https://graphql.org/)) using Lighthouse ([Lighthouse Website](https://lighthouse-php.com/))
 * **Test:** PHPUnit ([Laravel's test documentation](https://laravel.com/docs/8.x/testing))
 * **Docker Orchestration:** Laravel Sail ([Laravel Sail documentation](https://laravel.com/docs/8.x/sail))
-* **Static Code Analysis:** PHPStan ([PHPStan website](https://phpstan.org/)) through Larastan (does not support PHP 8.1 features yet 🙈)
+* **Static Code Analysis:** PHPStan ([PHPStan website](https://phpstan.org/)) through Larastan
 * **Database:** MySQL
-* **Queue DB:** Redis (moving to AWS SQS on production)
-* **Fan-out events:** AWS SNS (if needed)
+* **Queue DB:** AWS SQS
+* **Emails:** AWS SES
 
 
 ## Setup

@@ -6,6 +6,7 @@ use App\Enums\PaymentStatus;
 use App\Enums\RegistrationStatus;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,7 +33,8 @@ class Competitor extends Model
      */
     public function events(): BelongsToMany
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class)
+            ->withPivot('best_single', 'competition_rank_single', 'national_rank_single', 'continental_rank_single', 'world_rank_single', 'best_average', 'competition_rank_average', 'national_rank_average', 'continental_rank_average', 'world_rank_average', 'synced_at');
     }
 
     /**
@@ -149,9 +151,34 @@ class Competitor extends Model
         return Competitor::waiting()->where('approved_at', '<', $this->approved_at)->count() + 1;
     }
 
+    /**
+     * @return bool
+     */
     public function getShouldWaiveFeeAttribute(): bool
     {
         $isStaff = (bool) $this->competition->staff()->where('wca_id', '=', $this->wca_id)->first();
         return $this->is_exempt_from_payment || $isStaff;
+    }
+
+    /**
+     * @return Attribute
+     */
+    public function medals(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => collect(['gold', 'silver', 'bronze', 'total'])->combine(collect(explode(',', $value))),
+            set: fn ($value) => collect($value)->values()->join(','),
+        );
+    }
+
+    /**
+     * @return Attribute
+     */
+    public function records(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => collect(['national', 'continental', 'world', 'total'])->combine(collect(explode(',', $value))),
+            set: fn ($value) => collect($value)->values()->join(','),
+        );
     }
 }

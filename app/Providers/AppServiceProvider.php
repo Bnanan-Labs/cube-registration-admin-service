@@ -13,6 +13,7 @@ use App\Observers\DayObserver;
 use App\Observers\PaymentObserver;
 use App\Observers\SpectatorObserver;
 use App\Services\Wca\Wca;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +35,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Http::macro('wca', function () {
+            return Http::baseUrl('https://www.worldcubeassociation.org/api/v0');
+        });
         Competition::observe(CompetitionObserver::class);
         Competitor::observe(CompetitorObserver::class);
         Day::observe(DayObserver::class);
