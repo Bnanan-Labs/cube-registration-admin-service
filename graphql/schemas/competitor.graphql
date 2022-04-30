@@ -1,3 +1,12 @@
+enum CompetitorOrderByEnum {
+    ACCEPTED_AT @enum(value: "created_at")
+    ACCEPTED_AT @enum(value: "approved_at")
+    FIRST_NAME @enum(value: "first_name")
+    LAST_NAME @enum(value: "last_name")
+    NATIONALITY @enum(value: "nationality")
+    WCA_ID @enum(value: "wca_id")
+}
+
 input RegisterCompetitorInput {
     first_name: String!
     last_name: String!
@@ -94,6 +103,7 @@ extend type Query {
         payment_status: PaymentStatus @eq
         wca_id: WcaId @eq
         competition_id: ID @eq
+        order_by: _ @orderBy(columnsEnum: "CompetitorOrderByEnum")
     ): [Competitor!]!
         @guard
         @can(ability: "crud")
@@ -104,6 +114,7 @@ extend type Query {
         days: [ID!]
         wca_id: WcaId @eq
         competition_id: ID @eq
+        order_by: _ @orderBy(columnsEnum: "CompetitorOrderByEnum")
     ): [Competitor!]!
         @eq(key: "registration_status", value: "ACCEPTED")
         @paginate
