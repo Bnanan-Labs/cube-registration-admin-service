@@ -31,7 +31,7 @@ class EventFactory extends Factory
             'competitor_limit' => $this->faker->numberBetween(100, 300),
             'time_limit' => $this->faker->numberBetween(0, 100),
             'competition_id' => $this->faker->numberBetween(0, 100),
-            'fee' => new MoneyBag(amount: $this->faker->numberBetween(0,100)),
+            'fee' => new MoneyBag(amount: $this->faker->numberBetween(1,100)),
         ];
     }
 }

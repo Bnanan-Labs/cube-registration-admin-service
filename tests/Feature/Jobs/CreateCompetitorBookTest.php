@@ -156,6 +156,7 @@ class CreateCompetitorBookTest extends TestCase
         // dispatchSync job
         CreateCompetitorBook::dispatchSync($competitor);
         $this->assertEquals(5, $competitor->events()->count());
+        $this->assertEquals(5, $competitor->finances->entries()->where('type', FinancialEntryType::eventFee)->count());
 
         // make a payment
         $competitor->finances->entries()->create([
