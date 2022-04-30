@@ -47,13 +47,22 @@ class ImportCompetitorRanks implements ShouldQueue
             if (!$ranks = Arr::get($records, $event->wca_event_id)) {
                 return;
             }
+
+            $wcaEvent = $event->wca;
+            $singleBest = Arr::get($ranks, 'single.best');
+            $averageBest = Arr::get($ranks, 'average.best');
+            $singleBestFormatted = $singleBest ? $wcaEvent->formatter->toString($singleBest) : null;
+            $averageBestFormatted = $averageBest ? $wcaEvent->formatter->toString($averageBest) : null;
+
             $competitor->events()->updateExistingPivot($event->id, [
-                'best_single' => Arr::get($ranks, 'single.best'),
+                'best_single' => $singleBest,
+                'best_single_formatted' => $singleBestFormatted,
                 'world_rank_single' => Arr::get($ranks, 'single.world_rank'),
                 'continental_rank_single' => Arr::get($ranks, 'single.continent_rank'),
                 'national_rank_single' => Arr::get($ranks, 'single.country_rank'),
                 'competition_rank_single' => null,
-                'best_average' => Arr::get($ranks, 'average.best'),
+                'best_average' => $averageBest,
+                'best_average_formatted' => $averageBestFormatted,
                 'world_rank_average' => Arr::get($ranks, 'average.world_rank'),
                 'continental_rank_average' => Arr::get($ranks, 'average.continent_rank'),
                 'national_rank_average' => Arr::get($ranks, 'average.country_rank'),

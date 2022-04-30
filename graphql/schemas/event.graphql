@@ -49,11 +49,13 @@ type EventWithCompetitorPivot implements EventInterface {
 
 type CompetitorEventPivot {
     best_single: Int
+    best_single_formatted: String
     competition_rank_single: Int
     national_rank_single: Int
     continental_rank_single: Int
     world_rank_single: Int
     best_average: Int
+    best_average_formatted: String
     competition_rank_average: Int
     national_rank_average: Int
     continental_rank_average: Int

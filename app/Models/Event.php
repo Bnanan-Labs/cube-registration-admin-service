@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Pivots\CompetitorEvent;
 use App\Services\Finances\Casts\MoneyBagCast;
+use App\Services\Wca\Events\WcaEvent;
 use App\Services\Wca\Wca;
 use App\Services\Wca\Enums\Event as EventEnum;
 use App\Traits\Uuid;
@@ -34,6 +36,14 @@ class Event extends Model
     public function staff(): BelongsToMany
     {
         return $this->belongsToMany(Staff::class);
+    }
+
+    /**
+     * @return WcaEvent
+     */
+    public function getWcaAttribute(): WcaEvent
+    {
+        return (new Wca())->event(EventEnum::from($this->wca_event_id));
     }
 
     /**
