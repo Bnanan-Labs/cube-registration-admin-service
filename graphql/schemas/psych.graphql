@@ -1,6 +1,12 @@
+enum ResultTypeEnum {
+    SINGLE @enum(value: "single")
+    AVERAGE @enum(value: "average")
+}
+
 extend type Query {
     psych(
         event_id: ID!
+        type: ResultTypeEnum!
         only_europeans: Boolean
     ): [CompetitorWithEventPivot!]!
         @paginate(builder: "\\App\\GraphQL\\Resolvers\\PsychBuilder@byEvent")

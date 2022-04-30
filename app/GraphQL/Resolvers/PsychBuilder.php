@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\User;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class PsychBuilder
@@ -26,6 +25,6 @@ class PsychBuilder
             throw new Error('Event could not be found');
         }
 
-        return $event->competitors()->orderBy('best_single')->whereNotNull('best_single');
+        return $event->competitors()->orderBy("best_{$args['type']}")->whereNotNull("best_{$args['type']}");
     }
 }
