@@ -50,6 +50,12 @@ class ImportCompetitorRanks implements ShouldQueue
             $wcaEvent = $event->wca;
             $singleBest = Arr::get($ranks, 'single.best');
             $averageBest = Arr::get($ranks, 'average.best');
+
+            // FUCK WCA FOR USING DIFFERENT FORMAT FOR SINGLE AND AVERAGE FOR FMC... WTF!???
+            if ($event->wca_event_id === '333fm') {
+                $singleBest *= 100;
+            }
+
             $singleBestFormatted = $singleBest ? $wcaEvent->formatter->toString($singleBest) : null;
             $averageBestFormatted = $averageBest ? $wcaEvent->formatter->toString($averageBest) : null;
 
