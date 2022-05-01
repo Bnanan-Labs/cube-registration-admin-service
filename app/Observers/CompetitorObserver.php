@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Enums\RegistrationStatus;
 use App\Jobs\CreateCompetitorBook;
+use App\Jobs\ImportCompetitorRanks;
 use App\Mails\CompetitorAccepted;
 use App\Mails\CompetitorRegistered;
 use App\Models\Competition;
@@ -30,6 +31,9 @@ class CompetitorObserver
             Mail::to([$competitor->email])
                 ->send(new CompetitorRegistered($competitor));
         }
+
+        // Generate Psych data for this user
+        ImportCompetitorRanks::dispatch($competitor);
     }
 
     public function updating(Competitor $competitor): void
