@@ -25,6 +25,6 @@ class PsychBuilder
             throw new Error('Event could not be found');
         }
 
-        return $event->competitors()->orderBy("best_{$args['type']}")->whereNotNull("best_{$args['type']}");
+        return $event->competitors()->accepted()->orderBy("best_{$args['type']}")->whereNotNull("best_{$args['type']}");
     }
 }
