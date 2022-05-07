@@ -19,6 +19,6 @@ class NumberFormatter extends Formatter
      */
     public function toValue(string $result): int
     {
-        return (int) ((float) $result) * 100;
+        return (int) (((float) $result) * 100);
     }
 }

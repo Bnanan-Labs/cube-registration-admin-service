@@ -177,4 +177,29 @@ class RegistrationTest extends GraphQLTestCase
             ],
         ]);
     }
+
+
+    public function testCanFailApproveRegistrationsIfInvalidUser()
+    {
+        /** @var User $user */
+        $user = User::factory()->manager()->create();
+        $this->authenticate($user);
+        $competitor = Competitor::factory()->create(['wca_id' => '2010TEST01', 'registration_status' => RegistrationStatus::pending]);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            mutation ($id: ID!)
+            {
+                approveRegistration(id: $id) {
+                    id
+                    registration_status
+                }
+            }
+        ', [
+            'id' => 'BOGUS-ID'
+        ])->assertJSON([
+            'errors' => [[
+                'message' => 'Competitor could not be found',
+            ]],
+        ]);
+    }
 }

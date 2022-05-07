@@ -42,11 +42,11 @@ class MultiBlindFormatter extends Formatter
     {
         $parts = [];
         preg_match('/(\d+)\/(\d+) (.+)/', $result, $parts);
-        [$solved, $attempted, $time] = $parts;
+        [$_, $solved, $attempted, $time] = $parts;
 
         $unsolved = $attempted - $solved;
-        $score = $solved - $unsolved;
-        $parts = collect(explode(':', $result))->pad(-3, 0);
+        $score = 99 - $solved + $unsolved;
+        $parts = collect(explode(':', $time))->pad(-3, 0);
         $timeInSeconds = ((int) $parts[0]) * 3600 + ((int) $parts[1]) * 60 + ((int) $parts[2]);
         return $score * 10000000 + $timeInSeconds * 100 + $unsolved;
     }

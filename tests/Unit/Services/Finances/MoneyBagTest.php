@@ -1,6 +1,6 @@
 <?php
 
-namespace Services;
+namespace Services\Finances\Finances;
 
 use App\Services\Finances\Casts\MoneyBagCast;
 use App\Services\Finances\MoneyBag;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services;
+namespace Tests\Unit\Services\Wca;
 
 use App\Services\Wca\Enums\Event;
 use App\Services\Wca\Enums\ResultFormat;
