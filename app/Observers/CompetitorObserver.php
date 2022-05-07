@@ -33,7 +33,9 @@ class CompetitorObserver
         }
 
         // Generate Psych data for this user
-        ImportCompetitorRanks::dispatch($competitor);
+        if (app()->environment('production')) {
+            ImportCompetitorRanks::dispatch($competitor);
+        }
     }
 
     public function updating(Competitor $competitor): void

@@ -30,12 +30,16 @@ class ImportCompetitorRanks implements ShouldQueue
      * Execute the job.
      *
      * @return void
+     * @throws \Exception
      */
     public function handle()
     {
         $wca = new Wca();
         $competitor = $this->competitor;
         $wcaResponse = $wca->getPerson($competitor->wca_id);
+        if (!$wcaResponse) {
+            throw new \Exception('Could not fetch competitor data');
+        }
         $competitor->update([
             'number_of_competitions' => Arr::get($wcaResponse, 'competition_count'),
             'medals' => Arr::get($wcaResponse, 'medals'),
