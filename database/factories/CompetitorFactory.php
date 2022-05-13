@@ -43,7 +43,7 @@ class CompetitorFactory extends Factory
     }
 
     /**
-     * Indicates that the user has a manager role
+     * Indicates that the competitor should be attached to a competition
      *
      * @param $competitionId
      * @return CompetitorFactory
@@ -51,5 +51,13 @@ class CompetitorFactory extends Factory
     public function competition($competitionId): CompetitorFactory
     {
         return $this->state(Fn (array $attributes): array => ['competition_id' => $competitionId]);
+    }
+
+    public function accepted(): CompetitorFactory
+    {
+        return $this->state(Fn (array $attributes): array => [
+            'approved_at' => now(),
+            'registration_status' => RegistrationStatus::accepted,
+        ]);
     }
 }

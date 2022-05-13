@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\PaymentStatus;
 use App\Enums\RegistrationStatus;
+use App\Jobs\CreateCompetitorBook;
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -180,5 +181,20 @@ class Competitor extends Model
             get: fn ($value) => collect(['national', 'continental', 'world', 'total'])->combine(collect(explode(',', $value))),
             set: fn ($value) => collect($value)->values()->join(','),
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function cancel(): void
+    {
+        $this->update([
+            'approved_at' => null,
+            'registration_status' => RegistrationStatus::cancelled
+        ]);
+        $this->events()->delete();
+        $this->refresh();
+
+        CreateCompetitorBook::dispatch($this);
     }
 }

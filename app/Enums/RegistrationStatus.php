@@ -9,4 +9,5 @@ enum RegistrationStatus: string
     case declined = 'DECLINED';
     case approved = 'APPROVED';
     case accepted = 'ACCEPTED';
+    case cancelled = 'CANCELLED';
 }

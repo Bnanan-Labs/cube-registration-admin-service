@@ -202,6 +202,9 @@ extend type Mutation {
         @guard
         @can(ability: "manage", find: "id")
         @job(dispatch: "\\App\\Jobs\\CreateCompetitorBook")
+    cancelRegistration(id: ID!): Competitor
+        @guard
+        @can(ability: "manage", find: "id")
     approveRegistration(
         id: ID!
     ): Competitor

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Enums\FinancialEntryType;
+use App\Enums\PaymentStatus;
 use App\Models\Competitor;
 use App\Models\Event;
 use App\Services\Finances\MoneyBag;
@@ -77,5 +78,19 @@ class CreateCompetitorBook implements ShouldQueue
                 'balance' => new MoneyBag(-$this->competitor->numberOfGuests * $competition->guest_fee->amount)
             ]);
         }
+
+        // Update payment status
+        if ($book->paid->amount > 0) {
+            $status = match ($book->balance->amount <=> 0) {
+                -1 => PaymentStatus::partiallyPaid,
+                0 => PaymentStatus::paid,
+                1 => PaymentStatus::needsPartialRefund,
+                default => PaymentStatus::missingPayment,
+            };
+        } else {
+            $status = $book->balance->amount === 0 ? PaymentStatus::paid : PaymentStatus::missingPayment;
+        }
+
+        $this->competitor->update(['payment_status' => $status]);
     }
 }
