@@ -304,4 +304,50 @@ class RegistrationTest extends GraphQLTestCase
         $this->assertCount(0, $competitor->events);
         $this->assertNull($competitor->approved_at);
     }
+
+    public function testCanCancelRegistrationWithGuests()
+    {
+        /** @var User $user */
+        $user = User::factory()->manager()->create();
+        $this->authenticate($user);
+        $competitor = Competitor::factory()->accepted()->create(['wca_id' => '2010TEST01', 'guests' => ['1', '2', '3']]);
+        $event = Event::factory()->create();
+        $competitor->events()->save($event);
+        CreateCompetitorBook::dispatchSync($competitor);
+        $competitor->refresh();
+
+        $this->assertCount(1, $competitor->events);
+        $this->assertCount(3, $competitor->guests);
+        $this->assertNotNull($competitor->approved_at);
+
+        $this->graphQL(/** @lang GraphQL */ '
+            mutation ($id: ID!)
+            {
+                cancelRegistration(id: $id) {
+                    id
+                    registration_status
+                    payment_status
+                    events {
+                        id
+                    }
+                }
+            }
+        ', [
+            'id' => $competitor->id
+        ])->assertJSON([
+            'data' => [
+                'cancelRegistration' => [
+                    'id' => $competitor->id,
+                    'registration_status' => RegistrationStatus::cancelled->value,
+                    'payment_status' => PaymentStatus::missingPayment->value,
+                    'events' => [],
+                ],
+            ],
+        ]);
+
+        $competitor->refresh();
+        $this->assertCount(0, $competitor->events);
+        $this->assertCount(0, $competitor->guests);
+        $this->assertNull($competitor->approved_at);
+    }
 }

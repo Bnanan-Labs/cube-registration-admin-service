@@ -190,6 +190,7 @@ class Competitor extends Model
     {
         $this->update([
             'approved_at' => null,
+            'guests'=> [],
             'registration_status' => RegistrationStatus::cancelled
         ]);
         $this->events()->delete();
