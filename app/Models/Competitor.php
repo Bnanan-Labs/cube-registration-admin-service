@@ -193,7 +193,7 @@ class Competitor extends Model
             'guests'=> [],
             'registration_status' => RegistrationStatus::cancelled
         ]);
-        $this->events()->delete();
+        $this->events()->detach();
         $this->refresh();
 
         CreateCompetitorBook::dispatch($this);
