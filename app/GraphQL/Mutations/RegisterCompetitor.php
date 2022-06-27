@@ -25,6 +25,9 @@ class RegisterCompetitor
         if ((Competition::first())->registration_starts > now()) {
             throw new Error('Registration for this competition has not opened yet');
         }
+        if ((Competition::first())->registration_ends < now()) {
+            throw new Error('Registration for this competition has ended');
+        }
 
         $registrationId = Str::uuid();
 
