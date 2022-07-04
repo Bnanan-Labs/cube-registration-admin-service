@@ -224,5 +224,8 @@ extend type Mutation {
         @can(ability: "crud")
     createPaymentIntent(competition_id: ID!): Payment
         @guard
+    settleCompetitorBook(competitor_id: ID!): Competitor
+        #@guard
+        #@can(ability: "crud")
 }
 
