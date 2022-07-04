@@ -218,6 +218,7 @@ extend type Mutation {
         @update
         @guard
         @can(ability: "crud")
+        @job(dispatch: "\\App\\Jobs\\CreateCompetitorBook")
     deleteCompetitor(id: ID!): Competitor
         @delete
         @guard
@@ -225,7 +226,7 @@ extend type Mutation {
     createPaymentIntent(competition_id: ID!): Payment
         @guard
     settleCompetitorBook(competitor_id: ID!): Competitor
-        #@guard
-        #@can(ability: "crud")
+        @guard
+        @can(ability: "crud")
 }
 
